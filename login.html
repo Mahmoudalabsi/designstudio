@@ -354,9 +354,9 @@
           hideError();
 
           try {
-            var success = await window.loginUser(password);
+            var result = await window.loginUser(password);
 
-            if (success) {
+            if (result.success) {
               loginBtn.innerHTML = '✅ تم الدخول بنجاح';
               loginBtn.style.background = 'linear-gradient(135deg, #4caf50, #2e7d32)';
 
@@ -367,7 +367,7 @@
                 window.location.href = redirect || 'index.html';
               }, 700);
             } else {
-              showError('❌ كلمة المرور غير صحيحة. حاول مرة أخرى.');
+              showError('❌ ' + (result.error || 'كلمة المرور غير صحيحة. حاول مرة أخرى.'));
               passwordInput.value = '';
               passwordInput.classList.add('is-error');
               passwordInput.focus();
