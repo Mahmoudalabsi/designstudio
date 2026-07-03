@@ -1362,3 +1362,35 @@ footer {
   }
   nav.open { display: flex; }
 }
+
+/* ── زر تسجيل الخروج ── */
+.auth-logout-btn {
+  background: linear-gradient(135deg, #c9a84c, #a87c20);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 10px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(168, 124, 32, 0.25);
+  margin-right: 0.5rem;
+  white-space: nowrap;
+}
+.auth-logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(168, 124, 32, 0.35);
+}
+.auth-logout-btn:active { transform: translateY(0); }
+
+@media (max-width: 767px) {
+  .auth-logout-btn {
+    margin-right: 0;
+    margin-top: 0.5rem;
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem;
+  }
+}
