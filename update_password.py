@@ -1,38 +1,34 @@
 #!/usr/bin/env python3
 """
 ═══════════════════════════════════════════════════════════════
-  أداة تحديث كلمة المرور - مصمم الصور
+  أداة تحديث كلمة المرور - مصمم الصور (نسخة Netlify)
 ═══════════════════════════════════════════════════════════════
-  هذا السكربت يحدّث كلمة المرور العامة في "قاعدة البيانات"
-  (ملف auth-config.js) مباشرةً، دون الحاجة لأي صفحة ويب.
+  كلمة المرور الآن مُخزّنة في متغيرات البيئة على Netlify.
+  هذا السكربت يولّد القيم المطلوبة (HASH, SALT, SECRET) لنسخها
+  إلى لوحة تحكم Netlify.
 
   طريقة الاستخدام:
   ---------------
   1. لتغيير كلمة المرور (سيطلب منك إدخالها بأمان):
        python3 update_password.py
 
-  2. لتغيير كلمة المرور مباشرة كوسيط:
-       python3 update_password.py "كلمة-المرور-الجديدة"
+  2. لتوليد AUTH_SECRET فقط (سر توقيع التوكن):
+       python3 update_password.py --secret
 
   3. لعرض كلمة المرور الحالية (التجزئة فقط):
        python3 update_password.py --show
 
-  ملاحظات أمنية:
-  - كلمة المرور لا تُخزَّن كنص واضح أبداً
-  - يتم تخزين تجزئة SHA-256 مع ملح (salt) عشوائي
-  - كل تغيير يولّد ملحاً جديداً لمنع هجمات إعادة الاستخدام
+  بعد تشغيل السكربت، انسخ القيم الناتجة إلى:
+  Netlify Dashboard → Site settings → Environment variables
 ═══════════════════════════════════════════════════════════════
 """
 import hashlib
 import secrets
-import re
 import sys
 import os
-import json
 from datetime import datetime
 from getpass import getpass
 
-# المسار لملف قاعدة البيانات (auth-config.js)
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 CONFIG_FILE = os.path.join(SCRIPT_DIR, 'auth-config.js')
 
@@ -42,69 +38,58 @@ def generate_salt():
     return secrets.token_hex(16)
 
 
+def generate_secret():
+    """توليد سر عشوائي آمن لتوقيع التوكن (48 حرف)"""
+    return secrets.token_urlsafe(36)
+
+
 def hash_password(password, salt):
     """توليد تجزئة SHA-256 لـ (salt + password)"""
     combined = salt + password
     return hashlib.sha256(combined.encode('utf-8')).hexdigest()
 
 
-def update_config_file(new_hash, new_salt):
-    """تحديث ملف auth-config.js بالتجزئة والملح الجديدين"""
-    if not os.path.exists(CONFIG_FILE):
-        print(f'❌ خطأ: ملف التكوين غير موجود في: {CONFIG_FILE}')
-        sys.exit(1)
-
-    with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
-        content = f.read()
-
-    # استبدال قيم passwordHash و salt
-    new_content = re.sub(
-        r"passwordHash:\s*'[a-f0-9]+'",
-        f"passwordHash: '{new_hash}'",
-        content
-    )
-    new_content = re.sub(
-        r"salt:\s*'[^']+'",
-        f"salt: '{new_salt}'",
-        new_content
-    )
-
-    # التحقق من حدوث التغيير
-    if new_content == content:
-        print('⚠️  تحذير: لم يتم العثور على القيم لاستبدالها. تحقق من تنسيق ملف auth-config.js')
-        sys.exit(1)
-
-    with open(CONFIG_FILE, 'w', encoding='utf-8') as f:
-        f.write(new_content)
-
-
 def show_current():
-    """عرض التجزئة الحالية من ملف التكوين"""
-    if not os.path.exists(CONFIG_FILE):
-        print(f'❌ ملف التكوين غير موجود: {CONFIG_FILE}')
-        return
-
-    with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
-        content = f.read()
-
-    hash_match = re.search(r"passwordHash:\s*'([a-f0-9]+)'", content)
-    salt_match = re.search(r"salt:\s*'([^']+)'", content)
-
-    print('═══ معلومات كلمة المرور الحالية ═══')
-    print(f'  التجزئة (Hash) : {hash_match.group(1) if hash_match else "غير موجودة"}')
-    print(f'  الملح (Salt)   : {salt_match.group(1) if salt_match else "غير موجود"}')
-    print('  (لا يمكن استرجاع كلمة المرور الأصلية من التجزئة)')
+    """عرض الإعدادات الحالية من ملف auth-config.js"""
+    print('═══════════════════════════════════════════════════════')
+    print('  معلومات النظام الحالية')
+    print('═══════════════════════════════════════════════════════\n')
+    print('  كلمة المرور مُخزّنة في متغيرات البيئة على Netlify:')
+    print('    • PASSWORD_HASH  : تجزئة SHA-256 لـ (SALT + PASSWORD)')
+    print('    • PASSWORD_SALT  : الملح العشوائي')
+    print('    • AUTH_SECRET    : سر توقيع توكن الجلسة')
     print()
+    print('  لعرض/تعديل القيم:')
+    print('    Netlify Dashboard → updateforeditor → Site settings')
+    print('    → Environment variables')
+    print()
+    print('  ⚠️ لا يمكن استرجاع كلمة المرور الأصلية من التجزئة.')
+    print('     إذا نسيتها، ستحتاج لتعيين قيم جديدة.')
+
+
+def generate_secret_only():
+    """توليد AUTH_SECRET فقط"""
+    print('═══════════════════════════════════════════════════════')
+    print('  توليد AUTH_SECRET لتوقيع توكن الجلسة')
+    print('═══════════════════════════════════════════════════════\n')
+
+    secret = generate_secret()
+    print(f'  AUTH_SECRET = {secret}')
+    print()
+    print('  انسخ هذه القيمة إلى متغير البيئة AUTH_SECRET على Netlify.')
 
 
 def main():
     print('═══════════════════════════════════════════════════════════')
-    print('  أداة تحديث كلمة المرور - مصمم الصور')
+    print('  أداة تحديث كلمة المرور - مصمم الصور (نسخة Netlify)')
     print('═══════════════════════════════════════════════════════════\n')
 
-    # وضع العرض
     if '--show' in sys.argv:
         show_current()
+        return
+
+    if '--secret' in sys.argv:
+        generate_secret_only()
         return
 
     # الحصول على كلمة المرور الجديدة
@@ -118,13 +103,11 @@ def main():
             print('❌ كلمة المرور لا يمكن أن تكون فارغة')
             sys.exit(1)
 
-        # تأكيد كلمة المرور
         confirm = getpass('  تأكيد كلمة المرور: ')
         if new_password != confirm:
             print('❌ كلمتا المرور غير متطابقتين')
             sys.exit(1)
 
-    # التحقق من قوة كلمة المرور
     if len(new_password) < 6:
         print('⚠️  تحذير: كلمة المرور قصيرة جداً (أقل من 6 أحرف)')
         proceed = input('هل تريد المتابعة؟ (y/N): ').strip().lower()
@@ -132,36 +115,39 @@ def main():
             print('تم الإلغاء.')
             sys.exit(0)
 
-    # توليد ملح جديد وتجزئة
+    # توليد القيم
     new_salt = generate_salt()
     new_hash = hash_password(new_password, new_salt)
+    new_secret = generate_secret()
 
-    # عرض معلومات قبل الحفظ
-    print('\n═══ ملخص التغيير ═══')
-    print(f'  كلمة المرور الجديدة : {"*" * len(new_password)} ({len(new_password)} حرف)')
-    print(f'  الملح الجديد (Salt) : {new_salt}')
-    print(f'  التجزئة (Hash)      : {new_hash}')
-    print(f'  ملف قاعدة البيانات  : {CONFIG_FILE}')
-    print(f'  التوقيت             : {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}\n')
-
-    # طلب التأكيد
-    confirm_save = input('هل تريد حفظ التغييرات في قاعدة البيانات؟ (y/N): ').strip().lower()
-    if confirm_save != 'y':
-        print('تم الإلغاء. لم يتم حفظ أي تغييرات.')
-        sys.exit(0)
-
-    # تحديث الملف
-    try:
-        update_config_file(new_hash, new_salt)
-        print('\n✅ تم تحديث كلمة المرور بنجاح في قاعدة البيانات!')
-        print(f'   الملف: {CONFIG_FILE}')
-        print('\n📝 الخطوات التالية:')
-        print('   1. ارفع التغييرات إلى GitHub: git push origin main')
-        print('   2. ستسري كلمة المرور الجديدة فوراً على الموقع')
-        print('   3. ستحتاج لاستخدام كلمة المرور الجديدة في تسجيل الدخول التالي')
-    except Exception as e:
-        print(f'\n❌ خطأ أثناء التحديث: {e}')
-        sys.exit(1)
+    # عرض القيم للنسخ
+    print('\n═══════════════════════════════════════════════════════════════════')
+    print('  القيم الجديدة — انسخها إلى Netlify Environment Variables')
+    print('═══════════════════════════════════════════════════════════════════\n')
+    print(f'  PASSWORD_HASH  = {new_hash}')
+    print(f'  PASSWORD_SALT  = {new_salt}')
+    print(f'  AUTH_SECRET    = {new_secret}')
+    print()
+    print('═══════════════════════════════════════════════════════════════════')
+    print('  التعليمات')
+    print('═══════════════════════════════════════════════════════════════════\n')
+    print('  1. افتح: https://app.netlify.com/projects/updateforeditor')
+    print('     → Site settings → Environment variables')
+    print()
+    print('  2. أضف/حدّث المتغيرات الثلاثة بالقيم أعلاه:')
+    print('     • PASSWORD_HASH  (القيمة الأولى)')
+    print('     • PASSWORD_SALT  (القيمة الثانية)')
+    print('     • AUTH_SECRET    (القيمة الثالثة)')
+    print()
+    print('  3. احفظ التغييرات، ثم أعد نشر الموقع:')
+    print('     → Deploys → Trigger deploy → Deploy site')
+    print()
+    print('  4. ستسري كلمة المرور الجديدة فوراً بعد النشر.')
+    print()
+    print(f'  📝 كلمة المرور الجديدة: {"*" * len(new_password)} ({len(new_password)} حرف)')
+    print(f'  🕐 التوقيت: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
+    print()
+    print('  ⚠️ احفظ كلمة المرور في مكان آمن. لا يمكن استرجاعها من التجزئة.')
 
 
 if __name__ == '__main__':
