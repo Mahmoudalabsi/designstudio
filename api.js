@@ -192,5 +192,140 @@ const AndalusiAPI = {
   // Get font download URL
   getFontUrl(font) {
     return font.url || '';
+  },
+
+  // ───────────────────────────────────────────────────────────
+  //  دوال مساعدة للفلترة الذكية (بدلاً من الكلمات المفتاحية الهشة)
+  // ───────────────────────────────────────────────────────────
+
+  /**
+   * تصنيف أقسام stickers تلقائياً بناءً على العنوان والمعرف.
+   * يعيد خريطة: { frames: [...], backgrounds: [...], stickers: [...] }
+   * كل قسم يحتوي على: { title, items (مستخرجة), section (الأصلي) }
+   */
+  categorizeStickerSections(sections) {
+    const result = {
+      frames: [],
+      backgrounds: [],
+      stickers: [],
+      textArt: [],   // مخطوطات وحروف
+      shapes: [],    // أشكال وزخارف
+    };
+
+    // كلمات تدل على الإطارات
+    const frameKeywords = ['إطار', 'اطار', 'إطارات', 'اطارات', 'حدود', 'بوردر', 'تأطير'];
+    // كلمات تدل على الخلفيات/التأثيرات
+    const bgKeywords = ['تأثير', 'ضوء', 'ضوئية', 'دخان', 'غيوم', 'سفر', 'شتاء', 'ربيع', 'بوهو', 'بوهمي', 'ديكور', 'ورق', 'اوراق', 'فواصل', 'أزهار', 'ازهار', 'ورد', 'أوراق', 'نباتات', 'كواكب', 'تدرج', 'تدريج', 'نيون', 'ظل', 'ثلج', 'مطر', 'سماء', 'صحراء', 'شمس', 'قمر', 'نجوم', 'فرش', 'فرشاة', 'بريق', 'لامع'];
+    // كلمات تدل على المخطوطات والحروف
+    const textArtKeywords = ['مخطوطات', 'حروف', 'ديواني', 'ثلث', 'فرش', 'خط', 'اقتباس', 'اقتباسات', 'أقتباسات', 'أقواس', 'أشكال'];
+    // كلمات تدل على الأشكال والزخارف
+    const shapeKeywords = ['زخارف', 'زخرفة', 'زخرفية', 'مزخرف', 'أشكال', 'اشكال', 'أقواس', 'أسهم', 'فواصل', 'أشرطة', 'زوايا', 'محاريب', 'فن', 'إسلامي', 'اسلامي', 'أعلام', 'أيقونات', 'رموز', 'قلوب', 'بالونات', 'طيور', 'كواكب'];
+
+    if (!Array.isArray(sections)) return result;
+
+    sections.forEach(section => {
+      if (!section || !section.title) return;
+      // التأكد من وجود محتوى فعلي
+      const hasAssetGrid = section.items && section.items.some(item =>
+        item && item.type === 'asset-grid' && item.items && item.items.length > 0
+      );
+      if (!hasAssetGrid) return;
+
+      const title = section.title;
+      const entry = {
+        title: title,
+        items: this.extractAssetItems(section),
+        section: section,
+      };
+
+      // تصنيف حسب الأولوية: الإطارات أولاً، ثم الخلفيات، إلخ
+      let matched = false;
+
+      if (frameKeywords.some(kw => title.includes(kw))) {
+        result.frames.push(entry);
+        matched = true;
+      }
+      if (bgKeywords.some(kw => title.includes(kw))) {
+        result.backgrounds.push(entry);
+        matched = true;
+      }
+      if (textArtKeywords.some(kw => title.includes(kw))) {
+        result.textArt.push(entry);
+        matched = true;
+      }
+      if (shapeKeywords.some(kw => title.includes(kw))) {
+        result.shapes.push(entry);
+        matched = true;
+      }
+      // إذا لم يطابق أي تصنيف، ضعه في stickers العام
+      result.stickers.push(entry);
+    });
+
+    return result;
+  },
+
+  /**
+   * دالة فلترة موحدة: تبحث في عنوان القسم وعناوين العناصر.
+   * @param {Array} sections - مصفوفة الأقسام
+   * @param {string} query - نص البحث
+   * @returns {Array} - الأقسام المطاببة
+   */
+  filterSectionsByQuery(sections, query) {
+    if (!query || !query.trim()) return sections;
+    const q = query.trim().toLowerCase();
+    return sections.filter(section => {
+      if (!section) return false;
+      // البحث في عنوان القسم
+      if (section.title && section.title.toLowerCase().includes(q)) return true;
+      // البحث في عناوين العناصر الفرعية
+      if (section.items && Array.isArray(section.items)) {
+        for (const item of section.items) {
+          if (!item || !item.items) continue;
+          for (const sub of item.items) {
+            if (!sub) continue;
+            const actionValue = sub.action && typeof sub.action === 'object' ? sub.action.value : {};
+            const title = (actionValue && actionValue.title) ? actionValue.title : '';
+            if (title && title.toLowerCase().includes(q)) return true;
+          }
+        }
+      }
+      return false;
+    });
+  },
+
+  /**
+   * استخراج جميع الـ presets المهمة (للإطارات، الأشكال، التأثيرات...).
+   * IDs تم اكتشافها من الـ API الفعلي.
+   */
+  getAllUsefulPresets() {
+    return [
+      { id: 52, name: 'إطارات كلاسيكية', category: 'frames' },
+      { id: 53, name: 'قصاصات ورقية', category: 'shapes' },
+      { id: 56, name: 'ظلال', category: 'effects' },
+      { id: 49, name: 'أشكال', category: 'shapes' },
+      { id: 60, name: 'فواصل خطوط', category: 'shapes' },
+      { id: 59, name: 'فن إسلامي', category: 'shapes' },
+      { id: 62, name: 'حروف ديواني', category: 'textArt' },
+      { id: 66, name: 'ورد', category: 'shapes' },
+      { id: 32, name: 'تدرجات', category: 'backgrounds' },
+      { id: 18, name: 'أقواس', category: 'shapes' },
+      { id: 72, name: 'تأثيرات ذكاء اصطناعي', category: 'effects' },
+    ];
+  },
+
+  /**
+   * جلب لوحات الألوان (palettes endpoint - مكتشف حديثاً).
+   */
+  async getPalettes() {
+    try {
+      const res = await fetch(`${API_BASE}palettes`);
+      const data = await res.json();
+      if (data.success && data.data) {
+        return data.data;
+      }
+    } catch (e) {
+      console.error('Error fetching palettes:', e);
+    }
+    return [];
   }
 };
