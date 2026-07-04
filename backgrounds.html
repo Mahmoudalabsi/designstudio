@@ -34,6 +34,20 @@
         <h1 data-aos="fade-up">الخلفيات <span class="gold">المميزة</span></h1>
         <p class="page-desc" data-aos="fade-up" data-aos-delay="100">مئات الخلفيات الاحترافية بتصاميم متنوعة. اختر خلفيتك المفضلة وحمّلها مباشرة.</p>
 
+        <div class="filter-bar" data-aos="fade-up" data-aos-delay="150">
+          <div class="search-box">
+            <input type="text" id="bgSearch" placeholder="ابحث عن خلفية (مثال: ورد، تأثير، دخان...)" autocomplete="off">
+            <button class="search-clear" id="bgSearchClear" type="button" aria-label="مسح">×</button>
+          </div>
+          <div class="filter-tabs" id="bgFilterTabs">
+            <button class="filter-tab active" data-filter="all">الكل</button>
+            <button class="filter-tab" data-filter="templates">قوالب الخلفيات</button>
+            <button class="filter-tab" data-filter="effects">تأثيرات</button>
+            <button class="filter-tab" data-filter="nature">طبيعة</button>
+            <button class="filter-tab" data-filter="decor">زخارف</button>
+          </div>
+        </div>
+
         <div id="bgContainer">
           <!-- Populated by JS -->
         </div>
@@ -98,109 +112,132 @@
       const container = document.getElementById('bgContainer');
       container.innerHTML = '<div class="loading-spinner">جاري التحميل...</div>';
 
-      // Fetch backgrounds from templates API (category-based) and also from stickers API
+      // جلب كل المصادر المتاحة
       const [homeSections, stickersSections] = await Promise.all([
         AndalusiAPI.getHome(),
         AndalusiAPI.getStickers()
       ]);
       container.innerHTML = '';
 
-      let rendered = 0;
+      // تصنيف كامل باستخدام الدالة المساعدة
+      const categorized = AndalusiAPI.categorizeStickerSections(stickersSections);
 
-      // 1. From home API - show grid sections as background templates
-      const homeGridSections = homeSections.filter(function(s) {
-        return s.title && s.items && s.items.some(function(item) {
-          return item.type === 'grid' && item.items && item.items.length > 0;
-        });
-      });
+      // بناء قائمة الأقسام مع تصنيفها
+      const allBgSections = [];
 
-      if (homeGridSections.length > 0) {
-        const titleBar = document.createElement('div');
-        titleBar.className = 'section-title-bar';
-        titleBar.setAttribute('data-aos', 'fade-up');
-        titleBar.innerHTML = '<h3>قوالب الخلفيات</h3><span class="count-badge">' + homeGridSections.length + ' تصنيف</span>';
-        container.appendChild(titleBar);
-      }
-
-      homeGridSections.forEach(function(section) {
-        const title = section.title;
-        const items = AndalusiAPI.extractAssetItems(section);
-        if (items.length === 0) return;
-
-        const catTitle = document.createElement('div');
-        catTitle.className = 'section-title-bar';
-        catTitle.setAttribute('data-aos', 'fade-up');
-        catTitle.style.fontSize = '0.95rem';
-        catTitle.innerHTML = '<h3 style="font-size:1rem;">' + title + '</h3><span class="count-badge">' + items.length + ' تصميم</span>';
-        container.appendChild(catTitle);
-
-        const sectionGrid = document.createElement('div');
-        sectionGrid.className = 'api-grid bg-list-grid';
-        sectionGrid.style.marginBottom = '1rem';
-
-        items.slice(0, 20).forEach(function(item, idx) {
-          const card = document.createElement('div');
-          card.className = 'api-card';
-          card.setAttribute('data-aos', 'fade-up');
-          card.setAttribute('data-aos-delay', String(Math.min(idx * 20, 400)));
-          card.style.position = 'relative';
-
-          let premiumBadge = item.isPremium ? '<span style="position:absolute;top:8px;left:8px;background:#b8860b;color:#fff;font-size:0.6rem;padding:2px 6px;border-radius:999px;font-weight:700;z-index:2;">Plus</span>' : '';
-
-          card.innerHTML = ''
-            + premiumBadge
-            + (item.thumb ? '<img src="' + item.thumb + '" alt="' + (item.title || title) + '" class="api-card-thumb" loading="lazy" onerror="this.style.display=\'none\'">' : '<div class="api-card-thumb" style="background:linear-gradient(135deg,#c9a84c,#a87c20);"></div>')
-            + '<div class="api-card-body">'
-            + '<div class="api-card-title">' + (item.title || title) + '</div>'
-            + (item.downloadLink ? '<a href="' + item.downloadLink + '" class="api-card-link" target="_blank" rel="noopener">تحميل ←</a>' : '')
-            + '</div>';
-
-          sectionGrid.appendChild(card);
-          rendered++;
-        });
-
-        container.appendChild(sectionGrid);
-      });
-
-      // 2. From stickers API - find background-like sections
-      const bgStickerSections = stickersSections.filter(function(s) {
-        if (!s.title) return false;
-        const t = s.title;
-        return (t.includes('تأثير') || t.includes('ضوء') || t.includes('دخان') || t.includes('غيوم') || t.includes('سفر') || t.includes('شتاء') || t.includes('ربيع') || t.includes('بوهو') || t.includes('ديكور') || t.includes('ورق') || t.includes('فواصل') || t.includes('أوراق') || t.includes('أزهار') || t.includes('ورد')) && s.items && s.items.some(function(item) {
-          return item.type === 'asset-grid' && item.items && item.items.length > 0;
-        });
-      });
-
-      if (bgStickerSections.length > 0) {
-        const titleBar = document.createElement('div');
-        titleBar.className = 'section-title-bar';
-        titleBar.setAttribute('data-aos', 'fade-up');
-        titleBar.innerHTML = '<h3>خلفيات وعناصر زخرفية</h3><span class="count-badge">' + bgStickerSections.length + ' تصنيف</span>';
-        container.appendChild(titleBar);
-
-        bgStickerSections.forEach(function(section) {
-          const title = section.title;
+      // 1. أقسام من home تحتوي على grid (قوالب خلفيات)
+      if (Array.isArray(homeSections)) {
+        homeSections.forEach(function(section) {
+          if (!section || !section.title) return;
+          const hasGrid = section.items && section.items.some(function(item) {
+            return item && item.type === 'grid' && item.items && item.items.length > 0;
+          });
+          if (!hasGrid) return;
           const items = AndalusiAPI.extractAssetItems(section);
           if (items.length === 0) return;
+          allBgSections.push({
+            title: section.title,
+            items: items,
+            category: 'templates',
+            source: 'home'
+          });
+        });
+      }
+
+      // 2. أقسام stickers المصنّفة كخلفيات (backgrounds) + تأثيرات
+      categorized.backgrounds.forEach(function(entry) {
+        if (entry.items.length === 0) return;
+        // تحديد الفئة الفرعية
+        const title = entry.title;
+        let subCat = 'effects';
+        const natureKw = ['ورد', 'أزهار', 'ازهار', 'أوراق', 'اوراق', 'نباتات', 'شجر', 'طيور', 'غيوم', 'سماء', 'كواكب', 'شتاء', 'صحراء', 'شمس', 'قمر', 'نجوم', 'ثلج', 'مطر', 'سفر', 'ربيع', 'بحر'];
+        const decorKw = ['ديكور', 'ورق', 'فواصل', 'بوهو', 'بوهمي', 'زخارف', 'زخرفة'];
+        if (natureKw.some(kw => title.includes(kw))) subCat = 'nature';
+        else if (decorKw.some(kw => title.includes(kw))) subCat = 'decor';
+
+        allBgSections.push({
+          title: entry.title,
+          items: entry.items,
+          category: subCat,
+          source: 'stickers'
+        });
+      });
+
+      // 3. أقسام shapes الزخرفية
+      categorized.shapes.forEach(function(entry) {
+        if (entry.items.length === 0) return;
+        allBgSections.push({
+          title: entry.title,
+          items: entry.items,
+          category: 'decor',
+          source: 'stickers'
+        });
+      });
+
+      // دالة العرض
+      let currentFilter = 'all';
+      let currentSearch = '';
+
+      function renderSections() {
+        container.innerHTML = '';
+        let rendered = 0;
+
+        // فلترة حسب التبويب
+        let filtered = allBgSections;
+        if (currentFilter !== 'all') {
+          filtered = allBgSections.filter(s => s.category === currentFilter);
+        }
+
+        // فلترة حسب البحث
+        if (currentSearch) {
+          const q = currentSearch.toLowerCase();
+          filtered = filtered.filter(s => {
+            if (s.title && s.title.toLowerCase().includes(q)) return true;
+            // البحث في عناوين العناصر
+            return s.items.some(item => {
+              const t = (item.title || '').toLowerCase();
+              return t.includes(q);
+            });
+          });
+        }
+
+        if (filtered.length === 0) {
+          container.innerHTML = '<p style="text-align:center;color:#999;padding:3rem;">لا توجد خلفيات مطابقة لبحثك</p>';
+          return;
+        }
+
+        // عدّاد النتائج
+        const resultsBar = document.createElement('div');
+        resultsBar.className = 'results-bar';
+        const totalItems = filtered.reduce((sum, s) => sum + s.items.length, 0);
+        resultsBar.innerHTML = '<span>' + filtered.length + ' قسم</span> · <span>' + totalItems + ' خلفية</span>';
+        container.appendChild(resultsBar);
+
+        filtered.forEach(function(section) {
+          const title = section.title;
+          const items = section.items;
 
           const catTitle = document.createElement('div');
           catTitle.className = 'section-title-bar';
           catTitle.setAttribute('data-aos', 'fade-up');
-          catTitle.innerHTML = '<h3 style="font-size:1rem;">' + title + '</h3><span class="count-badge">' + items.length + ' عنصر</span>';
+          catTitle.innerHTML = '<h3 style="font-size:1rem;">' + title + '</h3><span class="count-badge">' + items.length + ' تصميم</span>';
           container.appendChild(catTitle);
 
           const sectionGrid = document.createElement('div');
           sectionGrid.className = 'api-grid bg-list-grid';
           sectionGrid.style.marginBottom = '1rem';
 
-          items.slice(0, 20).forEach(function(item, idx) {
+          items.slice(0, 30).forEach(function(item, idx) {
             const card = document.createElement('div');
             card.className = 'api-card';
             card.setAttribute('data-aos', 'fade-up');
             card.setAttribute('data-aos-delay', String(Math.min(idx * 20, 400)));
             card.style.position = 'relative';
 
+            let premiumBadge = item.isPremium ? '<span style="position:absolute;top:8px;left:8px;background:#b8860b;color:#fff;font-size:0.6rem;padding:2px 6px;border-radius:999px;font-weight:700;z-index:2;">Plus</span>' : '';
+
             card.innerHTML = ''
+              + premiumBadge
               + (item.thumb ? '<img src="' + item.thumb + '" alt="' + (item.title || title) + '" class="api-card-thumb" loading="lazy" onerror="this.style.display=\'none\'">' : '<div class="api-card-thumb" style="background:linear-gradient(135deg,#c9a84c,#a87c20);"></div>')
               + '<div class="api-card-body">'
               + '<div class="api-card-title">' + (item.title || title) + '</div>'
@@ -213,13 +250,40 @@
 
           container.appendChild(sectionGrid);
         });
+
+        if (typeof AOS !== 'undefined') AOS.refresh();
       }
 
-      if (rendered === 0) {
-        container.innerHTML = '<p style="text-align:center;color:#999;padding:2rem;">لا توجد خلفيات متاحة</p>';
-      }
+      renderSections();
 
-      if (typeof AOS !== 'undefined') AOS.refresh();
+      // ربط الفلاتر
+      document.querySelectorAll('#bgFilterTabs .filter-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+          document.querySelectorAll('#bgFilterTabs .filter-tab').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          currentFilter = this.dataset.filter;
+          renderSections();
+        });
+      });
+
+      // ربط البحث
+      const searchInput = document.getElementById('bgSearch');
+      const searchClear = document.getElementById('bgSearchClear');
+      let searchTimeout;
+      searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          currentSearch = this.value;
+          searchClear.style.display = currentSearch ? 'block' : 'none';
+          renderSections();
+        }, 250);
+      });
+      searchClear.addEventListener('click', function() {
+        searchInput.value = '';
+        currentSearch = '';
+        this.style.display = 'none';
+        renderSections();
+      });
 
       // Mobile nav
       const toggle = document.querySelector('.nav-toggle');
