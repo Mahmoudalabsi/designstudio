@@ -34,6 +34,21 @@
         <h1 data-aos="fade-up">الإطارات <span class="gold">والزخارف</span></h1>
         <p class="page-desc" data-aos="fade-up" data-aos-delay="100">مئات الإطارات والزخارف الاحترافية بتصاميم متنوعة. اختر إطارك المفضل وحمّله مباشرة.</p>
 
+        <div class="filter-bar" data-aos="fade-up" data-aos-delay="150">
+          <div class="search-box">
+            <input type="text" id="framesSearch" placeholder="ابحث عن إطار (مثال: كلاسيكية، ورقية، زهور...)" autocomplete="off">
+            <button class="search-clear" id="framesSearchClear" type="button" aria-label="مسح">×</button>
+          </div>
+          <div class="filter-tabs" id="framesFilterTabs">
+            <button class="filter-tab active" data-filter="all">الكل</button>
+            <button class="filter-tab" data-filter="classic">كلاسيكية</button>
+            <button class="filter-tab" data-filter="decorated">مزخرفة</button>
+            <button class="filter-tab" data-filter="flowers">زهور</button>
+            <button class="filter-tab" data-filter="paper">ورقية</button>
+            <button class="filter-tab" data-filter="other">أخرى</button>
+          </div>
+        </div>
+
         <div id="framesContainer">
           <!-- Populated by JS -->
         </div>
@@ -98,27 +113,91 @@
       const container = document.getElementById('framesContainer');
       container.innerHTML = '<div class="loading-spinner">جاري التحميل...</div>';
 
-      // Fetch frames from preset 52 and also from stickers API
+      // جلب الإطارات من preset 52 ومن stickers
       const [framesPreset, stickersSections] = await Promise.all([
         AndalusiAPI.getPreset(52),
         AndalusiAPI.getStickers()
       ]);
       container.innerHTML = '';
 
-      let rendered = 0;
+      // تصنيف كامل باستخدام الدالة المساعدة
+      const categorized = AndalusiAPI.categorizeStickerSections(stickersSections);
 
-      // 1. Render frames from preset 52
-      if (framesPreset && framesPreset.length > 0) {
-        const gridSections = framesPreset.filter(function(s) {
-          return s.title && s.items && s.items.some(function(item) {
-            return item.items && item.items.length > 0;
-          });
-        });
+      // بناء قائمة الإطارات الشاملة
+      const allFrameSections = [];
 
-        gridSections.forEach(function(section) {
-          const title = section.title;
+      // 1. من preset 52 (إطارات كلاسيكية)
+      if (Array.isArray(framesPreset)) {
+        framesPreset.forEach(function(section) {
+          if (!section || !section.title) return;
           const items = AndalusiAPI.extractAssetItems(section);
           if (items.length === 0) return;
+          allFrameSections.push({
+            title: section.title,
+            items: items,
+            category: 'classic',
+            source: 'preset52'
+          });
+        });
+      }
+
+      // 2. من stickers (أقسام الإطارات)
+      categorized.frames.forEach(function(entry) {
+        if (entry.items.length === 0) return;
+        const title = entry.title;
+        // تحديد الفئة الفرعية
+        let subCat = 'other';
+        if (title.includes('كلاسيك')) subCat = 'classic';
+        else if (title.includes('مزخرف') || title.includes('زخرف')) subCat = 'decorated';
+        else if (title.includes('زهور') || title.includes('ورد') || title.includes('أزهار')) subCat = 'flowers';
+        else if (title.includes('ورق')) subCat = 'paper';
+        else if (title.includes('رفيع') || title.includes('صور') || title.includes('دعوات')) subCat = 'other';
+
+        allFrameSections.push({
+          title: entry.title,
+          items: entry.items,
+          category: subCat,
+          source: 'stickers'
+        });
+      });
+
+      let currentFilter = 'all';
+      let currentSearch = '';
+
+      function renderSections() {
+        container.innerHTML = '';
+        let rendered = 0;
+
+        let filtered = allFrameSections;
+        if (currentFilter !== 'all') {
+          filtered = allFrameSections.filter(s => s.category === currentFilter);
+        }
+
+        if (currentSearch) {
+          const q = currentSearch.toLowerCase();
+          filtered = filtered.filter(s => {
+            if (s.title && s.title.toLowerCase().includes(q)) return true;
+            return s.items.some(item => {
+              const t = (item.title || '').toLowerCase();
+              return t.includes(q);
+            });
+          });
+        }
+
+        if (filtered.length === 0) {
+          container.innerHTML = '<p style="text-align:center;color:#999;padding:3rem;">لا توجد إطارات مطابقة لبحثك</p>';
+          return;
+        }
+
+        const resultsBar = document.createElement('div');
+        resultsBar.className = 'results-bar';
+        const totalItems = filtered.reduce((sum, s) => sum + s.items.length, 0);
+        resultsBar.innerHTML = '<span>' + filtered.length + ' قسم</span> · <span>' + totalItems + ' إطار</span>';
+        container.appendChild(resultsBar);
+
+        filtered.forEach(function(section) {
+          const title = section.title;
+          const items = section.items;
 
           const titleBar = document.createElement('div');
           titleBar.className = 'section-title-bar';
@@ -153,59 +232,40 @@
 
           container.appendChild(sectionGrid);
         });
+
+        if (typeof AOS !== 'undefined') AOS.refresh();
       }
 
-      // 2. Also add frame sections from stickers API
-      const frameStickerSections = stickersSections.filter(function(s) {
-        return s.title && (s.title.includes('إطار') || s.title.includes('اطار')) && s.items && s.items.some(function(item) {
-          return item.type === 'asset-grid' && item.items && item.items.length > 0;
+      renderSections();
+
+      // ربط الفلاتر
+      document.querySelectorAll('#framesFilterTabs .filter-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+          document.querySelectorAll('#framesFilterTabs .filter-tab').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          currentFilter = this.dataset.filter;
+          renderSections();
         });
       });
 
-      frameStickerSections.forEach(function(section) {
-        const title = section.title;
-        const items = AndalusiAPI.extractAssetItems(section);
-        if (items.length === 0) return;
-
-        const titleBar = document.createElement('div');
-        titleBar.className = 'section-title-bar';
-        titleBar.setAttribute('data-aos', 'fade-up');
-        titleBar.innerHTML = '<h3>' + title + '</h3><span class="count-badge">' + items.length + ' إطار</span>';
-        container.appendChild(titleBar);
-
-        const sectionGrid = document.createElement('div');
-        sectionGrid.className = 'api-grid frames-list-grid';
-        sectionGrid.style.marginBottom = '1.5rem';
-
-        items.forEach(function(item, idx) {
-          const card = document.createElement('div');
-          card.className = 'api-card';
-          card.setAttribute('data-aos', 'fade-up');
-          card.setAttribute('data-aos-delay', String(Math.min(idx * 20, 400)));
-          card.style.position = 'relative';
-
-          let premiumBadge = item.isPremium ? '<span style="position:absolute;top:8px;left:8px;background:#b8860b;color:#fff;font-size:0.6rem;padding:2px 6px;border-radius:999px;font-weight:700;z-index:2;">Plus</span>' : '';
-
-          card.innerHTML = ''
-            + premiumBadge
-            + (item.thumb ? '<img src="' + item.thumb + '" alt="' + (item.title || title) + '" class="api-card-thumb square" loading="lazy" onerror="this.style.display=\'none\'">' : '<div class="api-card-thumb square" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;background:#f9eed5;">🖼️</div>')
-            + '<div class="api-card-body">'
-            + '<div class="api-card-title">' + (item.title || title) + '</div>'
-            + (item.downloadLink ? '<a href="' + item.downloadLink + '" class="api-card-link" target="_blank" rel="noopener">تحميل الإطار ←</a>' : '')
-            + '</div>';
-
-          sectionGrid.appendChild(card);
-          rendered++;
-        });
-
-        container.appendChild(sectionGrid);
+      // ربط البحث
+      const searchInput = document.getElementById('framesSearch');
+      const searchClear = document.getElementById('framesSearchClear');
+      let searchTimeout;
+      searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          currentSearch = this.value;
+          searchClear.style.display = currentSearch ? 'block' : 'none';
+          renderSections();
+        }, 250);
       });
-
-      if (rendered === 0) {
-        container.innerHTML = '<p style="text-align:center;color:#999;padding:2rem;">لا توجد إطارات متاحة</p>';
-      }
-
-      if (typeof AOS !== 'undefined') AOS.refresh();
+      searchClear.addEventListener('click', function() {
+        searchInput.value = '';
+        currentSearch = '';
+        this.style.display = 'none';
+        renderSections();
+      });
 
       // Mobile nav
       const toggle = document.querySelector('.nav-toggle');
