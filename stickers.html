@@ -34,6 +34,21 @@
         <h1 data-aos="fade-up">الستيكرات <span class="gold">والعناصر</span></h1>
         <p class="page-desc" data-aos="fade-up" data-aos-delay="100">آلاف الستيكرات والعناصر الجاهزة للاستخدام. اختر أي ستيكر وحمّله مباشرة.</p>
 
+        <div class="filter-bar" data-aos="fade-up" data-aos-delay="150">
+          <div class="search-box">
+            <input type="text" id="stkSearch" placeholder="ابحث عن ستيكر (مثال: قلوب، بالونات، أعلام...)" autocomplete="off">
+            <button class="search-clear" id="stkSearchClear" type="button" aria-label="مسح">×</button>
+          </div>
+          <div class="filter-tabs" id="stkFilterTabs">
+            <button class="filter-tab active" data-filter="all">الكل</button>
+            <button class="filter-tab" data-filter="stickers">عناصر</button>
+            <button class="filter-tab" data-filter="textArt">مخطوطات</button>
+            <button class="filter-tab" data-filter="shapes">أشكال</button>
+            <button class="filter-tab" data-filter="backgrounds">تأثيرات</button>
+            <button class="filter-tab" data-filter="frames">إطارات</button>
+          </div>
+        </div>
+
         <div id="stickersContainer">
           <!-- Populated by JS -->
         </div>
@@ -101,59 +116,131 @@
       const sections = await AndalusiAPI.getStickers();
       container.innerHTML = '';
 
-      // Filter out sections without grid items (shortcuts-only sections)
-      const gridSections = sections.filter(function(s) {
-        return s.title && s.items && s.items.some(function(item) {
-          return item.type === 'asset-grid' && item.items && item.items.length > 0;
+      // تصنيف كامل باستخدام الدالة المساعدة
+      const categorized = AndalusiAPI.categorizeStickerSections(sections);
+
+      // بناء قائمة شاملة من كل التصنيفات
+      const allSections = [];
+      ['frames', 'backgrounds', 'stickers', 'textArt', 'shapes'].forEach(function(cat) {
+        (categorized[cat] || []).forEach(function(entry) {
+          if (entry.items.length === 0) return;
+          allSections.push({
+            title: entry.title,
+            items: entry.items,
+            category: cat,
+          });
         });
       });
 
-      if (gridSections.length === 0) {
+      if (allSections.length === 0) {
         container.innerHTML = '<p style="text-align:center;color:#999;padding:2rem;">لا توجد ستيكرات متاحة</p>';
         return;
       }
 
-      gridSections.forEach(function(section) {
-        const title = section.title;
-        const items = AndalusiAPI.extractAssetItems(section);
-        if (items.length === 0) return;
+      let currentFilter = 'all';
+      let currentSearch = '';
 
-        // Section header
-        const titleBar = document.createElement('div');
-        titleBar.className = 'section-title-bar';
-        titleBar.setAttribute('data-aos', 'fade-up');
-        titleBar.innerHTML = '<h3>' + title + '</h3><span class="count-badge">' + items.length + ' ستيكر</span>';
-        container.appendChild(titleBar);
+      function renderSections() {
+        container.innerHTML = '';
+        let rendered = 0;
 
-        // Grid
-        const sectionGrid = document.createElement('div');
-        sectionGrid.className = 'api-grid stickers-list-grid';
-        sectionGrid.style.marginBottom = '1.5rem';
+        let filtered = allSections;
+        if (currentFilter !== 'all') {
+          filtered = allSections.filter(s => s.category === currentFilter);
+        }
 
-        items.forEach(function(item, idx) {
-          const card = document.createElement('div');
-          card.className = 'api-card';
-          card.setAttribute('data-aos', 'fade-up');
-          card.setAttribute('data-aos-delay', String(Math.min(idx * 15, 400)));
-          card.style.position = 'relative';
+        if (currentSearch) {
+          const q = currentSearch.toLowerCase();
+          filtered = filtered.filter(s => {
+            if (s.title && s.title.toLowerCase().includes(q)) return true;
+            return s.items.some(item => {
+              const t = (item.title || '').toLowerCase();
+              return t.includes(q);
+            });
+          });
+        }
 
-          let premiumBadge = item.isPremium ? '<span style="position:absolute;top:8px;left:8px;background:#b8860b;color:#fff;font-size:0.6rem;padding:2px 6px;border-radius:999px;font-weight:700;z-index:2;">Plus</span>' : '';
+        if (filtered.length === 0) {
+          container.innerHTML = '<p style="text-align:center;color:#999;padding:3rem;">لا توجد ستيكرات مطابقة لبحثك</p>';
+          return;
+        }
 
-          card.innerHTML = ''
-            + premiumBadge
-            + (item.thumb ? '<img src="' + item.thumb + '" alt="' + (item.title || title) + '" class="api-card-thumb square" loading="lazy" onerror="this.style.display=\'none\'">' : '<div class="api-card-thumb square" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">✨</div>')
-            + '<div class="api-card-body">'
-            + '<div class="api-card-title">' + (item.title || title) + '</div>'
-            + (item.downloadLink ? '<a href="' + item.downloadLink + '" class="api-card-link" target="_blank" rel="noopener">تحميل ←</a>' : '')
-            + '</div>';
+        const resultsBar = document.createElement('div');
+        resultsBar.className = 'results-bar';
+        const totalItems = filtered.reduce((sum, s) => sum + s.items.length, 0);
+        resultsBar.innerHTML = '<span>' + filtered.length + ' قسم</span> · <span>' + totalItems + ' ستيكر</span>';
+        container.appendChild(resultsBar);
 
-          sectionGrid.appendChild(card);
+        filtered.forEach(function(section) {
+          const title = section.title;
+          const items = section.items;
+
+          const titleBar = document.createElement('div');
+          titleBar.className = 'section-title-bar';
+          titleBar.setAttribute('data-aos', 'fade-up');
+          titleBar.innerHTML = '<h3>' + title + '</h3><span class="count-badge">' + items.length + ' ستيكر</span>';
+          container.appendChild(titleBar);
+
+          const sectionGrid = document.createElement('div');
+          sectionGrid.className = 'api-grid stickers-list-grid';
+          sectionGrid.style.marginBottom = '1.5rem';
+
+          items.forEach(function(item, idx) {
+            const card = document.createElement('div');
+            card.className = 'api-card';
+            card.setAttribute('data-aos', 'fade-up');
+            card.setAttribute('data-aos-delay', String(Math.min(idx * 15, 400)));
+            card.style.position = 'relative';
+
+            let premiumBadge = item.isPremium ? '<span style="position:absolute;top:8px;left:8px;background:#b8860b;color:#fff;font-size:0.6rem;padding:2px 6px;border-radius:999px;font-weight:700;z-index:2;">Plus</span>' : '';
+
+            card.innerHTML = ''
+              + premiumBadge
+              + (item.thumb ? '<img src="' + item.thumb + '" alt="' + (item.title || title) + '" class="api-card-thumb square" loading="lazy" onerror="this.style.display=\'none\'">' : '<div class="api-card-thumb square" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">✨</div>')
+              + '<div class="api-card-body">'
+              + '<div class="api-card-title">' + (item.title || title) + '</div>'
+              + (item.downloadLink ? '<a href="' + item.downloadLink + '" class="api-card-link" target="_blank" rel="noopener">تحميل ←</a>' : '')
+              + '</div>';
+
+            sectionGrid.appendChild(card);
+          });
+
+          container.appendChild(sectionGrid);
         });
 
-        container.appendChild(sectionGrid);
+        if (typeof AOS !== 'undefined') AOS.refresh();
+      }
+
+      renderSections();
+
+      // ربط الفلاتر
+      document.querySelectorAll('#stkFilterTabs .filter-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+          document.querySelectorAll('#stkFilterTabs .filter-tab').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          currentFilter = this.dataset.filter;
+          renderSections();
+        });
       });
 
-      if (typeof AOS !== 'undefined') AOS.refresh();
+      // ربط البحث
+      const searchInput = document.getElementById('stkSearch');
+      const searchClear = document.getElementById('stkSearchClear');
+      let searchTimeout;
+      searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+          currentSearch = this.value;
+          searchClear.style.display = currentSearch ? 'block' : 'none';
+          renderSections();
+        }, 250);
+      });
+      searchClear.addEventListener('click', function() {
+        searchInput.value = '';
+        currentSearch = '';
+        this.style.display = 'none';
+        renderSections();
+      });
 
       // Mobile nav
       const toggle = document.querySelector('.nav-toggle');
