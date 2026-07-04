@@ -106,6 +106,7 @@
 
   <script src="assets/aos.js"></script>
   <script src="api.js"></script>
+  <script src="smart-render.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', async function() {
       if (typeof AOS !== 'undefined') AOS.init({ once: true, offset: 120, duration: 700, easing: 'ease-out-cubic' });
@@ -141,9 +142,6 @@
       let currentSearch = '';
 
       function renderSections() {
-        container.innerHTML = '';
-        let rendered = 0;
-
         let filtered = allSections;
         if (currentFilter !== 'all') {
           filtered = allSections.filter(s => s.category === currentFilter);
@@ -160,55 +158,7 @@
           });
         }
 
-        if (filtered.length === 0) {
-          container.innerHTML = '<p style="text-align:center;color:#999;padding:3rem;">لا توجد ستيكرات مطابقة لبحثك</p>';
-          return;
-        }
-
-        const resultsBar = document.createElement('div');
-        resultsBar.className = 'results-bar';
-        const totalItems = filtered.reduce((sum, s) => sum + s.items.length, 0);
-        resultsBar.innerHTML = '<span>' + filtered.length + ' قسم</span> · <span>' + totalItems + ' ستيكر</span>';
-        container.appendChild(resultsBar);
-
-        filtered.forEach(function(section) {
-          const title = section.title;
-          const items = section.items;
-
-          const titleBar = document.createElement('div');
-          titleBar.className = 'section-title-bar';
-          titleBar.setAttribute('data-aos', 'fade-up');
-          titleBar.innerHTML = '<h3>' + title + '</h3><span class="count-badge">' + items.length + ' ستيكر</span>';
-          container.appendChild(titleBar);
-
-          const sectionGrid = document.createElement('div');
-          sectionGrid.className = 'api-grid stickers-list-grid';
-          sectionGrid.style.marginBottom = '1.5rem';
-
-          items.forEach(function(item, idx) {
-            const card = document.createElement('div');
-            card.className = 'api-card';
-            card.setAttribute('data-aos', 'fade-up');
-            card.setAttribute('data-aos-delay', String(Math.min(idx * 15, 400)));
-            card.style.position = 'relative';
-
-            let premiumBadge = item.isPremium ? '<span style="position:absolute;top:8px;left:8px;background:#b8860b;color:#fff;font-size:0.6rem;padding:2px 6px;border-radius:999px;font-weight:700;z-index:2;">Plus</span>' : '';
-
-            card.innerHTML = ''
-              + premiumBadge
-              + (item.thumb ? '<img src="' + item.thumb + '" alt="' + (item.title || title) + '" class="api-card-thumb square" loading="lazy" onerror="this.style.display=\'none\'">' : '<div class="api-card-thumb square" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;">✨</div>')
-              + '<div class="api-card-body">'
-              + '<div class="api-card-title">' + (item.title || title) + '</div>'
-              + (item.downloadLink ? '<a href="' + item.downloadLink + '" class="api-card-link" target="_blank" rel="noopener">تحميل ←</a>' : '')
-              + '</div>';
-
-            sectionGrid.appendChild(card);
-          });
-
-          container.appendChild(sectionGrid);
-        });
-
-        if (typeof AOS !== 'undefined') AOS.refresh();
+        SmartRender.renderSectionsProgressive(container, filtered, 'stickers-list-grid', true, 8);
       }
 
       renderSections();
@@ -233,7 +183,7 @@
           currentSearch = this.value;
           searchClear.style.display = currentSearch ? 'block' : 'none';
           renderSections();
-        }, 250);
+        }, 400);
       });
       searchClear.addEventListener('click', function() {
         searchInput.value = '';
