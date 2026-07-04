@@ -1032,6 +1032,58 @@ footer {
   gap: 1.5rem;
 }
 
+/* ── Help Topics Cards (lists inside topic-card) ── */
+.topic-card {
+  padding: 1.25rem 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+}
+.topic-card h3 {
+  padding: 0 0 0.75rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 2px solid rgba(201, 168, 76, 0.2);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #a87c20;
+}
+.topic-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.topic-card li {
+  padding: 0;
+}
+.topic-card li a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  color: #444;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  line-height: 1.4;
+}
+.topic-card li a::before {
+  content: '◆';
+  color: #c9a84c;
+  font-size: 0.7rem;
+  flex-shrink: 0;
+}
+.topic-card li a:hover {
+  background: rgba(201, 168, 76, 0.08);
+  color: #a87c20;
+  transform: translateX(-3px);
+}
+.topic-card li a:hover::before {
+  color: #a87c20;
+}
+
 /* ── Filter Bar ── */
 .filter-bar {
   display: flex;
