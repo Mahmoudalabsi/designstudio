@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
   <head>
+  <script>(function(){try{var t=localStorage.getItem("mudesign.theme")||"light";var l=localStorage.getItem("mudesign.lang")||"ar";document.documentElement.setAttribute("data-theme",t);document.documentElement.setAttribute("data-lang",l);document.documentElement.setAttribute("lang",l);document.documentElement.setAttribute("dir",l==="ar"?"rtl":"ltr");}catch(e){}})();</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>مصمم الصور</title>
+    <title data-i18n="index_title">مصمم الصور</title>
 
     <!-- Website Icons -->
     <link rel="icon" type="image/png" href="assets/app-icon.png" />
@@ -54,17 +55,21 @@
       <div class="header-inner">
         <a href="index.html" class="brand">
           <img src="assets/app-icon.png" alt="مصمم الصور" />
-          <span class="brand-name">مصمم الصور</span>
+          <span class="brand-name" data-i18n="brand_name">مصمم الصور</span>
         </a>
         <nav>
-        <a href="templates.html">القوالب</a>
-        <a href="fonts.html">الخطوط</a>
-        <a href="stickers.html">الستيكرات</a>
-        <a href="backgrounds.html">الخلفيات</a>
-        <a href="frames.html">الإطارات</a>
-        <a href="help.html">الدعم</a>
+        <a href="templates.html" data-i18n="nav_templates">القوالب</a>
+        <a href="fonts.html" data-i18n="nav_fonts">الخطوط</a>
+        <a href="stickers.html" data-i18n="nav_stickers">الستيكرات</a>
+        <a href="backgrounds.html" data-i18n="nav_backgrounds">الخلفيات</a>
+        <a href="frames.html" data-i18n="nav_frames">الإطارات</a>
+        <a href="help.html" data-i18n="nav_help">الدعم</a>
       </nav>
-        <button class="nav-toggle" aria-label="القائمة"><span></span><span></span><span></span></button>
+        <div class="header-actions">
+        <button class="lang-toggle-btn" id="langToggleBtn" aria-label="Language" title="Language">EN</button>
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Theme" title="Theme">🌙</button>
+      </div>
+      <button class="nav-toggle" aria-label="القائمة" data-i18n-aria="nav_toggle_aria"><span></span><span></span><span></span></button>
       </div>
     </header>
 
@@ -79,12 +84,12 @@
               <img src="assets/qr-code.png" alt="QR Code" />
             </div>
 
-            <h1 data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+            <h1 data-aos="fade-up" data-aos-duration="800" data-aos-delay="200" data-i18n-html="index_hero_h1">
               صمّم صورك <span class="gold">باحترافية</span><br />
               بلمسة <span class="gold">فاخرة</span> وسهلة
             </h1>
 
-            <p class="hero-desc" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+            <p class="hero-desc" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300" data-i18n="index_hero_desc">
               اصنع أجمل التصاميم التي تعبّر عن هويتك. قوالب حصرية، أدوات متقدمة،
               وتجربة مستخدم صُممت خصيصاً لك.
             </p>
@@ -97,7 +102,7 @@
                   class="store-icon"
                 />
                 <span class="store-text">
-                  <small>GET IT ON</small><b>Google Play</b>
+                  <small data-i18n="index_store_google_play_small">GET IT ON</small><b>Google Play</b>
                 </span>
               </a>
               <a href="#" class="btn-store">
@@ -107,7 +112,7 @@
                   class="store-icon"
                 />
                 <span class="store-text">
-                  <small>Download on the</small><b>App Store</b>
+                  <small data-i18n="index_store_app_store_small">Download on the</small><b>App Store</b>
                 </span>
               </a>
             </div>
@@ -130,22 +135,22 @@
         <div class="stat-card" data-aos="fade-up" data-aos-delay="0">
           <div class="stat-icon">🖼️</div>
           <div class="stat-number" data-count="8339">0</div>
-          <div class="stat-label">قالب تصميم</div>
+          <div class="stat-label" data-i18n="index_stat_templates">قالب تصميم</div>
         </div>
         <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
           <div class="stat-icon">🔤</div>
           <div class="stat-number" data-count="471">0</div>
-          <div class="stat-label">خط عربي</div>
+          <div class="stat-label" data-i18n="index_stat_fonts">خط عربي</div>
         </div>
         <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
           <div class="stat-icon">🎭</div>
           <div class="stat-number" data-count="1200">0</div>
-          <div class="stat-label">ملصق وإطار</div>
+          <div class="stat-label" data-i18n="index_stat_stickers">ملصق وإطار</div>
         </div>
         <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
           <div class="stat-icon">✨</div>
           <div class="stat-number" data-count="50">0</div>
-          <div class="stat-label">فلتر إبداعي</div>
+          <div class="stat-label" data-i18n="index_stat_filters">فلتر إبداعي</div>
         </div>
       </div>
     </section>
@@ -154,8 +159,8 @@
     <section class="categories-section">
       <div class="section-inner">
         <div class="section-header" data-aos="fade-up">
-          <h2>تصاميم <span class="gold">لكل مناسبة</span></h2>
-          <p class="section-desc">اختر من بين 17 تصنيفاً مختلفاً يناسب جميع احتياجاتك التصميمية</p>
+          <h2 data-i18n-html="index_categories_h2">تصاميم <span class="gold">لكل مناسبة</span></h2>
+          <p class="section-desc" data-i18n="index_categories_desc">اختر من بين 17 تصنيفاً مختلفاً يناسب جميع احتياجاتك التصميمية</p>
         </div>
         <div class="categories-grid" id="categoriesGrid">
           <!-- Populated by JS -->
@@ -167,14 +172,14 @@
     <section class="featured-section">
       <div class="section-inner">
         <div class="section-header" data-aos="fade-up">
-          <h2>قوالب <span class="gold">مميزة</span></h2>
-          <p class="section-desc">أحدث القوالب المضافة إلى التطبيق بتصاميم عصرية وفاخرة</p>
+          <h2 data-i18n-html="index_featured_h2">قوالب <span class="gold">مميزة</span></h2>
+          <p class="section-desc" data-i18n="index_featured_desc">أحدث القوالب المضافة إلى التطبيق بتصاميم عصرية وفاخرة</p>
         </div>
         <div class="featured-grid" id="featuredGrid">
           <!-- Populated by JS -->
         </div>
         <div class="section-cta" data-aos="fade-up">
-          <a href="templates.html" class="btn-primary">تصفح جميع القوالب</a>
+          <a href="templates.html" class="btn-primary" data-i18n="index_featured_cta">تصفح جميع القوالب</a>
         </div>
       </div>
     </section>
@@ -183,14 +188,14 @@
     <section class="fonts-section">
       <div class="section-inner">
         <div class="section-header" data-aos="fade-up">
-          <h2>خطوط عربية <span class="gold">احترافية</span></h2>
-          <p class="section-desc">أكثر من 471 خط عربي متنوع بين الكلاسيكي والحديث والفني</p>
+          <h2 data-i18n-html="index_fonts_h2">خطوط عربية <span class="gold">احترافية</span></h2>
+          <p class="section-desc" data-i18n="index_fonts_desc">أكثر من 471 خط عربي متنوع بين الكلاسيكي والحديث والفني</p>
         </div>
         <div class="fonts-grid" id="fontsGrid">
           <!-- Populated by JS -->
         </div>
         <div class="section-cta" data-aos="fade-up">
-          <a href="fonts.html" class="btn-primary">تصفح جميع الخطوط</a>
+          <a href="fonts.html" class="btn-primary" data-i18n="index_fonts_cta">تصفح جميع الخطوط</a>
         </div>
       </div>
     </section>
@@ -199,8 +204,8 @@
     <section class="stickers-section">
       <div class="section-inner">
         <div class="section-header" data-aos="fade-up">
-          <h2>ستيكرات <span class="gold">إبداعية</span></h2>
-          <p class="section-desc">أكثر من 1,200 ستيكر وإطار جاهز لإضفاء لمسة مميزة على تصاميمك</p>
+          <h2 data-i18n-html="index_stickers_h2">ستيكرات <span class="gold">إبداعية</span></h2>
+          <p class="section-desc" data-i18n="index_stickers_desc">أكثر من 1,200 ستيكر وإطار جاهز لإضفاء لمسة مميزة على تصاميمك</p>
         </div>
         <div class="stickers-grid" id="stickersGrid">
           <!-- Populated by JS -->
@@ -212,8 +217,8 @@
     <section class="backgrounds-section">
       <div class="section-inner">
         <div class="section-header" data-aos="fade-up">
-          <h2>خلفيات <span class="gold">مميزة</span></h2>
-          <p class="section-desc">مئات الخلفيات الاحترافية بتصاميم متنوعة تناسب كل الأذواق</p>
+          <h2 data-i18n-html="index_backgrounds_h2">خلفيات <span class="gold">مميزة</span></h2>
+          <p class="section-desc" data-i18n="index_backgrounds_desc">مئات الخلفيات الاحترافية بتصاميم متنوعة تناسب كل الأذواق</p>
         </div>
         <div class="backgrounds-grid" id="backgroundsGrid">
           <!-- Populated by JS -->
@@ -225,14 +230,14 @@
     <section class="tools-section">
       <div class="section-inner">
         <div class="section-header" data-aos="fade-up">
-          <h2>أدوات <span class="gold">متقدمة</span></h2>
-          <p class="section-desc">مجموعة احترافية من الأدوات لتصميم صور فريدة ومميزة</p>
+          <h2 data-i18n-html="index_tools_h2">أدوات <span class="gold">متقدمة</span></h2>
+          <p class="section-desc" data-i18n="index_tools_desc">مجموعة احترافية من الأدوات لتصميم صور فريدة ومميزة</p>
         </div>
         <div class="tools-grid" id="toolsGrid">
           <!-- Populated by JS -->
         </div>
         <div class="section-cta" data-aos="fade-up">
-          <a href="tools.html" class="btn-primary">تعرف على الأدوات</a>
+          <a href="tools.html" class="btn-primary" data-i18n="index_tools_cta">تعرف على الأدوات</a>
         </div>
       </div>
     </section>
@@ -244,42 +249,42 @@
         <div>
           <a href="index.html" class="footer-brand-row">
             <img src="assets/app-icon.png" alt="مصمم الصور" />
-            <span class="footer-brand-name">مصمم الصور</span>
+            <span class="footer-brand-name" data-i18n="footer_brand_name">مصمم الصور</span>
           </a>
-          <p class="footer-tagline">المنصة العربية الأولى للتصميم الاحترافي بلمسة فاخرة.</p>
+          <p class="footer-tagline" data-i18n="footer_tagline">المنصة العربية الأولى للتصميم الاحترافي بلمسة فاخرة.</p>
         </div>
         <div class="footer-col">
-          <h4>التصميم</h4>
+          <h4 data-i18n="footer_col_design">التصميم</h4>
           <ul>
-            <li><a href="templates.html">القوالب الفاخرة</a></li>
-            <li><a href="fonts.html">الخطوط العربية</a></li>
-            <li><a href="tools.html">الأدوات المتقدمة</a></li>
-            <li><a href="stickers.html">الستيكرات</a></li>
-            <li><a href="backgrounds.html">الخلفيات</a></li>
-            <li><a href="frames.html">الإطارات</a></li>
+            <li><a href="templates.html" data-i18n="footer_link_templates">القوالب الفاخرة</a></li>
+            <li><a href="fonts.html" data-i18n="footer_link_fonts">الخطوط العربية</a></li>
+            <li><a href="tools.html" data-i18n="footer_link_tools">الأدوات المتقدمة</a></li>
+            <li><a href="stickers.html" data-i18n="footer_link_stickers">الستيكرات</a></li>
+            <li><a href="backgrounds.html" data-i18n="footer_link_backgrounds">الخلفيات</a></li>
+            <li><a href="frames.html" data-i18n="footer_link_frames">الإطارات</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>الدعم</h4>
+          <h4 data-i18n="footer_col_support">الدعم</h4>
           <ul>
-            <li><a href="help.html">مركز المساعدة</a></li>
-            <li><a href="faq.html">الأسئلة الشائعة</a></li>
-            <li><a href="contact.html">تواصل معنا</a></li>
-            <li><a href="community.html">المجتمع</a></li>
+            <li><a href="help.html" data-i18n="footer_link_help_center">مركز المساعدة</a></li>
+            <li><a href="faq.html" data-i18n="footer_link_faq">الأسئلة الشائعة</a></li>
+            <li><a href="contact.html" data-i18n="footer_link_contact">تواصل معنا</a></li>
+            <li><a href="community.html" data-i18n="footer_link_community">المجتمع</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>القوانين</h4>
+          <h4 data-i18n="footer_col_legal">القوانين</h4>
           <ul>
-            <li><a href="terms.html">الشروط والأحكام</a></li>
-            <li><a href="privacy.html">سياسة الخصوصية</a></li>
-            <li><a href="cookies.html">سياسة ملفات تعريف الارتباط</a></li>
-            <li><a href="copyright.html">حقوق الملكية</a></li>
+            <li><a href="terms.html" data-i18n="footer_link_terms">الشروط والأحكام</a></li>
+            <li><a href="privacy.html" data-i18n="footer_link_privacy">سياسة الخصوصية</a></li>
+            <li><a href="cookies.html" data-i18n="footer_link_cookies">سياسة ملفات تعريف الارتباط</a></li>
+            <li><a href="copyright.html" data-i18n="footer_link_copyright">حقوق الملكية</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bar">
-        <p class="footer-copy">&copy; 2025 مصمم الصور. جميع الحقوق محفوظة.</p>
+        <p class="footer-copy" data-i18n="footer_copyright">&copy; 2025 مصمم الصور. جميع الحقوق محفوظة.</p>
         <div class="social-links">
           <a href="https://x.com/MahmoudSuppah" aria-label="Twitter / X"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/></svg></a>
           <a href="https://www.instagram.com/mahmoud_al3bsi/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
@@ -297,5 +302,6 @@
       <script src="auth-config.js"></script>
     <script src="auth.js"></script>
 
+  <script src="theme.js"></script>
 </body>
 </html>

@@ -240,14 +240,28 @@ const AndalusiAPI = {
       shapes: [],    // أشكال وزخارف
     };
 
-    // كلمات تدل على الإطارات
-    const frameKeywords = ['إطار', 'اطار', 'إطارات', 'اطارات', 'حدود', 'بوردر', 'تأطير'];
+    // كلمات تدل على الإطارات (عربي + إنجليزي - الـ API يُرجع لغات مختلفة حسب الطلب)
+    const frameKeywords = [
+      // عربي
+      'إطار', 'اطار', 'إطارات', 'اطارات', 'حدود', 'بوردر', 'تأطير',
+      // إنجليزي
+      'frame', 'frames', 'border', 'borders'
+    ];
     // كلمات تدل على الخلفيات/التأثيرات
-    const bgKeywords = ['تأثير', 'ضوء', 'ضوئية', 'دخان', 'غيوم', 'سفر', 'شتاء', 'ربيع', 'بوهو', 'بوهمي', 'ديكور', 'ورق', 'اوراق', 'فواصل', 'أزهار', 'ازهار', 'ورد', 'أوراق', 'نباتات', 'كواكب', 'تدرج', 'تدريج', 'نيون', 'ظل', 'ثلج', 'مطر', 'سماء', 'صحراء', 'شمس', 'قمر', 'نجوم', 'فرش', 'فرشاة', 'بريق', 'لامع'];
+    const bgKeywords = ['تأثير', 'ضوء', 'ضوئية', 'دخان', 'غيوم', 'سفر', 'شتاء', 'ربيع', 'بوهو', 'بوهمي', 'ديكور', 'ورق', 'اوراق', 'فواصل', 'أزهار', 'ازهار', 'ورد', 'أوراق', 'نباتات', 'كواكب', 'تدرج', 'تدريج', 'نيون', 'ظل', 'ثلج', 'مطر', 'سماء', 'صحراء', 'شمس', 'قمر', 'نجوم', 'فرش', 'فرشاة', 'بريق', 'لامع',
+      // إنجليزي
+      'effect', 'effects', 'smoke', 'cloud', 'clouds', 'winter', 'spring', 'boho', 'bohemian', 'decor', 'paper', 'papers', 'gradient', 'gradients', 'neon', 'shadow', 'shadows', 'snow', 'rain', 'sky', 'desert', 'sun', 'moon', 'stars', 'shine', 'glow', 'light', 'lights'
+    ];
     // كلمات تدل على المخطوطات والحروف
-    const textArtKeywords = ['مخطوطات', 'حروف', 'ديواني', 'ثلث', 'فرش', 'خط', 'اقتباس', 'اقتباسات', 'أقتباسات', 'أقواس', 'أشكال'];
+    const textArtKeywords = ['مخطوطات', 'حروف', 'ديواني', 'ثلث', 'فرش', 'خط', 'اقتباس', 'اقتباسات', 'أقتباسات', 'أقواس', 'أشكال',
+      // إنجليزي
+      'calligraphy', 'letters', 'letter', 'diwani', 'thuluth', 'quotes', 'quote', 'arch', 'arches'
+    ];
     // كلمات تدل على الأشكال والزخارف
-    const shapeKeywords = ['زخارف', 'زخرفة', 'زخرفية', 'مزخرف', 'أشكال', 'اشكال', 'أقواس', 'أسهم', 'فواصل', 'أشرطة', 'زوايا', 'محاريب', 'فن', 'إسلامي', 'اسلامي', 'أعلام', 'أيقونات', 'رموز', 'قلوب', 'بالونات', 'طيور', 'كواكب'];
+    const shapeKeywords = ['زخارف', 'زخرفة', 'زخرفية', 'مزخرف', 'أشكال', 'اشكال', 'أقواس', 'أسهم', 'فواصل', 'أشرطة', 'زوايا', 'محاريب', 'فن', 'إسلامي', 'اسلامي', 'أعلام', 'أيقونات', 'رموز', 'قلوب', 'بالونات', 'طيور', 'كواكب',
+      // إنجليزي
+      'shapes', 'shape', 'arrows', 'arrow', 'ribbons', 'ribbon', 'corners', 'corner', 'mihrab', 'islamic', 'flags', 'icons', 'icon', 'symbols', 'hearts', 'heart', 'balloons', 'birds'
+    ];
 
     if (!Array.isArray(sections)) return result;
 
@@ -260,6 +274,8 @@ const AndalusiAPI = {
       if (!hasAssetGrid) return;
 
       const title = section.title;
+      // تحويل العنوان لـ lowercase لمطابقة الكلمات الإنجليزية (العربية لا تتأثر)
+      const titleLower = title.toLowerCase();
       const entry = {
         title: title,
         items: this.extractAssetItems(section),
@@ -269,19 +285,19 @@ const AndalusiAPI = {
       // تصنيف حسب الأولوية: الإطارات أولاً، ثم الخلفيات، إلخ
       let matched = false;
 
-      if (frameKeywords.some(kw => title.includes(kw))) {
+      if (frameKeywords.some(kw => titleLower.includes(kw.toLowerCase()))) {
         result.frames.push(entry);
         matched = true;
       }
-      if (bgKeywords.some(kw => title.includes(kw))) {
+      if (bgKeywords.some(kw => titleLower.includes(kw.toLowerCase()))) {
         result.backgrounds.push(entry);
         matched = true;
       }
-      if (textArtKeywords.some(kw => title.includes(kw))) {
+      if (textArtKeywords.some(kw => titleLower.includes(kw.toLowerCase()))) {
         result.textArt.push(entry);
         matched = true;
       }
-      if (shapeKeywords.some(kw => title.includes(kw))) {
+      if (shapeKeywords.some(kw => titleLower.includes(kw.toLowerCase()))) {
         result.shapes.push(entry);
         matched = true;
       }

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+  <script>(function(){try{var t=localStorage.getItem("mudesign.theme")||"light";var l=localStorage.getItem("mudesign.lang")||"ar";document.documentElement.setAttribute("data-theme",t);document.documentElement.setAttribute("data-lang",l);document.documentElement.setAttribute("lang",l);document.documentElement.setAttribute("dir",l==="ar"?"rtl":"ltr");}catch(e){}})();</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>الخلفيات - مصمم الصور</title>
+  <title data-i18n="backgrounds_title">الخلفيات - مصمم الصور</title>
   <link rel="icon" type="image/png" href="assets/app-icon.png" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="assets/aos.css" />
@@ -14,38 +15,46 @@
     <div class="header-inner">
       <a href="index.html" class="brand">
         <img src="assets/app-icon.png" alt="مصمم الصور" />
-        <span class="brand-name">مصمم الصور</span>
+        <span class="brand-name" data-i18n="brand_name">مصمم الصور</span>
       </a>
       <nav>
-        <a href="templates.html">القوالب</a>
-        <a href="fonts.html">الخطوط</a>
-        <a href="stickers.html">الستيكرات</a>
-        <a href="backgrounds.html">الخلفيات</a>
-        <a href="frames.html">الإطارات</a>
-        <a href="help.html">الدعم</a>
+        <a href="templates.html" data-i18n="nav_templates">القوالب</a>
+        <a href="fonts.html" data-i18n="nav_fonts">الخطوط</a>
+        <a href="stickers.html" data-i18n="nav_stickers">الستيكرات</a>
+        <a href="backgrounds.html" data-i18n="nav_backgrounds">الخلفيات</a>
+        <a href="frames.html" data-i18n="nav_frames">الإطارات</a>
+        <a href="help.html" data-i18n="nav_help">الدعم</a>
       </nav>
-      <button class="nav-toggle" aria-label="القائمة"><span></span><span></span><span></span></button>
+      <div class="header-actions">
+        <button class="lang-toggle-btn" id="langToggleBtn" aria-label="Language" title="Language">EN</button>
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Theme" title="Theme">🌙</button>
+      </div>
+      <button class="nav-toggle" aria-label="القائمة" data-i18n-aria="nav_toggle_aria"><span></span><span></span><span></span></button>
     </div>
   </header>
 
   <main>
     <div class="page-content">
       <div class="page-inner">
-        <h1 data-aos="fade-up">الخلفيات <span class="gold">المميزة</span></h1>
-        <p class="page-desc" data-aos="fade-up" data-aos-delay="100">مئات الخلفيات الاحترافية بتصاميم متنوعة. اختر خلفيتك المفضلة وحمّلها مباشرة.</p>
+        <h1 data-aos="fade-up" data-i18n-html="backgrounds_h1">الخلفيات <span class="gold">المميزة</span></h1>
+        <p class="page-desc" data-aos="fade-up" data-aos-delay="100" data-i18n="backgrounds_desc">مئات الخلفيات الاحترافية بتصاميم متنوعة. اختر خلفيتك المفضلة وحمّلها مباشرة.</p>
 
-        <div class="filter-bar" data-aos="fade-up" data-aos-delay="150">
-          <div class="search-box">
-            <input type="text" id="bgSearch" placeholder="ابحث عن خلفية (مثال: ورد، تأثير، دخان...)" autocomplete="off">
-            <button class="search-clear" id="bgSearchClear" type="button" aria-label="مسح">×</button>
-          </div>
-          <div class="filter-tabs" id="bgFilterTabs">
-            <button class="filter-tab active" data-filter="all">الكل</button>
-            <button class="filter-tab" data-filter="templates">قوالب الخلفيات</button>
-            <button class="filter-tab" data-filter="effects">تأثيرات</button>
-            <button class="filter-tab" data-filter="nature">طبيعة</button>
-            <button class="filter-tab" data-filter="decor">زخارف</button>
-          </div>
+        <!-- أداة البحث في التصنيفات -->
+        <div class="cat-search-wrapper" data-aos="fade-up" data-aos-delay="120">
+          <input type="text" id="bgSearch" class="cat-search-input" placeholder="🔍 ابحث عن خلفية (مثال: ورد، تأثير، دخان...)" autocomplete="off" data-i18n-placeholder="backgrounds_search_placeholder" />
+          <button id="bgSearchClear" class="cat-search-clear" aria-label="مسح" style="display:none;">×</button>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="filter-bar" data-aos="fade-up" data-aos-delay="150" id="bgFilterBar">
+          <button class="filter-btn active" data-filter="all" data-i18n="backgrounds_filter_all">الكل</button>
+        </div>
+
+        <!-- عداد التصنيفات والعناصر -->
+        <div class="filter-info" id="bgFilterInfo">
+          <span class="filter-counter" id="bgCatCounter" data-i18n="backgrounds_counter_categories_initial">0 قسم</span>
+          <span class="filter-separator">•</span>
+          <span class="filter-counter tpl-count" id="bgItemCounter" data-i18n="backgrounds_counter_items_initial">0 خلفية</span>
         </div>
 
         <div id="bgContainer">
@@ -61,42 +70,42 @@
         <div>
           <a href="index.html" class="footer-brand-row">
             <img src="assets/app-icon.png" alt="مصمم الصور" />
-            <span class="footer-brand-name">مصمم الصور</span>
+            <span class="footer-brand-name" data-i18n="footer_brand_name">مصمم الصور</span>
           </a>
-          <p class="footer-tagline">المنصة العربية الأولى للتصميم الاحترافي بلمسة فاخرة.</p>
+          <p class="footer-tagline" data-i18n="footer_tagline">المنصة العربية الأولى للتصميم الاحترافي بلمسة فاخرة.</p>
         </div>
         <div class="footer-col">
-          <h4>التصميم</h4>
+          <h4 data-i18n="footer_col_design">التصميم</h4>
           <ul>
-            <li><a href="templates.html">القوالب الفاخرة</a></li>
-            <li><a href="fonts.html">الخطوط العربية</a></li>
-            <li><a href="tools.html">الأدوات المتقدمة</a></li>
-            <li><a href="stickers.html">الستيكرات</a></li>
-            <li><a href="backgrounds.html">الخلفيات</a></li>
-            <li><a href="frames.html">الإطارات</a></li>
+            <li><a href="templates.html" data-i18n="footer_link_templates">القوالب الفاخرة</a></li>
+            <li><a href="fonts.html" data-i18n="footer_link_fonts">الخطوط العربية</a></li>
+            <li><a href="tools.html" data-i18n="footer_link_tools">الأدوات المتقدمة</a></li>
+            <li><a href="stickers.html" data-i18n="footer_link_stickers">الستيكرات</a></li>
+            <li><a href="backgrounds.html" data-i18n="footer_link_backgrounds">الخلفيات</a></li>
+            <li><a href="frames.html" data-i18n="footer_link_frames">الإطارات</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>الدعم</h4>
+          <h4 data-i18n="footer_col_support">الدعم</h4>
           <ul>
-            <li><a href="help.html">مركز المساعدة</a></li>
-            <li><a href="faq.html">الأسئلة الشائعة</a></li>
-            <li><a href="contact.html">تواصل معنا</a></li>
-            <li><a href="community.html">المجتمع</a></li>
+            <li><a href="help.html" data-i18n="footer_link_help_center">مركز المساعدة</a></li>
+            <li><a href="faq.html" data-i18n="footer_link_faq">الأسئلة الشائعة</a></li>
+            <li><a href="contact.html" data-i18n="footer_link_contact">تواصل معنا</a></li>
+            <li><a href="community.html" data-i18n="footer_link_community">المجتمع</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>القوانين</h4>
+          <h4 data-i18n="footer_col_legal">القوانين</h4>
           <ul>
-            <li><a href="terms.html">الشروط والأحكام</a></li>
-            <li><a href="privacy.html">سياسة الخصوصية</a></li>
-            <li><a href="cookies.html">سياسة ملفات تعريف الارتباط</a></li>
-            <li><a href="copyright.html">حقوق الملكية</a></li>
+            <li><a href="terms.html" data-i18n="footer_link_terms">الشروط والأحكام</a></li>
+            <li><a href="privacy.html" data-i18n="footer_link_privacy">سياسة الخصوصية</a></li>
+            <li><a href="cookies.html" data-i18n="footer_link_cookies">سياسة ملفات تعريف الارتباط</a></li>
+            <li><a href="copyright.html" data-i18n="footer_link_copyright">حقوق الملكية</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bar">
-        <p class="footer-copy">&copy; 2025 مصمم الصور. جميع الحقوق محفوظة.</p>
+        <p class="footer-copy" data-i18n="footer_copyright">&copy; 2025 مصمم الصور. جميع الحقوق محفوظة.</p>
         <div class="social-links">
           <a href="https://x.com/MahmoudSuppah" aria-label="Twitter / X"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/></svg></a>
           <a href="https://www.instagram.com/mahmoud_al3bsi/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
@@ -115,6 +124,12 @@
       if (typeof AOS !== 'undefined') AOS.init({ once: true, offset: 120, duration: 700, easing: 'ease-out-cubic' });
 
       const container = document.getElementById('bgContainer');
+      const filterBar = document.getElementById('bgFilterBar');
+      const catCounter = document.getElementById('bgCatCounter');
+      const itemCounter = document.getElementById('bgItemCounter');
+      const searchInput = document.getElementById('bgSearch');
+      const searchClear = document.getElementById('bgSearchClear');
+
       container.innerHTML = '<div class="loading-spinner">جاري التحميل...</div>';
 
       // جلب كل المصادر المتاحة
@@ -127,7 +142,7 @@
       // تصنيف كامل باستخدام الدالة المساعدة
       const categorized = AndalusiAPI.categorizeStickerSections(stickersSections);
 
-      // بناء قائمة الأقسام مع تصنيفها
+      // بناء قائمة الأقسام مع تصنيفها تلقائياً (مثل الفريمات)
       const allBgSections = [];
 
       // 1. أقسام من home تحتوي على grid (قوالب خلفيات)
@@ -143,27 +158,19 @@
           allBgSections.push({
             title: section.title,
             items: items,
-            category: 'templates',
+            category: classifyBackground(section.title),
             source: 'home'
           });
         });
       }
 
-      // 2. أقسام stickers المصنّفة كخلفيات (backgrounds) + تأثيرات
+      // 2. أقسام stickers المصنّفة كخلفيات (backgrounds)
       categorized.backgrounds.forEach(function(entry) {
         if (entry.items.length === 0) return;
-        // تحديد الفئة الفرعية
-        const title = entry.title;
-        let subCat = 'effects';
-        const natureKw = ['ورد', 'أزهار', 'ازهار', 'أوراق', 'اوراق', 'نباتات', 'شجر', 'طيور', 'غيوم', 'سماء', 'كواكب', 'شتاء', 'صحراء', 'شمس', 'قمر', 'نجوم', 'ثلج', 'مطر', 'سفر', 'ربيع', 'بحر'];
-        const decorKw = ['ديكور', 'ورق', 'فواصل', 'بوهو', 'بوهمي', 'زخارف', 'زخرفة'];
-        if (natureKw.some(kw => title.includes(kw))) subCat = 'nature';
-        else if (decorKw.some(kw => title.includes(kw))) subCat = 'decor';
-
         allBgSections.push({
           title: entry.title,
           items: entry.items,
-          category: subCat,
+          category: classifyBackground(entry.title),
           source: 'stickers'
         });
       });
@@ -174,21 +181,185 @@
         allBgSections.push({
           title: entry.title,
           items: entry.items,
-          category: 'decor',
+          category: classifyBackground(entry.title) || 'decor',
           source: 'stickers'
         });
       });
 
-      // دالة العرض
-      let currentFilter = 'all';
-      let currentSearch = '';
+      // دالة تصنيف الخلفيات بناءً على العنوان (مثل classifyFrame)
+      // تدعم العربية والإنجليزية
+      function classifyBackground(title) {
+        const t = (title || '').trim().toLowerCase();
+        if (!t) return 'other';
 
-      function renderSections() {
-        let filtered = allBgSections;
-        if (currentFilter !== 'all') {
-          filtered = allBgSections.filter(s => s.category === currentFilter);
+        // قوائم الكلمات المفتاحية مرتبة حسب الأولوية (الأكثر تحديداً أولاً)
+        const rules = [
+          // طبيعة (نباتات، طيور، سفر، حيوانات)
+          { cat: 'nature', keywords: ['ورد', 'أزهار', 'ازهار', 'زهور', 'أوراق', 'اوراق', 'نبات', 'شجر', 'أشجار', 'زهرة', 'طيور', 'طائر', 'سفر', 'حيوان', 'birds', 'bird', 'travel', 'flowers', 'flower', 'leaf', 'leaves', 'plant', 'tree', 'botanical', 'floral', 'animals'] },
+          // سماء وطقس وفصول
+          { cat: 'sky', keywords: ['غيوم', 'سماء', 'كواكب', 'كوكب', 'شتاء', 'صحراء', 'شمس', 'قمر', 'نجوم', 'ثلج', 'مطر', 'ربيع', 'بحر', 'موجة', 'موج', 'صيف', 'خريف', 'فصول', 'cloud', 'clouds', 'sky', 'winter', 'desert', 'sun', 'moon', 'star', 'stars', 'snow', 'rain', 'spring', 'sea', 'wave', 'waves', 'summer', 'autumn', 'vibes', 'breeze'] },
+          // نيون وتدرجات وضوء
+          { cat: 'neon', keywords: ['نيون', 'تدرج', 'تدرجات', 'ضوء', 'ضوئية', 'بريق', 'لامع', 'ظل', 'توهج', 'neon', 'gradient', 'gradients', 'glow', 'shine', 'shadow', 'shadows', 'light', 'lights', 'sparkle', '3d'] },
+          // دخان وتأثيرات
+          { cat: 'effects', keywords: ['تأثير', 'تأثيرات', 'دخان', 'أثر', 'effect', 'effects', 'smoke', 'fog', 'mist'] },
+          // ورقية وقديمة
+          { cat: 'paper', keywords: ['ورق', 'أوراق', 'قصاصات', 'قديمة', 'paper', 'papers', 'retro', 'vintage', 'old', 'antique', 'scraps', 'banner', 'banners'] },
+          // زخارف إسلامية وعربية
+          { cat: 'decor', keywords: ['زخارف', 'زخرفة', 'زخرفية', 'مزخرف', 'بوهو', 'بوهمي', 'فواصل', 'أقواس', 'أسهم', 'زوايا', 'محاريب', 'إسلامي', 'اسلامي', 'ديكور', 'ذهب', 'ذهبية', 'أشرطة', 'corner', 'corners', 'decoration', 'decorations', 'decor', 'boho', 'bohemian', 'ornament', 'ornaments', 'islamic', 'arabesque', 'arabic', 'ribbon', 'golden'] },
+          // قوالب وإنفوجرافيك ومستندات
+          { cat: 'templates', keywords: ['قالب', 'قوالب', 'إنفوجرافيك', 'انفوجرافيك', 'خلفيات', 'خلفية', 'بروشور', 'كروت', 'بطاقات', 'شهادات', 'سير', 'شعارات', 'موك', 'قصة', 'منشورات', 'لايف', 'template', 'templates', 'infographic', 'wallpaper', 'wallpapers', 'brochure', 'brochures', 'card', 'cards', 'certificate', 'certificates', 'cv', 'cvs', 'resume', 'logos', 'logo', 'mockup', 'mockups', 'story', 'stories', 'post', 'posts', 'collage', 'snapshots', 'snapshot', 'profile', 'invitation', 'invitations', 'wedding', 'birthday', 'hijri', 'hajj', 'quotes', 'azkar', 'duaa', 'greeting', 'news', 'marketing', 'business', 'discount', 'graduation', 'thank', 'stand', 'palestine', 'friday', 'new born', 'sports', 'reel', 'video', 'productivity', 'products', 'photography', 'unique fonts', 'ceremony', 'carpet', 'invoices', 'monthly'] }
+        ];
+
+        // التحقق من كل قاعدة بالترتيب
+        for (const rule of rules) {
+          for (const kw of rule.keywords) {
+            if (t.includes(kw.toLowerCase())) return rule.cat;
+          }
         }
 
+        // افتراضي: أخرى
+        return 'other';
+      }
+
+      // إزالة التكرار (مثل الفريمات)
+      const seenTitles = new Set();
+      const dedupedSections = [];
+      allBgSections.forEach(s => {
+        const key = s.title.trim().toLowerCase().replace(/\s+/g, ' ');
+        if (seenTitles.has(key)) return;
+        seenTitles.add(key);
+        dedupedSections.push(s);
+      });
+
+      // أسماء الفئات للعرض (مثل الفريمات) - فئات أكثر تفصيلاً
+      // ⚠️ نُبقي هذه التصنيفات فقط لترتيب العرض، لكن الأزرار تُبنى لكل قسم على حدة
+      const FILTER_CATEGORIES = [
+        { id: 'templates', name: 'قوالب وإنفوجرافيك' },
+        { id: 'nature', name: 'طبيعة وأزهار' },
+        { id: 'sky', name: 'سماء وطقس' },
+        { id: 'neon', name: 'نيون وتدرجات' },
+        { id: 'effects', name: 'تأثيرات ودخان' },
+        { id: 'paper', name: 'ورقية وقديمة' },
+        { id: 'decor', name: 'زخارف إسلامية' },
+        { id: 'other', name: 'أخرى' }
+      ];
+
+      // بناء أزرار الفلاتر: زر مستقل لكل قسم (مثل صفحة القوالب)
+      function buildFilterButtons() {
+        Array.from(filterBar.querySelectorAll('.filter-btn:not([data-filter="all"])')).forEach(b => b.remove());
+        const allBtn = filterBar.querySelector('[data-filter="all"]');
+
+        // فرز الأقسام حسب التصنيف ثم أبجدياً
+        const sortedSections = dedupedSections.slice().sort((a, b) => {
+          const oa = FILTER_CATEGORIES.findIndex(c => c.id === a.category);
+          const ob = FILTER_CATEGORIES.findIndex(c => c.id === b.category);
+          const oaf = oa === -1 ? 999 : oa;
+          const obf = ob === -1 ? 999 : ob;
+          if (oaf !== obf) return oaf - obf;
+          return (a.title || '').localeCompare(b.title || '', 'ar');
+        });
+
+        sortedSections.forEach((section, idx) => {
+          const btn = document.createElement('button');
+          btn.className = 'filter-btn';
+          // مُعرّف فريد لكل قسم
+          btn.dataset.filter = 'section-' + idx;
+          btn.dataset.sectionTitle = section.title;
+          const itemCount = section.items.length;
+          btn.innerHTML = `${section.title} <span class="filter-btn-count">${itemCount}</span>`;
+          filterBar.appendChild(btn);
+        });
+
+        const totalAll = dedupedSections.length;
+        allBtn.innerHTML = `الكل <span class="filter-btn-count">${totalAll}</span>`;
+      }
+
+      buildFilterButtons();
+
+      let currentSearch = '';
+      let currentFilter = 'all';
+
+      // ⚡ قائمة موحّدة لكل الخلفيات (لعرضها في "الكل" كشبكة واحدة)
+      let allItemsFlat = [];
+      dedupedSections.forEach(s => {
+        s.items.forEach(item => {
+          allItemsFlat.push(Object.assign({}, item, { _section: s.title }));
+        });
+      });
+
+      // ⚡ إعدادات Lazy loading
+      const PAGE_SIZE = 24;          // عدد العناصر في كل دفعة
+      let visibleCount = PAGE_SIZE;   // عدد العناصر الظاهرة حالياً
+      let currentList = [];           // القائمة المعروضة حالياً (بعد الفلترة)
+      let loadMoreObserver = null;
+
+      function renderGrid(items) {
+        container.innerHTML = '';
+        const grid = document.createElement('div');
+        grid.className = 'api-grid bg-list-grid';
+        grid.id = 'bgGrid';
+        container.appendChild(grid);
+
+        const visibleItems = items.slice(0, visibleCount);
+        const fragment = document.createDocumentFragment();
+        visibleItems.forEach(item => {
+          const card = SmartRender.createCard(item, item._section || 'خلفية', false);
+          fragment.appendChild(card);
+        });
+        grid.appendChild(fragment);
+
+        // زر "تحميل المزيد" (سيتفاعل مع IntersectionObserver للـ lazy loading)
+        if (visibleCount < items.length) {
+          const loadMoreBtn = document.createElement('button');
+          loadMoreBtn.id = 'loadMoreBtn';
+          loadMoreBtn.className = 'load-more-btn';
+          loadMoreBtn.style.margin = '2rem auto';
+          loadMoreBtn.style.display = 'block';
+          loadMoreBtn.innerHTML = `تحميل المزيد <span class="load-more-count">(${items.length - visibleCount} متبقي)</span>`;
+          container.appendChild(loadMoreBtn);
+
+          // ⚡ Lazy loading عبر IntersectionObserver
+          if (loadMoreObserver) loadMoreObserver.disconnect();
+          loadMoreObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                visibleCount += PAGE_SIZE;
+                const newItems = items.slice(0, visibleCount);
+                grid.innerHTML = '';
+                const frag = document.createDocumentFragment();
+                newItems.forEach(item => {
+                  const card = SmartRender.createCard(item, item._section || 'خلفية', false);
+                  frag.appendChild(card);
+                });
+                grid.appendChild(frag);
+
+                if (visibleCount >= items.length) {
+                  loadMoreBtn.remove();
+                  loadMoreObserver.disconnect();
+                } else {
+                  loadMoreBtn.querySelector('.load-more-count').textContent =
+                    `(${items.length - visibleCount} متبقي)`;
+                }
+              }
+            });
+          }, { rootMargin: '400px 0px', threshold: 0.01 });
+          loadMoreObserver.observe(loadMoreBtn);
+        }
+      }
+
+      function renderSections() {
+        let filtered = dedupedSections;
+
+        // 1. فلتر التصنيف
+        if (currentFilter !== 'all') {
+          const activeBtn = filterBar.querySelector(`.filter-btn[data-filter="${currentFilter}"]`);
+          if (activeBtn) {
+            const sectionTitle = activeBtn.dataset.sectionTitle;
+            filtered = filtered.filter(s => s.title === sectionTitle);
+          }
+        }
+
+        // 2. البحث
         if (currentSearch) {
           const q = currentSearch.toLowerCase();
           filtered = filtered.filter(s => {
@@ -200,32 +371,53 @@
           });
         }
 
-        SmartRender.renderSectionsProgressive(container, filtered, 'bg-list-grid', false, 8);
+        // 3. بناء قائمة موحدة (كل العناصر في شبكة واحدة)
+        let flatList = [];
+        filtered.forEach(s => {
+          s.items.forEach(item => {
+            flatList.push(Object.assign({}, item, { _section: s.title }));
+          });
+        });
+        currentList = flatList;
+        visibleCount = PAGE_SIZE;  // إعادة الضبط عند كل فلترة
+
+        // 4. العدّاد
+        const totalItems = flatList.length;
+        catCounter.textContent = `${filtered.length} قسم`;
+        itemCounter.textContent = `${totalItems} خلفية`;
+
+        // 5. العرض كشبكة موحدة مع lazy loading
+        if (totalItems === 0) {
+          container.innerHTML = '<p style="text-align:center;color:#999;padding:3rem;">لا توجد عناصر مطابقة</p>';
+          return;
+        }
+        renderGrid(flatList);
       }
 
       renderSections();
 
-      // ربط الفلاتر
-      document.querySelectorAll('#bgFilterTabs .filter-tab').forEach(tab => {
-        tab.addEventListener('click', function() {
-          document.querySelectorAll('#bgFilterTabs .filter-tab').forEach(t => t.classList.remove('active'));
-          this.classList.add('active');
-          currentFilter = this.dataset.filter;
-          renderSections();
-        });
+      // ربط الفلاتر (event delegation) - فلترة حقيقية مثل القوالب
+      filterBar.addEventListener('click', function(e) {
+        const btn = e.target.closest('.filter-btn');
+        if (!btn) return;
+        const filterVal = btn.dataset.filter;
+        if (filterVal === currentFilter) return;
+        filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = filterVal;
+        window.scrollTo({ top: container.offsetTop - 100, behavior: 'smooth' });
+        renderSections();
       });
 
       // ربط البحث
-      const searchInput = document.getElementById('bgSearch');
-      const searchClear = document.getElementById('bgSearchClear');
       let searchTimeout;
       searchInput.addEventListener('input', function() {
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(() => {
-          currentSearch = this.value;
-          searchClear.style.display = currentSearch ? 'block' : 'none';
+          currentSearch = this.value.trim();
+          searchClear.style.display = currentSearch ? 'flex' : 'none';
           renderSections();
-        }, 400);
+        }, 350);
       });
       searchClear.addEventListener('click', function() {
         searchInput.value = '';
@@ -254,5 +446,6 @@
     <script src="auth-config.js"></script>
     <script src="auth.js"></script>
 
+  <script src="theme.js"></script>
 </body>
 </html>

@@ -1,0 +1,1214 @@
+{
+  "_meta": {
+    "description": "قاموس النصوص المرئية المستخرجة من ملفات HTML للترجمة. تُستخدم المفاتيح بصيغة snake_case إنجليزي.",
+    "note": "روابط الـ nav والـ data-i18n='brand_name' مُترجمة بالفعل وتُجاهلت هنا. ركّزنا على النصوص الثابتة فقط وتخطينا المحتوى الديناميكي القادم من API.",
+    "shared_keys_note": "النصوص تحت 'shared' تظهر في جميع الصفحات (header/footer/nav-toggle). يمكن إعادة استخدامها بدل التكرار.",
+    "files_count": 15
+  },
+
+  "shared": {
+    "nav_toggle_aria": {
+      "ar": "القائمة",
+      "key": "nav_toggle_aria"
+    },
+    "lang_btn_text": {
+      "ar": "EN",
+      "key": "lang_btn_text"
+    },
+    "theme_btn_aria": {
+      "ar": "Theme",
+      "key": "theme_btn_aria"
+    },
+    "lang_btn_aria": {
+      "ar": "Language",
+      "key": "lang_btn_aria"
+    },
+    "footer": {
+      "brand_name": {
+        "ar": "مصمم الصور",
+        "key": "footer_brand_name"
+      },
+      "tagline": {
+        "ar": "المنصة العربية الأولى للتصميم الاحترافي بلمسة فاخرة.",
+        "key": "footer_tagline"
+      },
+      "col_design_title": {
+        "ar": "التصميم",
+        "key": "footer_col_design"
+      },
+      "col_support_title": {
+        "ar": "الدعم",
+        "key": "footer_col_support"
+      },
+      "col_legal_title": {
+        "ar": "القوانين",
+        "key": "footer_col_legal"
+      },
+      "link_templates": {
+        "ar": "القوالب الفاخرة",
+        "key": "footer_link_templates"
+      },
+      "link_fonts": {
+        "ar": "الخطوط العربية",
+        "key": "footer_link_fonts"
+      },
+      "link_tools": {
+        "ar": "الأدوات المتقدمة",
+        "key": "footer_link_tools"
+      },
+      "link_stickers": {
+        "ar": "الستيكرات",
+        "key": "footer_link_stickers"
+      },
+      "link_backgrounds": {
+        "ar": "الخلفيات",
+        "key": "footer_link_backgrounds"
+      },
+      "link_frames": {
+        "ar": "الإطارات",
+        "key": "footer_link_frames"
+      },
+      "link_help_center": {
+        "ar": "مركز المساعدة",
+        "key": "footer_link_help_center"
+      },
+      "link_faq": {
+        "ar": "الأسئلة الشائعة",
+        "key": "footer_link_faq"
+      },
+      "link_contact": {
+        "ar": "تواصل معنا",
+        "key": "footer_link_contact"
+      },
+      "link_community": {
+        "ar": "المجتمع",
+        "key": "footer_link_community"
+      },
+      "link_terms": {
+        "ar": "الشروط والأحكام",
+        "key": "footer_link_terms"
+      },
+      "link_privacy": {
+        "ar": "سياسة الخصوصية",
+        "key": "footer_link_privacy"
+      },
+      "link_cookies": {
+        "ar": "سياسة ملفات تعريف الارتباط",
+        "key": "footer_link_cookies"
+      },
+      "link_copyright": {
+        "ar": "حقوق الملكية",
+        "key": "footer_link_copyright"
+      },
+      "copyright": {
+        "ar": "&copy; 2025 مصمم الصور. جميع الحقوق محفوظة.",
+        "key": "footer_copyright"
+      }
+    }
+  },
+
+  "index.html": {
+    "title": {
+      "ar": "مصمم الصور",
+      "key": "index_title"
+    },
+    "og_title": {
+      "ar": "مصمم الصور - صمم صورك باحترافية",
+      "key": "index_og_title"
+    },
+    "og_description": {
+      "ar": "المنصة العربية الأولى للتصميم الاحترافي بلمسة فاخرة",
+      "key": "index_og_description"
+    },
+    "twitter_title": {
+      "ar": "مصمم الصور - صمم صورك باحترافية",
+      "key": "index_twitter_title"
+    },
+    "twitter_description": {
+      "ar": "المنصة العربية الأولى للتصميم الاحترافي بلمسة فاخرة.",
+      "key": "index_twitter_description"
+    },
+    "hero_h1": {
+      "ar": "صمّم صورك باحترافية بلمسة فاخرة وسهلة",
+      "key": "index_hero_h1"
+    },
+    "hero_h1_highlight_1": {
+      "ar": "باحترافية",
+      "key": "index_hero_h1_highlight_1"
+    },
+    "hero_h1_highlight_2": {
+      "ar": "فاخرة",
+      "key": "index_hero_h1_highlight_2"
+    },
+    "hero_desc": {
+      "ar": "اصنع أجمل التصاميم التي تعبّر عن هويتك. قوالب حصرية، أدوات متقدمة، وتجربة مستخدم صُممت خصيصاً لك.",
+      "key": "index_hero_desc"
+    },
+    "store_google_play_small": {
+      "ar": "GET IT ON",
+      "key": "index_store_google_play_small"
+    },
+    "store_google_play_bold": {
+      "ar": "Google Play",
+      "key": "index_store_google_play_bold"
+    },
+    "store_app_store_small": {
+      "ar": "Download on the",
+      "key": "index_store_app_store_small"
+    },
+    "store_app_store_bold": {
+      "ar": "App Store",
+      "key": "index_store_app_store_bold"
+    },
+    "phone_mockup_alt": {
+      "ar": "واجهة التطبيق",
+      "key": "index_phone_mockup_alt"
+    },
+    "stats_label_templates": {
+      "ar": "قالب تصميم",
+      "key": "index_stat_templates"
+    },
+    "stats_label_fonts": {
+      "ar": "خط عربي",
+      "key": "index_stat_fonts"
+    },
+    "stats_label_stickers": {
+      "ar": "ملصق وإطار",
+      "key": "index_stat_stickers"
+    },
+    "stats_label_filters": {
+      "ar": "فلتر إبداعي",
+      "key": "index_stat_filters"
+    },
+    "categories_h2": {
+      "ar": "تصاميم لكل مناسبة",
+      "key": "index_categories_h2"
+    },
+    "categories_h2_highlight": {
+      "ar": "لكل مناسبة",
+      "key": "index_categories_h2_highlight"
+    },
+    "categories_desc": {
+      "ar": "اختر من بين 17 تصنيفاً مختلفاً يناسب جميع احتياجاتك التصميمية",
+      "key": "index_categories_desc"
+    },
+    "featured_h2": {
+      "ar": "قوالب مميزة",
+      "key": "index_featured_h2"
+    },
+    "featured_h2_highlight": {
+      "ar": "مميزة",
+      "key": "index_featured_h2_highlight"
+    },
+    "featured_desc": {
+      "ar": "أحدث القوالب المضافة إلى التطبيق بتصاميم عصرية وفاخرة",
+      "key": "index_featured_desc"
+    },
+    "featured_cta": {
+      "ar": "تصفح جميع القوالب",
+      "key": "index_featured_cta"
+    },
+    "fonts_h2": {
+      "ar": "خطوط عربية احترافية",
+      "key": "index_fonts_h2"
+    },
+    "fonts_h2_highlight": {
+      "ar": "احترافية",
+      "key": "index_fonts_h2_highlight"
+    },
+    "fonts_desc": {
+      "ar": "أكثر من 471 خط عربي متنوع بين الكلاسيكي والحديث والفني",
+      "key": "index_fonts_desc"
+    },
+    "fonts_cta": {
+      "ar": "تصفح جميع الخطوط",
+      "key": "index_fonts_cta"
+    },
+    "stickers_h2": {
+      "ar": "ستيكرات إبداعية",
+      "key": "index_stickers_h2"
+    },
+    "stickers_h2_highlight": {
+      "ar": "إبداعية",
+      "key": "index_stickers_h2_highlight"
+    },
+    "stickers_desc": {
+      "ar": "أكثر من 1,200 ستيكر وإطار جاهز لإضفاء لمسة مميزة على تصاميمك",
+      "key": "index_stickers_desc"
+    },
+    "backgrounds_h2": {
+      "ar": "خلفيات مميزة",
+      "key": "index_backgrounds_h2"
+    },
+    "backgrounds_h2_highlight": {
+      "ar": "مميزة",
+      "key": "index_backgrounds_h2_highlight"
+    },
+    "backgrounds_desc": {
+      "ar": "مئات الخلفيات الاحترافية بتصاميم متنوعة تناسب كل الأذواق",
+      "key": "index_backgrounds_desc"
+    },
+    "tools_h2": {
+      "ar": "أدوات متقدمة",
+      "key": "index_tools_h2"
+    },
+    "tools_h2_highlight": {
+      "ar": "متقدمة",
+      "key": "index_tools_h2_highlight"
+    },
+    "tools_desc": {
+      "ar": "مجموعة احترافية من الأدوات لتصميم صور فريدة ومميزة",
+      "key": "index_tools_desc"
+    },
+    "tools_cta": {
+      "ar": "تعرف على الأدوات",
+      "key": "index_tools_cta"
+    }
+  },
+
+  "templates.html": {
+    "title": {
+      "ar": "القوالب الفاخرة - مصمم الصور",
+      "key": "templates_title"
+    },
+    "h1": {
+      "ar": "القوالب الفاخرة",
+      "key": "templates_h1"
+    },
+    "h1_highlight": {
+      "ar": "الفاخرة",
+      "key": "templates_h1_highlight"
+    },
+    "page_desc": {
+      "ar": "أكثر من 8,355 قالب تصميم جاهز. اختر القالب الذي يناسبك وحمّله مباشرة.",
+      "key": "templates_desc"
+    },
+    "search_placeholder": {
+      "ar": "🔍 ابحث عن تصنيف (مثال: اسلامي، عيد، قصة...)",
+      "key": "templates_search_placeholder"
+    },
+    "search_clear_aria": {
+      "ar": "مسح",
+      "key": "templates_search_clear_aria"
+    },
+    "filter_all": {
+      "ar": "الكل",
+      "key": "templates_filter_all"
+    },
+    "counter_categories_initial": {
+      "ar": "0 تصنيف",
+      "key": "templates_counter_categories_initial"
+    },
+    "counter_templates_initial": {
+      "ar": "0 قالب",
+      "key": "templates_counter_templates_initial"
+    },
+    "js_loading": {
+      "ar": "جاري التحميل...",
+      "key": "templates_js_loading"
+    },
+    "js_default_title": {
+      "ar": "تصميم",
+      "key": "templates_js_default_title"
+    },
+    "js_download_link": {
+      "ar": "تحميل التصميم ←",
+      "key": "templates_js_download_link"
+    },
+    "js_load_more_btn": {
+      "ar": "تحميل المزيد",
+      "key": "templates_js_load_more"
+    },
+    "js_active_badge_label": {
+      "ar": "التصنيف الحالي:",
+      "key": "templates_js_active_badge_label"
+    },
+    "js_active_badge_clear_aria": {
+      "ar": "إلغاء التصنيف",
+      "key": "templates_js_active_badge_clear_aria"
+    },
+    "js_active_badge_clear_title": {
+      "ar": "عرض الكل",
+      "key": "templates_js_active_badge_clear_title"
+    },
+    "js_counter_categories_format": {
+      "ar": "{count} تصنيف",
+      "key": "templates_js_counter_categories"
+    },
+    "js_counter_categories_filtered_format": {
+      "ar": "{shown} من {total} تصنيف",
+      "key": "templates_js_counter_categories_filtered"
+    },
+    "js_counter_templates_format": {
+      "ar": "{count} قالب",
+      "key": "templates_js_counter_templates"
+    },
+    "js_load_more_format": {
+      "ar": "تحميل المزيد ({page}/{total})",
+      "key": "templates_js_load_more_format"
+    },
+    "js_plus_badge": {
+      "ar": "Plus",
+      "key": "templates_js_plus_badge"
+    }
+  },
+
+  "fonts.html": {
+    "title": {
+      "ar": "الخطوط العربية - مصمم الصور",
+      "key": "fonts_title"
+    },
+    "h1": {
+      "ar": "الخطوط العربية",
+      "key": "fonts_h1"
+    },
+    "page_desc": {
+      "ar": "أكثر من 471 خط عربي وعالمي متنوع يجمع بين الأصالة والحداثة. تصفح الخطوط وحمّل ما يناسبك.",
+      "key": "fonts_desc"
+    },
+    "filter_all": {
+      "ar": "الكل",
+      "key": "fonts_filter_all"
+    },
+    "js_loading": {
+      "ar": "جاري التحميل...",
+      "key": "fonts_js_loading"
+    },
+    "js_load_error": {
+      "ar": "تعذر تحميل الخطوط",
+      "key": "fonts_js_load_error"
+    },
+    "js_no_fonts": {
+      "ar": "لا توجد خطوط",
+      "key": "fonts_js_no_fonts"
+    },
+    "js_default_font_name": {
+      "ar": "خط",
+      "key": "fonts_js_default_name"
+    },
+    "js_count_badge_format": {
+      "ar": "{count} خط",
+      "key": "fonts_js_count_badge"
+    },
+    "js_download_link": {
+      "ar": "تحميل الخط ←",
+      "key": "fonts_js_download_link"
+    },
+    "js_badge_premium": {
+      "ar": "مميز",
+      "key": "fonts_js_badge_premium"
+    },
+    "js_badge_new": {
+      "ar": "جديد",
+      "key": "fonts_js_badge_new"
+    }
+  },
+
+  "stickers.html": {
+    "title": {
+      "ar": "الستيكرات - مصمم الصور",
+      "key": "stickers_title"
+    },
+    "h1": {
+      "ar": "الستيكرات والعناصر",
+      "key": "stickers_h1"
+    },
+    "h1_highlight": {
+      "ar": "والعناصر",
+      "key": "stickers_h1_highlight"
+    },
+    "page_desc": {
+      "ar": "آلاف الستيكرات والعناصر الجاهزة للاستخدام. اختر أي ستيكر وحمّله مباشرة.",
+      "key": "stickers_desc"
+    },
+    "search_placeholder": {
+      "ar": "ابحث عن ستيكر (مثال: قلوب، بالونات، أعلام...)",
+      "key": "stickers_search_placeholder"
+    },
+    "search_clear_aria": {
+      "ar": "مسح",
+      "key": "stickers_search_clear_aria"
+    },
+    "filter_all": {
+      "ar": "الكل",
+      "key": "stickers_filter_all"
+    },
+    "filter_tab_elements": {
+      "ar": "عناصر",
+      "key": "stickers_filter_elements"
+    },
+    "filter_tab_manuscripts": {
+      "ar": "مخطوطات",
+      "key": "stickers_filter_manuscripts"
+    },
+    "filter_tab_shapes": {
+      "ar": "أشكال",
+      "key": "stickers_filter_shapes"
+    },
+    "filter_tab_effects": {
+      "ar": "تأثيرات",
+      "key": "stickers_filter_effects"
+    },
+    "filter_tab_frames": {
+      "ar": "إطارات",
+      "key": "stickers_filter_frames"
+    },
+    "js_loading": {
+      "ar": "جاري التحميل...",
+      "key": "stickers_js_loading"
+    },
+    "js_no_stickers": {
+      "ar": "لا توجد ستيكرات متاحة",
+      "key": "stickers_js_no_stickers"
+    }
+  },
+
+  "backgrounds.html": {
+    "title": {
+      "ar": "الخلفيات - مصمم الصور",
+      "key": "backgrounds_title"
+    },
+    "h1": {
+      "ar": "الخلفيات المميزة",
+      "key": "backgrounds_h1"
+    },
+    "h1_highlight": {
+      "ar": "المميزة",
+      "key": "backgrounds_h1_highlight"
+    },
+    "page_desc": {
+      "ar": "مئات الخلفيات الاحترافية بتصاميم متنوعة. اختر خلفيتك المفضلة وحمّلها مباشرة.",
+      "key": "backgrounds_desc"
+    },
+    "search_placeholder": {
+      "ar": "🔍 ابحث عن خلفية (مثال: ورد، تأثير، دخان...)",
+      "key": "backgrounds_search_placeholder"
+    },
+    "search_clear_aria": {
+      "ar": "مسح",
+      "key": "backgrounds_search_clear_aria"
+    },
+    "filter_all": {
+      "ar": "الكل",
+      "key": "backgrounds_filter_all"
+    },
+    "counter_categories_initial": {
+      "ar": "0 قسم",
+      "key": "backgrounds_counter_categories_initial"
+    },
+    "counter_items_initial": {
+      "ar": "0 خلفية",
+      "key": "backgrounds_counter_items_initial"
+    },
+    "js_loading": {
+      "ar": "جاري التحميل...",
+      "key": "backgrounds_js_loading"
+    },
+    "js_no_match": {
+      "ar": "لا توجد عناصر مطابقة",
+      "key": "backgrounds_js_no_match"
+    },
+    "js_default_item_title": {
+      "ar": "خلفية",
+      "key": "backgrounds_js_default_item_title"
+    },
+    "js_load_more_btn": {
+      "ar": "تحميل المزيد",
+      "key": "backgrounds_js_load_more"
+    },
+    "js_load_more_remaining_format": {
+      "ar": "({count} متبقي)",
+      "key": "backgrounds_js_load_more_remaining"
+    },
+    "js_counter_categories_format": {
+      "ar": "{count} قسم",
+      "key": "backgrounds_js_counter_categories"
+    },
+    "js_counter_items_format": {
+      "ar": "{count} خلفية",
+      "key": "backgrounds_js_counter_items"
+    },
+    "filter_cat_templates": {
+      "ar": "قوالب وإنفوجرافيك",
+      "key": "backgrounds_filter_cat_templates"
+    },
+    "filter_cat_nature": {
+      "ar": "طبيعة وأزهار",
+      "key": "backgrounds_filter_cat_nature"
+    },
+    "filter_cat_sky": {
+      "ar": "سماء وطقس",
+      "key": "backgrounds_filter_cat_sky"
+    },
+    "filter_cat_neon": {
+      "ar": "نيون وتدرجات",
+      "key": "backgrounds_filter_cat_neon"
+    },
+    "filter_cat_effects": {
+      "ar": "تأثيرات ودخان",
+      "key": "backgrounds_filter_cat_effects"
+    },
+    "filter_cat_paper": {
+      "ar": "ورقية وقديمة",
+      "key": "backgrounds_filter_cat_paper"
+    },
+    "filter_cat_decor": {
+      "ar": "زخارف إسلامية",
+      "key": "backgrounds_filter_cat_decor"
+    },
+    "filter_cat_other": {
+      "ar": "أخرى",
+      "key": "backgrounds_filter_cat_other"
+    }
+  },
+
+  "frames.html": {
+    "title": {
+      "ar": "الإطارات - مصمم الصور",
+      "key": "frames_title"
+    },
+    "h1": {
+      "ar": "الإطارات والزخارف",
+      "key": "frames_h1"
+    },
+    "h1_highlight": {
+      "ar": "والزخارف",
+      "key": "frames_h1_highlight"
+    },
+    "page_desc": {
+      "ar": "مئات الإطارات والزخارف الاحترافية بتصاميم متنوعة. اختر إطارك المفضل وحمّله مباشرة.",
+      "key": "frames_desc"
+    },
+    "search_placeholder": {
+      "ar": "🔍 ابحث عن إطار (مثال: كلاسيكية، ورقية، زهور...)",
+      "key": "frames_search_placeholder"
+    },
+    "search_clear_aria": {
+      "ar": "مسح",
+      "key": "frames_search_clear_aria"
+    },
+    "filter_all": {
+      "ar": "الكل",
+      "key": "frames_filter_all"
+    },
+    "counter_categories_initial": {
+      "ar": "0 قسم",
+      "key": "frames_counter_categories_initial"
+    },
+    "counter_items_initial": {
+      "ar": "0 إطار",
+      "key": "frames_counter_items_initial"
+    },
+    "js_loading": {
+      "ar": "جاري التحميل...",
+      "key": "frames_js_loading"
+    },
+    "js_counter_categories_format": {
+      "ar": "{count} قسم",
+      "key": "frames_js_counter_categories"
+    },
+    "js_counter_items_format": {
+      "ar": "{count} إطار",
+      "key": "frames_js_counter_items"
+    },
+    "filter_cat_all": {
+      "ar": "الكل",
+      "key": "frames_filter_cat_all"
+    },
+    "filter_cat_classic": {
+      "ar": "كلاسيكية",
+      "key": "frames_filter_cat_classic"
+    },
+    "filter_cat_decorated": {
+      "ar": "مزخرفة",
+      "key": "frames_filter_cat_decorated"
+    },
+    "filter_cat_flowers": {
+      "ar": "زهور",
+      "key": "frames_filter_cat_flowers"
+    },
+    "filter_cat_paper": {
+      "ar": "ورقية وقديمة",
+      "key": "frames_filter_cat_paper"
+    },
+    "filter_cat_invitations": {
+      "ar": "دعوات وشهادات",
+      "key": "frames_filter_cat_invitations"
+    },
+    "filter_cat_quotes": {
+      "ar": "اقتباسات",
+      "key": "frames_filter_cat_quotes"
+    },
+    "filter_cat_other": {
+      "ar": "أخرى",
+      "key": "frames_filter_cat_other"
+    }
+  },
+
+  "tools.html": {
+    "title": {
+      "ar": "الأدوات المتقدمة - مصمم الصور",
+      "key": "tools_title"
+    },
+    "h1": {
+      "ar": "الأدوات المتقدمة",
+      "key": "tools_h1"
+    },
+    "page_desc": {
+      "ar": "مجموعة احترافية من الأدوات المصممة خصيصاً لصناعة تصاميم استثنائية. من إزالة الخلفية إلى الطبقات المتعددة، كل ما تحتاجه في مكان واحد.",
+      "key": "tools_desc"
+    }
+  },
+
+  "help.html": {
+    "title": {
+      "ar": "مركز المساعدة - مصمم الصور",
+      "key": "help_title"
+    },
+    "h1": {
+      "ar": "مركز المساعدة",
+      "key": "help_h1"
+    },
+    "page_desc": {
+      "ar": "ابحث عن إجابات لأسئلتك أو تواصل مع فريق الدعم.",
+      "key": "help_desc"
+    },
+    "topic_quick_start_h3": {
+      "ar": "البدء السريع",
+      "key": "help_topic_quick_start"
+    },
+    "topic_quick_start_link_1": {
+      "ar": "كيفية استخدام الموقع",
+      "key": "help_link_use_site"
+    },
+    "topic_quick_start_link_2": {
+      "ar": "تصفح القوالب",
+      "key": "help_link_browse_templates"
+    },
+    "topic_quick_start_link_3": {
+      "ar": "تواصل مع الدعم",
+      "key": "help_link_contact_support"
+    },
+    "topic_design_h3": {
+      "ar": "القوالب والتصميم",
+      "key": "help_topic_design"
+    },
+    "topic_design_link_1": {
+      "ar": "اختيار القالب المناسب",
+      "key": "help_link_choose_template"
+    },
+    "topic_design_link_2": {
+      "ar": "تخصيص الخطوط",
+      "key": "help_link_customize_fonts"
+    },
+    "topic_design_link_3": {
+      "ar": "تغيير الخلفيات",
+      "key": "help_link_change_backgrounds"
+    },
+    "topic_design_link_4": {
+      "ar": "إضافة الإطارات",
+      "key": "help_link_add_frames"
+    },
+    "topic_advanced_h3": {
+      "ar": "الأدوات المتقدمة",
+      "key": "help_topic_advanced"
+    },
+    "topic_advanced_link_1": {
+      "ar": "قائمة الأدوات",
+      "key": "help_link_tools_list"
+    },
+    "topic_advanced_link_2": {
+      "ar": "الأسئلة الشائعة",
+      "key": "help_link_faq"
+    },
+    "topic_account_h3": {
+      "ar": "الحساب والدعم",
+      "key": "help_topic_account"
+    },
+    "topic_account_link_1": {
+      "ar": "تواصل معنا",
+      "key": "help_link_contact_us"
+    },
+    "topic_account_link_2": {
+      "ar": "المجتمع",
+      "key": "help_link_community"
+    },
+    "topic_account_link_3": {
+      "ar": "الشروط والأحكام",
+      "key": "help_link_terms"
+    },
+    "topic_account_link_4": {
+      "ar": "سياسة الخصوصية",
+      "key": "help_link_privacy"
+    }
+  },
+
+  "faq.html": {
+    "title": {
+      "ar": "الأسئلة الشائعة - مصمم الصور",
+      "key": "faq_title"
+    },
+    "h1": {
+      "ar": "الأسئلة الشائعة",
+      "key": "faq_h1"
+    },
+    "page_desc": {
+      "ar": "إجابات على أكثر الأسئلة شيوعاً.",
+      "key": "faq_desc"
+    },
+    "q1_h3": {
+      "ar": "ما هو تطبيق مصمم الصور؟",
+      "key": "faq_q1"
+    },
+    "q1_p": {
+      "ar": "مصمم الصور هو تطبيق تصميم عربي يتيح لك إنشاء تصاميم احترافية بسهولة باستخدام قوالب وفيرة وأدوات متقدمة.",
+      "key": "faq_a1"
+    },
+    "q2_h3": {
+      "ar": "هل التطبيق مجاني؟",
+      "key": "faq_q2"
+    },
+    "q2_p": {
+      "ar": "نعم، التطبيق مجاني للتحميل والاستخدام مع قوالب مجانية. يمكن الاشتراك في الخطة premium للحصول على قوالب وحقوق إضافية.",
+      "key": "faq_a2"
+    },
+    "q3_h3": {
+      "ar": "كيف أحفظ تصميمي؟",
+      "key": "faq_q3"
+    },
+    "q3_p": {
+      "ar": "بعد الانتهاء من التصميم، اضغط على زر \"حفظ\" واختر الصيغة المطلوبة (PNG أو JPG).",
+      "key": "faq_a3"
+    },
+    "q4_h3": {
+      "ar": "هل يمكنني استخدام التصاميم تجارياً؟",
+      "key": "faq_q4"
+    },
+    "q4_p": {
+      "ar": "نعم، بمجرد الاشتراك في التطبيق، تصبح التصاميم ملكاً لك ويمكن استخدامها تجارياً.",
+      "key": "faq_a4"
+    },
+    "q5_h3": {
+      "ar": "كيف أتواصل مع الدعم؟",
+      "key": "faq_q5"
+    },
+    "q5_p": {
+      "ar": "يمكنكم التواصل معنا عبر نموذج التواصل في صفحة تواصل معنا أو عبر وسائل التواصل الاجتماعي.",
+      "key": "faq_a5"
+    }
+  },
+
+  "contact.html": {
+    "title": {
+      "ar": "تواصل معنا - مصمم الصور",
+      "key": "contact_title"
+    },
+    "h1": {
+      "ar": "تواصل معنا",
+      "key": "contact_h1"
+    },
+    "page_desc": {
+      "ar": "لأي استفسار أو اقتراح، يمكنكم التواصل معنا.",
+      "key": "contact_desc"
+    },
+    "form_label_name": {
+      "ar": "الاسم",
+      "key": "contact_label_name"
+    },
+    "form_placeholder_name": {
+      "ar": "أدخل اسمك",
+      "key": "contact_placeholder_name"
+    },
+    "form_label_email": {
+      "ar": "البريد الإلكتروني",
+      "key": "contact_label_email"
+    },
+    "form_placeholder_email": {
+      "ar": "أدخل بريدك الإلكتروني",
+      "key": "contact_placeholder_email"
+    },
+    "form_label_message": {
+      "ar": "الرسالة",
+      "key": "contact_label_message"
+    },
+    "form_placeholder_message": {
+      "ar": "أدخل رسالتك",
+      "key": "contact_placeholder_message"
+    },
+    "form_submit_btn": {
+      "ar": "إرسال",
+      "key": "contact_submit"
+    }
+  },
+
+  "community.html": {
+    "title": {
+      "ar": "المجتمع - مصمم الصور",
+      "key": "community_title"
+    },
+    "h1": {
+      "ar": "المجتمع",
+      "key": "community_h1"
+    },
+    "page_desc": {
+      "ar": "انضم إلى مجتمع مصممي الصور وشارك إبداعاتك.",
+      "key": "community_desc"
+    },
+    "feature_gallery_h3": {
+      "ar": "المعرض",
+      "key": "community_feature_gallery"
+    },
+    "feature_gallery_p": {
+      "ar": "استعرض أعمال المصمين العرب ومشارك إبداعاتك.",
+      "key": "community_feature_gallery_desc"
+    },
+    "feature_courses_h3": {
+      "ar": "الدورات",
+      "key": "community_feature_courses"
+    },
+    "feature_courses_p": {
+      "ar": "تعلم أساسيات التصميم من خلال دورات مجانية.",
+      "key": "community_feature_courses_desc"
+    },
+    "feature_challenges_h3": {
+      "ar": "التحديات",
+      "key": "community_feature_challenges"
+    },
+    "feature_challenges_p": {
+      "ar": "شارك في تحديات التصميم الأسبوعية.",
+      "key": "community_feature_challenges_desc"
+    },
+    "feature_chat_h3": {
+      "ar": "الحوار",
+      "key": "community_feature_chat"
+    },
+    "feature_chat_p": {
+      "ar": "تحدث مع مصمين آخرين وشارك الخبرات.",
+      "key": "community_feature_chat_desc"
+    }
+  },
+
+  "terms.html": {
+    "title": {
+      "ar": "الشروط والأحكام - مصمم الصور",
+      "key": "terms_title"
+    },
+    "h1": {
+      "ar": "الشروط والأحكام",
+      "key": "terms_h1"
+    },
+    "page_desc": {
+      "ar": "آخر تحديث: يناير 2025",
+      "key": "terms_last_update"
+    },
+    "section_1_h2": {
+      "ar": "1. القبول",
+      "key": "terms_section_1_title"
+    },
+    "section_1_p": {
+      "ar": "باستخدام تطبيق مصمم الصور، فأنت توافق على الالتزام بهذه الشروط والأحكام. إذا كنت لا توافق مع أي من هذه الشروط، فلا يجوز لك استخدام التطبيق.",
+      "key": "terms_section_1_body"
+    },
+    "section_2_h2": {
+      "ar": "2. استخدام الخدمة",
+      "key": "terms_section_2_title"
+    },
+    "section_2_p": {
+      "ar": "يمنحك تطبيق مصمم الصور ترخيصاً محدوداً وغير حصري لاستخدام التطبيق للأغراض الشخصية وغير التجارية.",
+      "key": "terms_section_2_body"
+    },
+    "section_3_h2": {
+      "ar": "3. الحسابات",
+      "key": "terms_section_3_title"
+    },
+    "section_3_p": {
+      "ar": "أنت مسؤول عن الحفاظ على سرية حسابك وكلمة مرورك. أنت توافق على إخطارنا فوراً بأي استخدام غير مصرح به لحسابك.",
+      "key": "terms_section_3_body"
+    },
+    "section_4_h2": {
+      "ar": "4. المحتوى",
+      "key": "terms_section_4_title"
+    },
+    "section_4_p": {
+      "ar": "أنت تحتفظ بملكية أي محتوى تنشئه باستخدام التطبيق. بتحميل المحتوى، فأنت تمنحنا ترخيصاً لاستخدامه لتشغيل الخدمة.",
+      "key": "terms_section_4_body"
+    },
+    "section_5_h2": {
+      "ar": "5. الإلغاء",
+      "key": "terms_section_5_title"
+    },
+    "section_5_p": {
+      "ar": "نحتفظ بالحق في إنهاء وصولك إلى الخدمة في أي وقت، دون إشعار مسبق، لأي سبب.",
+      "key": "terms_section_5_body"
+    },
+    "section_6_h2": {
+      "ar": "6. التعديلات",
+      "key": "terms_section_6_title"
+    },
+    "section_6_p": {
+      "ar": "نحتفظ بالحق في تعديل هذه الشروط في أي وقت. سيتم إخطارك بأي تغييرات جوهرية.",
+      "key": "terms_section_6_body"
+    },
+    "section_7_h2": {
+      "ar": "7. الاتصال",
+      "key": "terms_section_7_title"
+    },
+    "section_7_p": {
+      "ar": "إذا كان لديك أي أسئلة حول هذه الشروط، يرجى التواصل معنا.",
+      "key": "terms_section_7_body"
+    }
+  },
+
+  "privacy.html": {
+    "title": {
+      "ar": "سياسة الخصوصية - مصمم الصور",
+      "key": "privacy_title"
+    },
+    "h1": {
+      "ar": "سياسة الخصوصية",
+      "key": "privacy_h1"
+    },
+    "page_desc": {
+      "ar": "آخر تحديث: يناير 2025",
+      "key": "privacy_last_update"
+    },
+    "section_1_h2": {
+      "ar": "1. مقدمة",
+      "key": "privacy_section_1_title"
+    },
+    "section_1_p": {
+      "ar": "نحن نقدر خصوصيتك ونلتزم بحماية بياناتك الشخصية. توضح هذه السياسة كيفية جمع واستخدام وحماية معلوماتك.",
+      "key": "privacy_section_1_body"
+    },
+    "section_2_h2": {
+      "ar": "2. المعلومات التي نجمعها",
+      "key": "privacy_section_2_title"
+    },
+    "section_2_p": {
+      "ar": "- المعلومات التي تقدمها: الاسم، البريد الإلكتروني، والصور التي ترفعها.\n- معلومات الاستخدام: كيفية تفاعلك مع التطبيق.\n- معلومات الجهاز: نوع الجهاز، نظام التشغيل.",
+      "key": "privacy_section_2_body"
+    },
+    "section_3_h2": {
+      "ar": "3. كيفية استخدام المعلومات",
+      "key": "privacy_section_3_title"
+    },
+    "section_3_p": {
+      "ar": "نستخدم المعلومات لتحسين الخدمة، تخصيص تجربتك، التواصل معك، وتوفير الدعم.",
+      "key": "privacy_section_3_body"
+    },
+    "section_4_h2": {
+      "ar": "4. مشاركة المعلومات",
+      "key": "privacy_section_4_title"
+    },
+    "section_4_p": {
+      "ar": "لا نبيع معلوماتك الشخصية. يمكننا مشاركة المعلومات مع مزودي الخدمة الذين يساعدوننا في تشغيل التطبيق.",
+      "key": "privacy_section_4_body"
+    },
+    "section_5_h2": {
+      "ar": "5. أمان البيانات",
+      "key": "privacy_section_5_title"
+    },
+    "section_5_p": {
+      "ar": "نستخدم إجراءات أمان متقدمة لحماية معلوماتك. ومع ذلك، لا يمكن ضمان أمان 100%.",
+      "key": "privacy_section_5_body"
+    },
+    "section_6_h2": {
+      "ar": "6. حقوقك",
+      "key": "privacy_section_6_title"
+    },
+    "section_6_p": {
+      "ar": "لديك الحق في الوصول إلى بياناتك، تصحيحها، وحذفها. تواصل معنا لممارسة هذه الحقوق.",
+      "key": "privacy_section_6_body"
+    },
+    "section_7_h2": {
+      "ar": "7. التغييرات",
+      "key": "privacy_section_7_title"
+    },
+    "section_7_p": {
+      "ar": "قد نحدث هذه السياسة من وقت لآخر. سنخطرك بأي تغييرات جوهرية.",
+      "key": "privacy_section_7_body"
+    },
+    "section_8_h2": {
+      "ar": "8. الاتصال",
+      "key": "privacy_section_8_title"
+    },
+    "section_8_p": {
+      "ar": "إذا كان لديك أسئلة حول هذه السياسة، تواصل معنا.",
+      "key": "privacy_section_8_body"
+    }
+  },
+
+  "cookies.html": {
+    "title": {
+      "ar": "سياسة ملفات تعريف الارتباط - مصمم الصور",
+      "key": "cookies_title"
+    },
+    "h1": {
+      "ar": "سياسة ملفات تعريف الارتباط",
+      "key": "cookies_h1"
+    },
+    "page_desc": {
+      "ar": "آخر تحديث: يناير 2025",
+      "key": "cookies_last_update"
+    },
+    "section_1_h2": {
+      "ar": "1. مقدمة",
+      "key": "cookies_section_1_title"
+    },
+    "section_1_p": {
+      "ar": "نستخدم ملفات تعريف الارتباط (Cookies) لتحسين تجربتك. تعرف على كيفية استخدامنا لهذه الملفات.",
+      "key": "cookies_section_1_body"
+    },
+    "section_2_h2": {
+      "ar": "2. ما هي ملفات تعريف الارتباط؟",
+      "key": "cookies_section_2_title"
+    },
+    "section_2_p": {
+      "ar": "ملفات تعريف الارتباط هي ملفات نصية صغيرة يتم تخزينها على جهازك عند زيارة المواقع.",
+      "key": "cookies_section_2_body"
+    },
+    "section_3_h2": {
+      "ar": "3. أنواع الملفات التي نستخدمها",
+      "key": "cookies_section_3_title"
+    },
+    "section_3_p": {
+      "ar": "الضرورية: ضرورية لتشغيل التطبيق.\nالتحليلية: تساعدنا في فهم كيفية استخدام التطبيق.\nالوظيفية: تتيح ميزات متقدمة.\nالتسويقية: تُستخدم لعرض إعلانات ذات صلة.",
+      "key": "cookies_section_3_body"
+    },
+    "section_3_strong_essential": {
+      "ar": "الضرورية:",
+      "key": "cookies_strong_essential"
+    },
+    "section_3_strong_analytics": {
+      "ar": "التحليلية:",
+      "key": "cookies_strong_analytics"
+    },
+    "section_3_strong_functional": {
+      "ar": "الوظيفية:",
+      "key": "cookies_strong_functional"
+    },
+    "section_3_strong_marketing": {
+      "ar": "التسويقية:",
+      "key": "cookies_strong_marketing"
+    },
+    "section_4_h2": {
+      "ar": "4. التحكم في الملفات",
+      "key": "cookies_section_4_title"
+    },
+    "section_4_p": {
+      "ar": "يمكنك التحكم في ملفات تعريف الارتباط أو حذفها من متصفحك. لكن ذلك قد يؤثر على بعض الميزات.",
+      "key": "cookies_section_4_body"
+    },
+    "section_5_h2": {
+      "ar": "5. ملفات تعريف الارتباط الخاصة بالطرف الثالث",
+      "key": "cookies_section_5_title"
+    },
+    "section_5_p": {
+      "ar": "قد نستخدم ملفات من أطراف ثالثة مثل Google Analytics لتحليل الاستخدام.",
+      "key": "cookies_section_5_body"
+    },
+    "section_6_h2": {
+      "ar": "6. التحديثات",
+      "key": "cookies_section_6_title"
+    },
+    "section_6_p": {
+      "ar": "قد نحدث هذه السياسة بشكل دوري. سنخطرك بأي تغييرات.",
+      "key": "cookies_section_6_body"
+    },
+    "section_7_h2": {
+      "ar": "7. الاتصال",
+      "key": "cookies_section_7_title"
+    },
+    "section_7_p": {
+      "ar": "لأي أسئلة حول هذه السياسة، تواصل معنا.",
+      "key": "cookies_section_7_body"
+    }
+  },
+
+  "copyright.html": {
+    "title": {
+      "ar": "حقوق الملكية - مصمم الصور",
+      "key": "copyright_title"
+    },
+    "h1": {
+      "ar": "حقوق الملكية",
+      "key": "copyright_h1"
+    },
+    "page_desc": {
+      "ar": "آخر تحديث: يناير 2025",
+      "key": "copyright_last_update"
+    },
+    "section_1_h2": {
+      "ar": "1. مقدمة",
+      "key": "copyright_section_1_title"
+    },
+    "section_1_p": {
+      "ar": "توضح هذه الصفحة حقوق الملكية الفكرية المتعلقة بتطبيق مصمم الصور.",
+      "key": "copyright_section_1_body"
+    },
+    "section_2_h2": {
+      "ar": "2. حقوق التطبيق",
+      "key": "copyright_section_2_title"
+    },
+    "section_2_p": {
+      "ar": "جميع حقوق التصميم والتطوير والتشغيل الخاص بتطبيق مصمم الصور محفوظة لنا. لا يُسمح بنسخ أو تعديل أو توزيع التطبيق دون إذن.",
+      "key": "copyright_section_2_body"
+    },
+    "section_3_h2": {
+      "ar": "3. القوالب",
+      "key": "copyright_section_3_title"
+    },
+    "section_3_p": {
+      "ar": "القوالب المجانية: يمكنك استخدامها للأغراض الشخصية.\nالقوالب المدفوعة: بمجرد الشراء، يمكنك استخدامها للأغراض التجارية.",
+      "key": "copyright_section_3_body"
+    },
+    "section_3_strong_free": {
+      "ar": "القوالب المجانية:",
+      "key": "copyright_strong_free"
+    },
+    "section_3_strong_paid": {
+      "ar": "القوالب المدفوعة:",
+      "key": "copyright_strong_paid"
+    },
+    "section_4_h2": {
+      "ar": "4. شعارات العلامات التجارية",
+      "key": "copyright_section_4_title"
+    },
+    "section_4_p": {
+      "ar": "شعارات Google Play وApple وSamsung وغيرها من العلامات التجارية هي ملك لأصحابها. لا نطالب بملكيتها.",
+      "key": "copyright_section_4_body"
+    },
+    "section_5_h2": {
+      "ar": "5. المحتوى الذي ينشئه المستخدمون",
+      "key": "copyright_section_5_title"
+    },
+    "section_5_p": {
+      "ar": "تصاميمك تظل ملكك. بتحميلها، تمنحنا ترخيصاً محدوداً لعرضها على التطبيق.",
+      "key": "copyright_section_5_body"
+    },
+    "section_6_h2": {
+      "ar": "6. الإبلاغ عن انتهاكات حقوق الطبع والنشر",
+      "key": "copyright_section_6_title"
+    },
+    "section_6_p": {
+      "ar": "إذا كنت تعتقد أن عملك قد تم استخدامه دون إذن، تواصل معنا.",
+      "key": "copyright_section_6_body"
+    },
+    "section_7_h2": {
+      "ar": "7. التغييرات",
+      "key": "copyright_section_7_title"
+    },
+    "section_7_p": {
+      "ar": "قد نحدث هذه السياسة من وقت لآخر. تحقق بانتظام للتحديثات.",
+      "key": "copyright_section_7_body"
+    },
+    "section_8_h2": {
+      "ar": "8. الاتصال",
+      "key": "copyright_section_8_title"
+    },
+    "section_8_p": {
+      "ar": "لأي أسئلة حول حقوق الملكية، تواصل معنا.",
+      "key": "copyright_section_8_body"
+    }
+  }
+}

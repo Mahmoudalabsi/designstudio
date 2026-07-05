@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+  <script>(function(){try{var t=localStorage.getItem("mudesign.theme")||"light";var l=localStorage.getItem("mudesign.lang")||"ar";document.documentElement.setAttribute("data-theme",t);document.documentElement.setAttribute("data-lang",l);document.documentElement.setAttribute("lang",l);document.documentElement.setAttribute("dir",l==="ar"?"rtl":"ltr");}catch(e){}})();</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>الإطارات - مصمم الصور</title>
+  <title data-i18n="frames_title">الإطارات - مصمم الصور</title>
   <link rel="icon" type="image/png" href="assets/app-icon.png" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="assets/aos.css" />
@@ -14,39 +15,47 @@
     <div class="header-inner">
       <a href="index.html" class="brand">
         <img src="assets/app-icon.png" alt="مصمم الصور" />
-        <span class="brand-name">مصمم الصور</span>
+        <span class="brand-name" data-i18n="brand_name">مصمم الصور</span>
       </a>
       <nav>
-        <a href="templates.html">القوالب</a>
-        <a href="fonts.html">الخطوط</a>
-        <a href="stickers.html">الستيكرات</a>
-        <a href="backgrounds.html">الخلفيات</a>
-        <a href="frames.html">الإطارات</a>
-        <a href="help.html">الدعم</a>
+        <a href="templates.html" data-i18n="nav_templates">القوالب</a>
+        <a href="fonts.html" data-i18n="nav_fonts">الخطوط</a>
+        <a href="stickers.html" data-i18n="nav_stickers">الستيكرات</a>
+        <a href="backgrounds.html" data-i18n="nav_backgrounds">الخلفيات</a>
+        <a href="frames.html" data-i18n="nav_frames">الإطارات</a>
+        <a href="help.html" data-i18n="nav_help">الدعم</a>
       </nav>
-      <button class="nav-toggle" aria-label="القائمة"><span></span><span></span><span></span></button>
+      <div class="header-actions">
+        <button class="lang-toggle-btn" id="langToggleBtn" aria-label="Language" title="Language">EN</button>
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Theme" title="Theme">🌙</button>
+      </div>
+      <button class="nav-toggle" aria-label="القائمة" data-i18n-aria="nav_toggle_aria"><span></span><span></span><span></span></button>
     </div>
   </header>
 
   <main>
     <div class="page-content">
       <div class="page-inner">
-        <h1 data-aos="fade-up">الإطارات <span class="gold">والزخارف</span></h1>
-        <p class="page-desc" data-aos="fade-up" data-aos-delay="100">مئات الإطارات والزخارف الاحترافية بتصاميم متنوعة. اختر إطارك المفضل وحمّله مباشرة.</p>
+        <h1 data-aos="fade-up" data-i18n-html="frames_h1">الإطارات <span class="gold">والزخارف</span></h1>
+        <p class="page-desc" data-aos="fade-up" data-aos-delay="100" data-i18n="frames_desc">مئات الإطارات والزخارف الاحترافية بتصاميم متنوعة. اختر إطارك المفضل وحمّله مباشرة.</p>
 
-        <div class="filter-bar" data-aos="fade-up" data-aos-delay="150">
-          <div class="search-box">
-            <input type="text" id="framesSearch" placeholder="ابحث عن إطار (مثال: كلاسيكية، ورقية، زهور...)" autocomplete="off">
-            <button class="search-clear" id="framesSearchClear" type="button" aria-label="مسح">×</button>
-          </div>
-          <div class="filter-tabs" id="framesFilterTabs">
-            <button class="filter-tab active" data-filter="all">الكل</button>
-            <button class="filter-tab" data-filter="classic">كلاسيكية</button>
-            <button class="filter-tab" data-filter="decorated">مزخرفة</button>
-            <button class="filter-tab" data-filter="flowers">زهور</button>
-            <button class="filter-tab" data-filter="paper">ورقية</button>
-            <button class="filter-tab" data-filter="other">أخرى</button>
-          </div>
+        <!-- أداة البحث في الإطارات -->
+        <div class="cat-search-wrapper" data-aos="fade-up" data-aos-delay="120">
+          <input type="text" id="framesSearch" class="cat-search-input" placeholder="🔍 ابحث عن إطار (مثال: كلاسيكية، ورقية، زهور...)" autocomplete="off" data-i18n-placeholder="frames_search_placeholder" />
+          <button id="framesSearchClear" class="cat-search-clear" aria-label="مسح" style="display:none;">×</button>
+        </div>
+
+        <!-- Category Filter Tabs -->
+        <div class="filter-bar" data-aos="fade-up" data-aos-delay="150" id="framesFilterBar">
+          <button class="filter-btn active" data-filter="all" data-i18n="frames_filter_cat_all">الكل</button>
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- عدّاد النتائج -->
+        <div class="filter-info" id="framesFilterInfo">
+          <span class="filter-counter" id="framesCatCounter" data-i18n="frames_counter_categories_initial">0 قسم</span>
+          <span class="filter-separator">•</span>
+          <span class="filter-counter tpl-count" id="framesItemCounter" data-i18n="frames_counter_items_initial">0 إطار</span>
         </div>
 
         <div id="framesContainer">
@@ -62,42 +71,42 @@
         <div>
           <a href="index.html" class="footer-brand-row">
             <img src="assets/app-icon.png" alt="مصمم الصور" />
-            <span class="footer-brand-name">مصمم الصور</span>
+            <span class="footer-brand-name" data-i18n="footer_brand_name">مصمم الصور</span>
           </a>
-          <p class="footer-tagline">المنصة العربية الأولى للتصميم الاحترافي بلمسة فاخرة.</p>
+          <p class="footer-tagline" data-i18n="footer_tagline">المنصة العربية الأولى للتصميم الاحترافي بلمسة فاخرة.</p>
         </div>
         <div class="footer-col">
-          <h4>التصميم</h4>
+          <h4 data-i18n="footer_col_design">التصميم</h4>
           <ul>
-            <li><a href="templates.html">القوالب الفاخرة</a></li>
-            <li><a href="fonts.html">الخطوط العربية</a></li>
-            <li><a href="tools.html">الأدوات المتقدمة</a></li>
-            <li><a href="stickers.html">الستيكرات</a></li>
-            <li><a href="backgrounds.html">الخلفيات</a></li>
-            <li><a href="frames.html">الإطارات</a></li>
+            <li><a href="templates.html" data-i18n="footer_link_templates">القوالب الفاخرة</a></li>
+            <li><a href="fonts.html" data-i18n="footer_link_fonts">الخطوط العربية</a></li>
+            <li><a href="tools.html" data-i18n="footer_link_tools">الأدوات المتقدمة</a></li>
+            <li><a href="stickers.html" data-i18n="footer_link_stickers">الستيكرات</a></li>
+            <li><a href="backgrounds.html" data-i18n="footer_link_backgrounds">الخلفيات</a></li>
+            <li><a href="frames.html" data-i18n="footer_link_frames">الإطارات</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>الدعم</h4>
+          <h4 data-i18n="footer_col_support">الدعم</h4>
           <ul>
-            <li><a href="help.html">مركز المساعدة</a></li>
-            <li><a href="faq.html">الأسئلة الشائعة</a></li>
-            <li><a href="contact.html">تواصل معنا</a></li>
-            <li><a href="community.html">المجتمع</a></li>
+            <li><a href="help.html" data-i18n="footer_link_help_center">مركز المساعدة</a></li>
+            <li><a href="faq.html" data-i18n="footer_link_faq">الأسئلة الشائعة</a></li>
+            <li><a href="contact.html" data-i18n="footer_link_contact">تواصل معنا</a></li>
+            <li><a href="community.html" data-i18n="footer_link_community">المجتمع</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>القوانين</h4>
+          <h4 data-i18n="footer_col_legal">القوانين</h4>
           <ul>
-            <li><a href="terms.html">الشروط والأحكام</a></li>
-            <li><a href="privacy.html">سياسة الخصوصية</a></li>
-            <li><a href="cookies.html">سياسة ملفات تعريف الارتباط</a></li>
-            <li><a href="copyright.html">حقوق الملكية</a></li>
+            <li><a href="terms.html" data-i18n="footer_link_terms">الشروط والأحكام</a></li>
+            <li><a href="privacy.html" data-i18n="footer_link_privacy">سياسة الخصوصية</a></li>
+            <li><a href="cookies.html" data-i18n="footer_link_cookies">سياسة ملفات تعريف الارتباط</a></li>
+            <li><a href="copyright.html" data-i18n="footer_link_copyright">حقوق الملكية</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bar">
-        <p class="footer-copy">&copy; 2025 مصمم الصور. جميع الحقوق محفوظة.</p>
+        <p class="footer-copy" data-i18n="footer_copyright">&copy; 2025 مصمم الصور. جميع الحقوق محفوظة.</p>
         <div class="social-links">
           <a href="https://x.com/MahmoudSuppah" aria-label="Twitter / X"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/></svg></a>
           <a href="https://www.instagram.com/mahmoud_al3bsi/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
@@ -116,6 +125,12 @@
       if (typeof AOS !== 'undefined') AOS.init({ once: true, offset: 120, duration: 700, easing: 'ease-out-cubic' });
 
       const container = document.getElementById('framesContainer');
+      const filterBar = document.getElementById('framesFilterBar');
+      const catCounter = document.getElementById('framesCatCounter');
+      const itemCounter = document.getElementById('framesItemCounter');
+      const searchInput = document.getElementById('framesSearch');
+      const searchClear = document.getElementById('framesSearchClear');
+
       container.innerHTML = '<div class="loading-spinner">جاري التحميل...</div>';
 
       // جلب الإطارات من preset 52 ومن stickers
@@ -130,54 +145,120 @@
 
       // بناء قائمة الإطارات الشاملة
       const allFrameSections = [];
+      // خريطة لتتبّع الأقسام المُضافة (لإزالة التكرار)
+      const seenTitles = new Set();
 
-      // 1. من preset 52 (إطارات كلاسيكية)
+      // دالة مساعدة لإضافة قسم (مع تجاوز التكرار)
+      function addSection(title, items, category, source) {
+        if (!title || items.length === 0) return;
+        // تنظيف العنوان لمقارنة أفضل (تجاهل حالة الأحرف والمسافات الزائدة)
+        const key = title.trim().toLowerCase().replace(/\s+/g, ' ');
+        if (seenTitles.has(key)) return; // قسم مكرر - تجاوز
+        seenTitles.add(key);
+        allFrameSections.push({ title, items, category, source });
+      }
+
+      // 1. من preset 52 (إطارات كلاسيكية) - نُصنّف كل قسم على حدة
       if (Array.isArray(framesPreset)) {
         framesPreset.forEach(function(section) {
           if (!section || !section.title) return;
           const items = AndalusiAPI.extractAssetItems(section);
-          if (items.length === 0) return;
-          allFrameSections.push({
-            title: section.title,
-            items: items,
-            category: 'classic',
-            source: 'preset52'
-          });
+          addSection(section.title, items, classifyFrame(section.title), 'preset52');
         });
       }
 
       // 2. من stickers (أقسام الإطارات)
       categorized.frames.forEach(function(entry) {
         if (entry.items.length === 0) return;
-        const title = entry.title;
-        // تحديد الفئة الفرعية
-        let subCat = 'other';
-        if (title.includes('كلاسيك')) subCat = 'classic';
-        else if (title.includes('مزخرف') || title.includes('زخرف')) subCat = 'decorated';
-        else if (title.includes('زهور') || title.includes('ورد') || title.includes('أزهار')) subCat = 'flowers';
-        else if (title.includes('ورق')) subCat = 'paper';
-        else if (title.includes('رفيع') || title.includes('صور') || title.includes('دعوات')) subCat = 'other';
-
-        allFrameSections.push({
-          title: entry.title,
-          items: entry.items,
-          category: subCat,
-          source: 'stickers'
-        });
+        addSection(entry.title, entry.items, classifyFrame(entry.title), 'stickers');
       });
 
-      let currentFilter = 'all';
+      // دالة تصنيف الإطارات بناءً على العنوان
+      // تدعم العربية والإنجليزية (الـ API يُرجع لغات مختلفة حسب الطلب)
+      // تُصنّف بترتيب الأولوية: الكلمات الأكثر تحديداً أولاً
+      function classifyFrame(title) {
+        const t = (title || '').trim().toLowerCase();
+        if (!t) return 'other';
+
+        // قوائم الكلمات المفتاحية مرتبة حسب الأولوية (الأكثر تحديداً أولاً)
+        const rules = [
+          // زهور (أكثر تحديداً من "ورد")
+          { cat: 'flowers', keywords: ['زهور', 'زهرية', 'أزهار', 'ازهار', 'الزهور', 'flowers', 'flower'] },
+          // ورقية / قديمة
+          { cat: 'paper', keywords: ['ورق', 'اوراق', 'أوراق', 'قديمة', 'قصاصات', 'paper', 'retro', 'vintage', 'old'] },
+          // مزخرفة
+          { cat: 'decorated', keywords: ['مزخرف', 'زخرف', 'ذهب', 'ذهبية', 'زوايا مزخرفة', 'decorated', 'ornament', 'ribbon'] },
+          // دعوات وشهادات
+          { cat: 'invitations', keywords: ['دعوات', 'دعوة', 'شهادة', 'شهادات', 'invitation', 'invitations', 'wedding', 'certificate'] },
+          // اقتباسات (فئة مستقلة)
+          { cat: 'quotes', keywords: ['اقتباس', 'اقتباسات', 'أقتباسات', 'quotes', 'quote'] },
+          // كلاسيكية / بسيطة
+          { cat: 'classic', keywords: ['كلاسيك', 'رفيع', 'بسيطة', 'classic', 'minimal', 'pictures', 'images'] }
+        ];
+
+        // التحقق من كل قاعدة بالترتيب
+        for (const rule of rules) {
+          for (const kw of rule.keywords) {
+            if (t.includes(kw.toLowerCase())) return rule.cat;
+          }
+        }
+
+        // افتراضي: أخرى
+        return 'other';
+      }
+
+      // أسماء الفئات للعرض (مع عداد لكل فئة)
+      const FILTER_CATEGORIES = [
+        { id: 'all', name: 'الكل' },
+        { id: 'classic', name: 'كلاسيكية' },
+        { id: 'decorated', name: 'مزخرفة' },
+        { id: 'flowers', name: 'زهور' },
+        { id: 'paper', name: 'ورقية وقديمة' },
+        { id: 'invitations', name: 'دعوات وشهادات' },
+        { id: 'quotes', name: 'اقتباسات' },
+        { id: 'other', name: 'أخرى' }
+      ];
+
+      // بناء أزرار الفلاتر مع عدّاد لكل فئة
+      function buildFilterButtons() {
+        // إزالة كل الأزرار ما عدا "الكل"
+        Array.from(filterBar.querySelectorAll('.filter-btn:not([data-filter="all"])')).forEach(b => b.remove());
+        const allBtn = filterBar.querySelector('[data-filter="all"]');
+
+        FILTER_CATEGORIES.forEach(fc => {
+          if (fc.id === 'all') return;
+          const count = allFrameSections.filter(s => s.category === fc.id).length;
+          if (count === 0) return; // لا تُظهر الأزرار الفارغة
+          const btn = document.createElement('button');
+          btn.className = 'filter-btn';
+          btn.dataset.filter = fc.id;
+          btn.innerHTML = `${fc.name} <span class="filter-btn-count">${count}</span>`;
+          filterBar.appendChild(btn);
+        });
+
+        // عدّاد "الكل"
+        const totalAll = allFrameSections.length;
+        allBtn.innerHTML = `الكل <span class="filter-btn-count">${totalAll}</span>`;
+      }
+
+      buildFilterButtons();
+
       let currentSearch = '';
 
+      // خريطة ترتيب التصنيفات (نفس ترتيب أزرار الفلتر)
+      const CATEGORY_ORDER = FILTER_CATEGORIES.reduce((map, fc, idx) => {
+        map[fc.id] = idx;
+        return map;
+      }, {});
+
+      // عرض كل الأقسام دائماً (لا فلترة عند الضغط على التصنيف - مجرد تنقل سلس)
+      // البحث فقط هو الذي يُفلتر
       function renderSections() {
         let filtered = allFrameSections;
-        if (currentFilter !== 'all') {
-          filtered = allFrameSections.filter(s => s.category === currentFilter);
-        }
 
         if (currentSearch) {
           const q = currentSearch.toLowerCase();
-          filtered = filtered.filter(s => {
+          filtered = allFrameSections.filter(s => {
             if (s.title && s.title.toLowerCase().includes(q)) return true;
             return s.items.some(item => {
               const t = (item.title || '').toLowerCase();
@@ -186,32 +267,69 @@
           });
         }
 
+        // فرز الأقسام حسب ترتيب التصنيفات (نفس ترتيب أزرار الفلتر)
+        filtered = filtered.slice().sort((a, b) => {
+          const oa = CATEGORY_ORDER[a.category] ?? 999;
+          const ob = CATEGORY_ORDER[b.category] ?? 999;
+          if (oa !== ob) return oa - ob;
+          // ضمن نفس التصنيف: حسب العنوان أبجدياً
+          return (a.title || '').localeCompare(b.title || '', 'ar');
+        });
+
+        // تحديث العدّاد
+        const totalItems = filtered.reduce((sum, s) => sum + s.items.length, 0);
+        catCounter.textContent = `${filtered.length} قسم`;
+        itemCounter.textContent = `${totalItems} إطار`;
+
         SmartRender.renderSectionsProgressive(container, filtered, 'frames-list-grid', true, 8);
       }
 
       renderSections();
 
-      // ربط الفلاتر
-      document.querySelectorAll('#framesFilterTabs .filter-tab').forEach(tab => {
-        tab.addEventListener('click', function() {
-          document.querySelectorAll('#framesFilterTabs .filter-tab').forEach(t => t.classList.remove('active'));
-          this.classList.add('active');
-          currentFilter = this.dataset.filter;
-          renderSections();
-        });
+      // ربط الفلاتر (event delegation)
+      // ⚡ السلوك: الضغط على تصنيف = تمرير سلس لأول قسم ينتمي لهذا التصنيف
+      // لا فلترة فعلية - كل التصاميم تبقى ظاهرة
+      filterBar.addEventListener('click', function(e) {
+        const btn = e.target.closest('.filter-btn');
+        if (!btn) return;
+        filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filterVal = btn.dataset.filter;
+
+        if (filterVal === 'all') {
+          // العودة لأعلى الصفحة
+          window.scrollTo({ top: container.offsetTop - 100, behavior: 'smooth' });
+        } else {
+          // البحث عن أول قسم ينتمي لهذا التصنيف
+          const firstSection = container.querySelector(`.section-title-bar[data-category="${filterVal}"]`);
+          if (firstSection) {
+            // التمرير السلس للقسم
+            const offset = firstSection.offsetTop - 120;
+            window.scrollTo({ top: offset, behavior: 'smooth' });
+            // وميض خفيف لإبراز القسم
+            firstSection.style.transition = 'background 0.3s';
+            firstSection.style.background = 'rgba(201, 168, 76, 0.2)';
+            setTimeout(() => {
+              firstSection.style.background = '';
+            }, 1000);
+          }
+        }
       });
 
-      // ربط البحث
-      const searchInput = document.getElementById('framesSearch');
-      const searchClear = document.getElementById('framesSearchClear');
+      // ربط البحث (هو فقط من يُفلتر)
       let searchTimeout;
       searchInput.addEventListener('input', function() {
         clearTimeout(searchTimeout);
         searchTimeout = setTimeout(() => {
-          currentSearch = this.value;
-          searchClear.style.display = currentSearch ? 'block' : 'none';
+          currentSearch = this.value.trim();
+          searchClear.style.display = currentSearch ? 'flex' : 'none';
+          // إعادة تفعيل زر "الكل" عند البحث
+          if (currentSearch) {
+            filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            filterBar.querySelector('[data-filter="all"]').classList.add('active');
+          }
           renderSections();
-        }, 400);
+        }, 350);
       });
       searchClear.addEventListener('click', function() {
         searchInput.value = '';
@@ -240,5 +358,6 @@
     <script src="auth-config.js"></script>
     <script src="auth.js"></script>
 
+  <script src="theme.js"></script>
 </body>
 </html>

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+  <script>(function(){try{var t=localStorage.getItem("mudesign.theme")||"light";var l=localStorage.getItem("mudesign.lang")||"ar";document.documentElement.setAttribute("data-theme",t);document.documentElement.setAttribute("data-lang",l);document.documentElement.setAttribute("lang",l);document.documentElement.setAttribute("dir",l==="ar"?"rtl":"ltr");}catch(e){}})();</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>القوالب الفاخرة - مصمم الصور</title>
+  <title data-i18n="templates_title">القوالب الفاخرة - مصمم الصور</title>
   <link rel="icon" type="image/png" href="assets/app-icon.png" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="assets/aos.css" />
@@ -15,17 +16,21 @@
     <div class="header-inner">
       <a href="index.html" class="brand">
         <img src="assets/app-icon.png" alt="مصمم الصور" />
-        <span class="brand-name">مصمم الصور</span>
+        <span class="brand-name" data-i18n="brand_name">مصمم الصور</span>
       </a>
       <nav>
-        <a href="templates.html">القوالب</a>
-        <a href="fonts.html">الخطوط</a>
-        <a href="stickers.html">الستيكرات</a>
-        <a href="backgrounds.html">الخلفيات</a>
-        <a href="frames.html">الإطارات</a>
-        <a href="help.html">الدعم</a>
+        <a href="templates.html" data-i18n="nav_templates">القوالب</a>
+        <a href="fonts.html" data-i18n="nav_fonts">الخطوط</a>
+        <a href="stickers.html" data-i18n="nav_stickers">الستيكرات</a>
+        <a href="backgrounds.html" data-i18n="nav_backgrounds">الخلفيات</a>
+        <a href="frames.html" data-i18n="nav_frames">الإطارات</a>
+        <a href="help.html" data-i18n="nav_help">الدعم</a>
       </nav>
-      <button class="nav-toggle" aria-label="القائمة"><span></span><span></span><span></span></button>
+      <div class="header-actions">
+        <button class="lang-toggle-btn" id="langToggleBtn" aria-label="Language" title="Language">EN</button>
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Theme" title="Theme">🌙</button>
+      </div>
+      <button class="nav-toggle" aria-label="القائمة" data-i18n-aria="nav_toggle_aria"><span></span><span></span><span></span></button>
     </div>
   </header>
 
@@ -33,25 +38,25 @@
   <main>
     <div class="page-content">
       <div class="page-inner">
-        <h1 data-aos="fade-up">القوالب الفاخرة</h1>
-        <p class="page-desc" data-aos="fade-up" data-aos-delay="100">أكثر من 8,355 قالب تصميم جاهز. اختر القالب الذي يناسبك وحمّله مباشرة.</p>
+        <h1 data-aos="fade-up" data-i18n-html="templates_h1">القوالب <span class="gold">الفاخرة</span></h1>
+        <p class="page-desc" data-aos="fade-up" data-aos-delay="100" data-i18n="templates_desc">أكثر من 8,355 قالب تصميم جاهز. اختر القالب الذي يناسبك وحمّله مباشرة.</p>
         
         <!-- أداة البحث في التصنيفات -->
         <div class="cat-search-wrapper" data-aos="fade-up" data-aos-delay="120">
-          <input type="text" id="catSearchInput" class="cat-search-input" placeholder="🔍 ابحث عن تصنيف (مثال: اسلامي، عيد، قصة...)" />
+          <input type="text" id="catSearchInput" class="cat-search-input" placeholder="🔍 ابحث عن تصنيف (مثال: اسلامي، عيد، قصة...)" data-i18n-placeholder="templates_search_placeholder" />
           <button id="catSearchClear" class="cat-search-clear" aria-label="مسح" style="display:none;">×</button>
         </div>
 
         <!-- Category Filter -->
         <div class="filter-bar" data-aos="fade-up" data-aos-delay="150" id="filterBar">
-          <button class="filter-btn active" data-filter="all">الكل</button>
+          <button class="filter-btn active" data-filter="all" data-i18n="templates_filter_all">الكل</button>
         </div>
 
         <!-- عداد التصنيفات والقوالب -->
         <div class="filter-info" id="filterInfo">
-          <span class="filter-counter" id="catCounter">0 تصنيف</span>
+          <span class="filter-counter" id="catCounter" data-i18n="templates_counter_categories_initial">0 تصنيف</span>
           <span class="filter-separator">•</span>
-          <span class="filter-counter tpl-count" id="tplCounter">0 قالب</span>
+          <span class="filter-counter tpl-count" id="tplCounter" data-i18n="templates_counter_templates_initial">0 قالب</span>
         </div>
 
         <div class="api-grid" id="templatesGrid">
@@ -68,42 +73,42 @@
         <div>
           <a href="index.html" class="footer-brand-row">
             <img src="assets/app-icon.png" alt="مصمم الصور" />
-            <span class="footer-brand-name">مصمم الصور</span>
+            <span class="footer-brand-name" data-i18n="footer_brand_name">مصمم الصور</span>
           </a>
-          <p class="footer-tagline">المنصة العربية الأولى للتصميم الاحترافي بلمسة فاخرة.</p>
+          <p class="footer-tagline" data-i18n="footer_tagline">المنصة العربية الأولى للتصميم الاحترافي بلمسة فاخرة.</p>
         </div>
         <div class="footer-col">
-          <h4>التصميم</h4>
+          <h4 data-i18n="footer_col_design">التصميم</h4>
           <ul>
-            <li><a href="templates.html">القوالب الفاخرة</a></li>
-            <li><a href="fonts.html">الخطوط العربية</a></li>
-            <li><a href="tools.html">الأدوات المتقدمة</a></li>
-            <li><a href="stickers.html">الستيكرات</a></li>
-            <li><a href="backgrounds.html">الخلفيات</a></li>
-            <li><a href="frames.html">الإطارات</a></li>
+            <li><a href="templates.html" data-i18n="footer_link_templates">القوالب الفاخرة</a></li>
+            <li><a href="fonts.html" data-i18n="footer_link_fonts">الخطوط العربية</a></li>
+            <li><a href="tools.html" data-i18n="footer_link_tools">الأدوات المتقدمة</a></li>
+            <li><a href="stickers.html" data-i18n="footer_link_stickers">الستيكرات</a></li>
+            <li><a href="backgrounds.html" data-i18n="footer_link_backgrounds">الخلفيات</a></li>
+            <li><a href="frames.html" data-i18n="footer_link_frames">الإطارات</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>الدعم</h4>
+          <h4 data-i18n="footer_col_support">الدعم</h4>
           <ul>
-            <li><a href="help.html">مركز المساعدة</a></li>
-            <li><a href="faq.html">الأسئلة الشائعة</a></li>
-            <li><a href="contact.html">تواصل معنا</a></li>
-            <li><a href="community.html">المجتمع</a></li>
+            <li><a href="help.html" data-i18n="footer_link_help_center">مركز المساعدة</a></li>
+            <li><a href="faq.html" data-i18n="footer_link_faq">الأسئلة الشائعة</a></li>
+            <li><a href="contact.html" data-i18n="footer_link_contact">تواصل معنا</a></li>
+            <li><a href="community.html" data-i18n="footer_link_community">المجتمع</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>القوانين</h4>
+          <h4 data-i18n="footer_col_legal">القوانين</h4>
           <ul>
-            <li><a href="terms.html">الشروط والأحكام</a></li>
-            <li><a href="privacy.html">سياسة الخصوصية</a></li>
-            <li><a href="cookies.html">سياسة ملفات تعريف الارتباط</a></li>
-            <li><a href="copyright.html">حقوق الملكية</a></li>
+            <li><a href="terms.html" data-i18n="footer_link_terms">الشروط والأحكام</a></li>
+            <li><a href="privacy.html" data-i18n="footer_link_privacy">سياسة الخصوصية</a></li>
+            <li><a href="cookies.html" data-i18n="footer_link_cookies">سياسة ملفات تعريف الارتباط</a></li>
+            <li><a href="copyright.html" data-i18n="footer_link_copyright">حقوق الملكية</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bar">
-        <p class="footer-copy">&copy; 2025 مصمم الصور. جميع الحقوق محفوظة.</p>
+        <p class="footer-copy" data-i18n="footer_copyright">&copy; 2025 مصمم الصور. جميع الحقوق محفوظة.</p>
         <div class="social-links">
           <a href="https://x.com/MahmoudSuppah" aria-label="Twitter / X"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/></svg></a>
           <a href="https://www.instagram.com/mahmoud_al3bsi/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
@@ -132,6 +137,7 @@
       let totalPages = 1;
       let allCategories = [];
       let currentTotalTemplates = 0;
+      let isLoadingMore = false; // منع التحميل المتزامن
 
       // Check URL params for category
       const urlParams = new URLSearchParams(window.location.search);
@@ -150,43 +156,102 @@
 
       // دالة عرض التصنيفات (مع دعم البحث)
       function renderCategories(filterText = '') {
-        // إزالة كل الأزرار ما عدا "الكل"
+        // الاحتفاظ بزر "الكل" وإعادة بناء بقية الأزرار
         const allBtn = filterBar.querySelector('[data-filter="all"]');
-        filterBar.innerHTML = '';
-        filterBar.appendChild(allBtn);
+        // إزالة كل الأزرار ما عدا "الكل"
+        Array.from(filterBar.querySelectorAll('.filter-btn:not([data-filter="all"])')).forEach(b => b.remove());
 
         const q = filterText.trim().toLowerCase();
         const filtered = q
           ? allCategories.filter(c => c.name.toLowerCase().includes(q))
           : allCategories;
 
+        // تحديد ما إذا كان التصنيف النشط الحالي موجوداً في القائمة المعروضة
+        let activeCatInList = false;
+        const activeId = currentCategory !== null ? String(currentCategory) : null;
+
         filtered.forEach(cat => {
           const btn = document.createElement('button');
           btn.className = 'filter-btn';
           btn.dataset.filter = cat.id;
-          btn.textContent = cat.name;
+          // استخدام أيقونة التصنيف إن وُجدت + الاسم
+          if (cat.icon) {
+            btn.innerHTML = `<img src="${cat.icon}" alt="" class="filter-btn-icon" loading="lazy" onerror="this.style.display='none'"><span>${cat.name}</span>`;
+          } else {
+            btn.textContent = cat.name;
+          }
           // استخدام لون التصنيف كـ accent
           if (cat.colors && cat.colors[0]) {
             btn.style.setProperty('--cat-color', cat.colors[0]);
           }
-          if (String(cat.id) === catParam || String(cat.id) === String(currentCategory)) {
+          if (activeId && String(cat.id) === activeId) {
             btn.classList.add('active');
             allBtn.classList.remove('active');
+            activeCatInList = true;
           }
           filterBar.appendChild(btn);
         });
 
-        // تحديث العداد
-        catCounter.textContent = `${filtered.length} تصنيف`;
+        // ⚠️ إصلاح bug: لو التصنيف النشط غير موجود في نتائج البحث، أعد تفعيل "الكل" بصرياً
+        // لكن نُبقي currentCategory الفعلي كما هو (لكي لا تتغير النتائج بمجرد البحث)
+        if (activeId && !activeCatInList) {
+          allBtn.classList.add('active');
+        } else if (!activeId) {
+          allBtn.classList.add('active');
+        }
+
+        // تحديث العداد (يُظهر عدد المعروض/الإجمالي عند البحث)
+        if (q) {
+          catCounter.textContent = `${filtered.length} من ${allCategories.length} تصنيف`;
+        } else {
+          catCounter.textContent = `${allCategories.length} تصنيف`;
+        }
         // إظهار/إخفاء زر المسح
         catSearchClear.style.display = q ? 'flex' : 'none';
 
-        // تفعيل scroll-mode تلقائياً عند كثرة التصنيفات (أكثر من 30)
-        if (filtered.length > 30) {
+        // تفعيل scroll-mode تلقائياً عند كثرة التصنيفات (أكثر من 24)
+        if (filtered.length > 24) {
           filterBar.classList.add('scroll-mode');
         } else {
           filterBar.classList.remove('scroll-mode');
         }
+
+        // تحديث شارة التصنيف النشط (تُظهر اسم التصنيف الحالي فوق الشبكة)
+        updateActiveBadge();
+      }
+
+      // شارة التصنيف النشط - تُظهر للمستخدم ما هو التصنيف المختار حالياً
+      function updateActiveBadge() {
+        let badge = document.getElementById('activeCatBadge');
+        if (currentCategory === null) {
+          if (badge) badge.remove();
+          return;
+        }
+        const cat = allCategories.find(c => String(c.id) === String(currentCategory));
+        if (!cat) return;
+        if (!badge) {
+          badge = document.createElement('div');
+          badge.id = 'activeCatBadge';
+          badge.className = 'active-cat-badge';
+          filterInfo.parentElement.insertBefore(badge, filterInfo);
+        }
+        const colorStyle = (cat.colors && cat.colors[0])
+          ? `style="--cat-color:${cat.colors[0]}"`
+          : '';
+        badge.innerHTML = `
+          <span class="badge-label">التصنيف الحالي:</span>
+          <span class="badge-name" ${colorStyle}>${cat.name}</span>
+          <button class="badge-clear" id="clearCatBtn" aria-label="إلغاء التصنيف" title="عرض الكل">×</button>
+        `;
+        document.getElementById('clearCatBtn').addEventListener('click', () => {
+          currentCategory = null;
+          // إزالة catParam من URL
+          const u = new URL(window.location.href);
+          u.searchParams.delete('cat');
+          window.history.replaceState({}, '', u.toString());
+          renderCategories(catSearchInput.value);
+          loadTemplates(1, false);
+        });
       }
 
       renderCategories();
@@ -240,7 +305,7 @@
         // تحديث عدّاد القوالب
         tplCounter.textContent = `${result.total} قالب`;
 
-        // Update or add load more button
+        // Update or add load more button (يظهر كنسخة احتياطية لـ lazy loading)
         let loadMoreBtn = document.getElementById('loadMoreBtn');
         if (currentPage < totalPages) {
           if (!loadMoreBtn) {
@@ -251,6 +316,8 @@
             grid.parentElement.appendChild(loadMoreBtn);
           }
           loadMoreBtn.textContent = `تحميل المزيد (${currentPage}/${totalPages})`;
+          // إعادة المراقبة بعد إضافة صفحة جديدة
+          observeLoadMore();
         } else if (loadMoreBtn) {
           loadMoreBtn.remove();
         }
@@ -258,14 +325,42 @@
         if (typeof AOS !== 'undefined') AOS.refresh();
       }
 
+      // ⚡ Lazy Loading: تحميل تلقائي عند الوصول لزر "تحميل المزيد"
+      let loadMoreObserver = null;
+      function observeLoadMore() {
+        if (loadMoreObserver) loadMoreObserver.disconnect();
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        if (!loadMoreBtn) return;
+        loadMoreObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !isLoadingMore && currentPage < totalPages) {
+              isLoadingMore = true;
+              loadMoreBtn.textContent = 'جاري التحميل...';
+              loadTemplates(currentPage + 1, true).finally(() => {
+                isLoadingMore = false;
+              });
+            }
+          });
+        }, { rootMargin: '300px 0px', threshold: 0.01 });
+        loadMoreObserver.observe(loadMoreBtn);
+      }
+
       // Filter click handler
       filterBar.addEventListener('click', async (e) => {
-        if (!e.target.classList.contains('filter-btn')) return;
+        const btn = e.target.closest('.filter-btn');
+        if (!btn) return;
         filterBar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        e.target.classList.add('active');
-        currentCategory = e.target.dataset.filter === 'all' ? null : e.target.dataset.filter;
+        btn.classList.add('active');
+        const filterVal = btn.dataset.filter;
+        currentCategory = filterVal === 'all' ? null : filterVal;
+        // تحديث URL ليدعم المشاركة
+        const u = new URL(window.location.href);
+        if (currentCategory === null) u.searchParams.delete('cat');
+        else u.searchParams.set('cat', currentCategory);
+        window.history.replaceState({}, '', u.toString());
         currentPage = 1;
         await loadTemplates(1, false);
+        updateActiveBadge();
         // التمرير لأعلى الشبكة
         grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
@@ -277,5 +372,6 @@
     <script src="auth-config.js"></script>
     <script src="auth.js"></script>
 
+  <script src="theme.js"></script>
 </body>
 </html>

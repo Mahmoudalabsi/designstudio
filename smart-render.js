@@ -78,6 +78,10 @@ const SmartRender = {
     // عنوان القسم
     const titleBar = document.createElement('div');
     titleBar.className = 'section-title-bar';
+    // إضافة data-category للسماح بالتمرير السلس للقسم
+    if (section.category) {
+      titleBar.setAttribute('data-category', section.category);
+    }
     titleBar.setAttribute('data-aos', 'fade-up');
     const totalText = section.items.length + ' عنصر';
     titleBar.innerHTML = `<h3 style="font-size:1rem;">${title}</h3><span class="count-badge">${totalText}</span>`;

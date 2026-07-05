@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+  <script>(function(){try{var t=localStorage.getItem("mudesign.theme")||"light";var l=localStorage.getItem("mudesign.lang")||"ar";document.documentElement.setAttribute("data-theme",t);document.documentElement.setAttribute("data-lang",l);document.documentElement.setAttribute("lang",l);document.documentElement.setAttribute("dir",l==="ar"?"rtl":"ltr");}catch(e){}})();</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>الأسئلة الشائعة - مصمم الصور</title>
+  <title data-i18n="faq_title">الأسئلة الشائعة - مصمم الصور</title>
   <link rel="icon" type="image/png" href="assets/app-icon.png" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="assets/aos.css" />
@@ -14,46 +15,50 @@
     <div class="header-inner">
       <a href="index.html" class="brand">
         <img src="assets/app-icon.png" alt="مصمم الصور" />
-        <span class="brand-name">مصمم الصور</span>
+        <span class="brand-name" data-i18n="brand_name">مصمم الصور</span>
       </a>
       <nav>
-        <a href="templates.html">القوالب</a>
-        <a href="fonts.html">الخطوط</a>
-        <a href="stickers.html">الستيكرات</a>
-        <a href="backgrounds.html">الخلفيات</a>
-        <a href="frames.html">الإطارات</a>
-        <a href="help.html">الدعم</a>
+        <a href="templates.html" data-i18n="nav_templates">القوالب</a>
+        <a href="fonts.html" data-i18n="nav_fonts">الخطوط</a>
+        <a href="stickers.html" data-i18n="nav_stickers">الستيكرات</a>
+        <a href="backgrounds.html" data-i18n="nav_backgrounds">الخلفيات</a>
+        <a href="frames.html" data-i18n="nav_frames">الإطارات</a>
+        <a href="help.html" data-i18n="nav_help">الدعم</a>
       </nav>
-      <button class="nav-toggle" aria-label="القائمة"><span></span><span></span><span></span></button>
+      <div class="header-actions">
+        <button class="lang-toggle-btn" id="langToggleBtn" aria-label="Language" title="Language">EN</button>
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Theme" title="Theme">🌙</button>
+      </div>
+      <button class="nav-toggle" aria-label="القائمة" data-i18n-aria="nav_toggle_aria"><span></span><span></span><span></span></button>
     </div>
   </header>
 
   <main>
     <div class="page-content">
       <div class="page-inner">
-        <h1 class="animate-title" data-aos="fade-up" data-aos-duration="700">الأسئلة الشائعة</h1>
-        <p class="page-desc animate-desc" data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">إجابات على أكثر الأسئلة شيوعاً.</p>
+        <h1 class="animate-title" data-aos="fade-up" data-aos-duration="700" data-i18n="faq_h1">الأسئلة الشائعة</h1>
+        <p class="page-desc animate-desc" data-aos="fade-up" data-aos-duration="700" data-aos-delay="100" data-i18n="faq_desc">إجابات على أكثر الأسئلة شيوعاً.</p>
         
         <div class="faq-list">
           <div class="faq-item animate-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="150">
-            <h3>ما هو تطبيق مصمم الصور؟</h3>
-            <p>مصمم الصور هو تطبيق تصميم عربي يتيح لك إنشاء تصاميم احترافية بسهولة باستخدام قوالب وفيرة وأدوات متقدمة.</p>
+            <h3 data-i18n="faq_q1">ما هو تطبيق مصمم الصور؟</h3>
+            <p data-i18n="faq_a1">مصمم الصور هو تطبيق تصميم عربي يتيح لك إنشاء تصاميم احترافية بسهولة باستخدام قوالب وفيرة وأدوات متقدمة.</p>
           </div>
           <div class="faq-item animate-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
-            <h3>هل التطبيق مجاني؟</h3>
+            <h3 data-i18n="faq_q2">هل التطبيق مجاني؟</h3>
             <p>نعم، التطبيق مجاني للتحميل والاستخدام مع قوالب مجانية.，我们可以 الاشتراك في الخطة premium للحصول على قوالب وحقوق إضافية.</p>
           </div>
           <div class="faq-item animate-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="250">
-            <h3>كيف أحفظ تصميمي؟</h3>
-            <p>بعد الانتهاء من التصميم، اضغط على زر "حفظ" واختر الصيغة المطلوبة (PNG أو JPG).</p>
+            <h3 data-i18n="faq_q3">كيف أحفظ تصميمي؟</h3>
+            <p data-i18n="faq_a3">بعد الانتهاء من التصميم، اضغط على زر "حفظ" واختر الصيغة المطلوبة (PNG أو JPG).</p>
           </div>
           <div class="faq-item animate-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
-            <h3>هل يمكنني استخدام التصاميم تجارياً؟</h3>
-            <p>نعم، بمجرد الاشتراك في التطبيق، تصبح التصاميم ملكاً لك ويمكن استخدامها تجارياً.</p>
+            <h3 data-i18n="faq_q4">هل يمكنني استخدام التصاميم تجارياً؟</h3>
+            <p data-i18n="faq_a4">نعم، بمجرد الاشتراك في التطبيق، تصبح التصاميم ملكاً لك ويمكن استخدامها تجارياً.</p>
           </div>
           <div class="faq-item animate-card" data-aos="fade-up" data-aos-duration="700" data-aos-delay="350">
-            <h3>كيف أتواصل مع الدعم؟</h3>
-            <p>يمكنكم التواصل معنا عبر نموذج التواصل في صفحة تواصل معنا أو عبر وسائل التواصل الاجتماعي.</p>
+            <h3 data-i18n="faq_q5">كيف أتواصل مع الدعم؟</h3>
+            <p data-i18n="faq_a5">يمكنكم التواصل معنا عبر نموذج التواصل في صفحة تواصل معنا أو عبر وسائل التواصل الاجتماعي.</p>
           </div>
         </div>
       </div>
@@ -66,42 +71,42 @@
         <div>
           <a href="index.html" class="footer-brand-row">
             <img src="assets/app-icon.png" alt="مصمم الصور" />
-            <span class="footer-brand-name">مصمم الصور</span>
+            <span class="footer-brand-name" data-i18n="footer_brand_name">مصمم الصور</span>
           </a>
-          <p class="footer-tagline">المنصة العربية الأولى للتصميم الاحترافي بلمسة فاخرة.</p>
+          <p class="footer-tagline" data-i18n="footer_tagline">المنصة العربية الأولى للتصميم الاحترافي بلمسة فاخرة.</p>
         </div>
         <div class="footer-col">
-          <h4>التصميم</h4>
+          <h4 data-i18n="footer_col_design">التصميم</h4>
           <ul>
-            <li><a href="templates.html">القوالب الفاخرة</a></li>
-            <li><a href="fonts.html">الخطوط العربية</a></li>
-            <li><a href="tools.html">الأدوات المتقدمة</a></li>
-            <li><a href="stickers.html">الستيكرات</a></li>
-            <li><a href="backgrounds.html">الخلفيات</a></li>
-            <li><a href="frames.html">الإطارات</a></li>
+            <li><a href="templates.html" data-i18n="footer_link_templates">القوالب الفاخرة</a></li>
+            <li><a href="fonts.html" data-i18n="footer_link_fonts">الخطوط العربية</a></li>
+            <li><a href="tools.html" data-i18n="footer_link_tools">الأدوات المتقدمة</a></li>
+            <li><a href="stickers.html" data-i18n="footer_link_stickers">الستيكرات</a></li>
+            <li><a href="backgrounds.html" data-i18n="footer_link_backgrounds">الخلفيات</a></li>
+            <li><a href="frames.html" data-i18n="footer_link_frames">الإطارات</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>الدعم</h4>
+          <h4 data-i18n="footer_col_support">الدعم</h4>
           <ul>
-            <li><a href="help.html">مركز المساعدة</a></li>
-            <li><a href="faq.html">الأسئلة الشائعة</a></li>
-            <li><a href="contact.html">تواصل معنا</a></li>
-            <li><a href="community.html">المجتمع</a></li>
+            <li><a href="help.html" data-i18n="footer_link_help_center">مركز المساعدة</a></li>
+            <li><a href="faq.html" data-i18n="footer_link_faq">الأسئلة الشائعة</a></li>
+            <li><a href="contact.html" data-i18n="footer_link_contact">تواصل معنا</a></li>
+            <li><a href="community.html" data-i18n="footer_link_community">المجتمع</a></li>
           </ul>
         </div>
         <div class="footer-col">
-          <h4>القوانين</h4>
+          <h4 data-i18n="footer_col_legal">القوانين</h4>
           <ul>
-            <li><a href="terms.html">الشروط والأحكام</a></li>
-            <li><a href="privacy.html">سياسة الخصوصية</a></li>
-            <li><a href="cookies.html">سياسة ملفات تعريف الارتباط</a></li>
-            <li><a href="copyright.html">حقوق الملكية</a></li>
+            <li><a href="terms.html" data-i18n="footer_link_terms">الشروط والأحكام</a></li>
+            <li><a href="privacy.html" data-i18n="footer_link_privacy">سياسة الخصوصية</a></li>
+            <li><a href="cookies.html" data-i18n="footer_link_cookies">سياسة ملفات تعريف الارتباط</a></li>
+            <li><a href="copyright.html" data-i18n="footer_link_copyright">حقوق الملكية</a></li>
           </ul>
         </div>
       </div>
       <div class="footer-bar">
-        <p class="footer-copy">&copy; 2025 مصمم الصور. جميع الحقوق محفوظة.</p>
+        <p class="footer-copy" data-i18n="footer_copyright">&copy; 2025 مصمم الصور. جميع الحقوق محفوظة.</p>
         <div class="social-links">
           <a href="https://x.com/MahmoudSuppah" aria-label="Twitter / X"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/></svg></a>
           <a href="https://www.instagram.com/mahmoud_al3bsi/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg></a>
@@ -116,5 +121,6 @@
     <script src="auth-config.js"></script>
     <script src="auth.js"></script>
 
+  <script src="theme.js"></script>
 </body>
 </html>
