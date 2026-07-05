@@ -23,7 +23,7 @@
  */
 window.AUTH_CONFIG = {
   // ⚠️ تعطيل/تفعيل المصادقة (للتعطيل المؤقت: ضع false)
-  enabled: true,
+  enabled: false,
 
   // رابط API للتحقق من كلمة المرور (Netlify Function)
   loginEndpoint: '/.netlify/functions/login',
