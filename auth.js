@@ -16,6 +16,19 @@
 
   var CFG = window.AUTH_CONFIG;
 
+  // ⚠️ تعطيل مؤقت: إذا كان enabled === false، لا نحمي الصفحات
+  // لكن نظل نوفّر دوال login/logout للاستخدام الاختياري
+  var AUTH_DISABLED = CFG.enabled === false;
+  if (AUTH_DISABLED) {
+    console.warn('[Auth] المصادقة معطّلة مؤقتاً (enabled: false في auth-config.js). لإعادة التفعيل: ضع enabled: true.');
+    // نظل نسجّل الدوال العامة كـ no-op حتى لا تنكسر صفحة login.html
+    window.loginUser = async function () { return { success: true }; };
+    window.logoutUser = function () { localStorage.removeItem(CFG.storageKey); };
+    window.isAuthenticated = function () { return true; };
+    window.isAuthenticatedAsync = async function () { return true; };
+    return; // لا حماية، لا زر خروج، لا redirect
+  }
+
   // الحصول على اسم الصفحة الحالية
   function currentPage() {
     var path = window.location.pathname.split('/').pop();
