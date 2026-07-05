@@ -2,12 +2,14 @@
 const API_BASE = 'https://and.appchief.dev/api/v2.2/';
 
 const AndalusiAPI = {
-  // Fetch templates with pagination and optional category filter
+  // Fetch templates with pagination (يستخدم endpoint العام بدون فلترة - يرجع كل التصاميم)
   async getTemplates(page = 1, perPage = 15, categoryId = null) {
-    let url = `${API_BASE}templates?page=${page}&per_page=${perPage}`;
+    // ⚠️ ملاحظة: endpoint /templates يتجاهل categories[] parameter
+    // لفلترة حسب تصنيف، استخدم getTemplatesByCategory()
     if (categoryId) {
-      url += `&categories[]=${categoryId}`;
+      return this.getTemplatesByCategory(categoryId, page, perPage);
     }
+    let url = `${API_BASE}templates?page=${page}&per_page=${perPage}`;
     try {
       const res = await fetch(url);
       const data = await res.json();
@@ -21,6 +23,32 @@ const AndalusiAPI = {
       }
     } catch (e) {
       console.error('Error fetching templates:', e);
+    }
+    return { templates: [], total: 0, currentPage: 1, totalPages: 1 };
+  },
+
+  // ⭐ الفلترة الصحيحة حسب التصنيف - تستخدم endpoint /template-categories/{id}
+  // هذا الـ endpoint يرجع templates مع titles + pagination صحيح
+  async getTemplatesByCategory(categoryId, page = 1, perPage = 15) {
+    try {
+      const url = `${API_BASE}template-categories/${categoryId}?page=${page}&per_page=${perPage}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data.success && data.data && data.data.templates) {
+        const tpls = data.data.templates;
+        // الـ templates تكون dict فيه data[], total, current_page, total_pages
+        const items = tpls.data || [];
+        return {
+          templates: items.filter(t => t.type === 'template'),
+          total: tpls.total || items.length,
+          currentPage: tpls.current_page || page,
+          totalPages: tpls.total_pages || 1,
+          categoryName: data.data.name,
+          categoryIcon: data.data.icon
+        };
+      }
+    } catch (e) {
+      console.error('Error fetching templates by category:', e);
     }
     return { templates: [], total: 0, currentPage: 1, totalPages: 1 };
   },

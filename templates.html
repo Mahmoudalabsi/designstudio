@@ -36,9 +36,22 @@
         <h1 data-aos="fade-up">القوالب الفاخرة</h1>
         <p class="page-desc" data-aos="fade-up" data-aos-delay="100">أكثر من 8,355 قالب تصميم جاهز. اختر القالب الذي يناسبك وحمّله مباشرة.</p>
         
+        <!-- أداة البحث في التصنيفات -->
+        <div class="cat-search-wrapper" data-aos="fade-up" data-aos-delay="120">
+          <input type="text" id="catSearchInput" class="cat-search-input" placeholder="🔍 ابحث عن تصنيف (مثال: اسلامي، عيد، قصة...)" />
+          <button id="catSearchClear" class="cat-search-clear" aria-label="مسح" style="display:none;">×</button>
+        </div>
+
         <!-- Category Filter -->
         <div class="filter-bar" data-aos="fade-up" data-aos-delay="150" id="filterBar">
           <button class="filter-btn active" data-filter="all">الكل</button>
+        </div>
+
+        <!-- عداد التصنيفات والقوالب -->
+        <div class="filter-info" id="filterInfo">
+          <span class="filter-counter" id="catCounter">0 تصنيف</span>
+          <span class="filter-separator">•</span>
+          <span class="filter-counter tpl-count" id="tplCounter">0 قالب</span>
         </div>
 
         <div class="api-grid" id="templatesGrid">
@@ -110,9 +123,15 @@
 
       const grid = document.getElementById('templatesGrid');
       const filterBar = document.getElementById('filterBar');
+      const catCounter = document.getElementById('catCounter');
+      const tplCounter = document.getElementById('tplCounter');
+      const catSearchInput = document.getElementById('catSearchInput');
+      const catSearchClear = document.getElementById('catSearchClear');
       let currentPage = 1;
       let currentCategory = null;
       let totalPages = 1;
+      let allCategories = [];
+      let currentTotalTemplates = 0;
 
       // Check URL params for category
       const urlParams = new URLSearchParams(window.location.search);
@@ -121,30 +140,69 @@
 
       // Load categories for filter - عرض كل التصنيفات (182 تصنيف)
       const categories = await AndalusiAPI.getCategories();
-      // فلترة مرنة: نعرض أي تصنيف له اسم + (أيقونة أو ألوان)، بدون حد أقصى
-      const mainCats = categories.filter(c => {
+      // فلترة مرنة: نعرض أي تصنيف له اسم
+      allCategories = categories.filter(c => {
         if (!c || !c.name) return false;
         // استبعاد التصنيفات بألوان سوداء فقط (لون افتراضي غير مُعيَّن)
         if (c.colors && c.colors[0] === '#000000' && c.colors[1] === '#000000') return false;
-        // نقبل التصنيفات التي لها أيقونة OR لها ألوان OR ليس لها أي منهما (طالما لها اسم)
         return true;
       });
 
-      // زر "الكل" موجود مسبقاً في HTML
-      mainCats.forEach(cat => {
-        const btn = document.createElement('button');
-        btn.className = 'filter-btn';
-        btn.dataset.filter = cat.id;
-        btn.textContent = cat.name;
-        if (String(cat.id) === catParam) btn.classList.add('active');
-        filterBar.appendChild(btn);
-      });
+      // دالة عرض التصنيفات (مع دعم البحث)
+      function renderCategories(filterText = '') {
+        // إزالة كل الأزرار ما عدا "الكل"
+        const allBtn = filterBar.querySelector('[data-filter="all"]');
+        filterBar.innerHTML = '';
+        filterBar.appendChild(allBtn);
 
-      // إضافة عدّاد التصنيفات
-      const counter = document.createElement('div');
-      counter.className = 'filter-counter';
-      counter.textContent = `${mainCats.length} تصنيف`;
-      filterBar.parentElement.insertBefore(counter, filterBar.nextSibling);
+        const q = filterText.trim().toLowerCase();
+        const filtered = q
+          ? allCategories.filter(c => c.name.toLowerCase().includes(q))
+          : allCategories;
+
+        filtered.forEach(cat => {
+          const btn = document.createElement('button');
+          btn.className = 'filter-btn';
+          btn.dataset.filter = cat.id;
+          btn.textContent = cat.name;
+          // استخدام لون التصنيف كـ accent
+          if (cat.colors && cat.colors[0]) {
+            btn.style.setProperty('--cat-color', cat.colors[0]);
+          }
+          if (String(cat.id) === catParam || String(cat.id) === String(currentCategory)) {
+            btn.classList.add('active');
+            allBtn.classList.remove('active');
+          }
+          filterBar.appendChild(btn);
+        });
+
+        // تحديث العداد
+        catCounter.textContent = `${filtered.length} تصنيف`;
+        // إظهار/إخفاء زر المسح
+        catSearchClear.style.display = q ? 'flex' : 'none';
+
+        // تفعيل scroll-mode تلقائياً عند كثرة التصنيفات (أكثر من 30)
+        if (filtered.length > 30) {
+          filterBar.classList.add('scroll-mode');
+        } else {
+          filterBar.classList.remove('scroll-mode');
+        }
+      }
+
+      renderCategories();
+
+      // بحث التصنيفات
+      let searchDebounce;
+      catSearchInput.addEventListener('input', (e) => {
+        clearTimeout(searchDebounce);
+        searchDebounce = setTimeout(() => {
+          renderCategories(e.target.value);
+        }, 250);
+      });
+      catSearchClear.addEventListener('click', () => {
+        catSearchInput.value = '';
+        renderCategories('');
+      });
 
       // Load templates
       async function loadTemplates(page = 1, append = false) {
@@ -158,13 +216,12 @@
           const thumb = t.image ? AndalusiAPI.getThumb(t.image) : '';
           const dlLink = t.download_link || '#';
           const title = t.title || 'تصميم';
-          const plusBadge = t.plus ? '<span style="position:absolute;top:8px;left:8px;background:#b8860b;color:#fff;font-size:0.65rem;padding:2px 8px;border-radius:999px;font-weight:700;">Plus</span>' : '';
+          const plusBadge = t.plus ? '<span class="plus-badge">Plus</span>' : '';
 
           const card = document.createElement('div');
           card.className = 'api-card';
           card.setAttribute('data-aos', 'fade-up');
-          card.setAttribute('data-aos-delay', String(idx * 30));
-          card.style.position = 'relative';
+          card.setAttribute('data-aos-delay', String(Math.min(idx * 30, 600)));
           card.innerHTML = `
             ${plusBadge}
             ${thumb ? `<img src="${thumb}" alt="${title}" class="api-card-thumb" loading="lazy" onerror="this.style.display='none'">` : `<div class="api-card-thumb" style="display:flex;align-items:center;justify-content:center;color:#c9a84c;font-weight:700;">${title}</div>`}
@@ -178,6 +235,10 @@
 
         currentPage = result.currentPage;
         totalPages = result.totalPages;
+        currentTotalTemplates = result.total;
+
+        // تحديث عدّاد القوالب
+        tplCounter.textContent = `${result.total} قالب`;
 
         // Update or add load more button
         let loadMoreBtn = document.getElementById('loadMoreBtn');
@@ -205,6 +266,8 @@
         currentCategory = e.target.dataset.filter === 'all' ? null : e.target.dataset.filter;
         currentPage = 1;
         await loadTemplates(1, false);
+        // التمرير لأعلى الشبكة
+        grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
 
       // Initial load
