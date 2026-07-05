@@ -318,12 +318,12 @@
     "nav_backgrounds": "الخلفيات",
     "nav_frames": "الإطارات",
     "nav_help": "الدعم",
-    "nav_studio": "استوديو التصاميم",
+    "nav_studio": "استوديو التحويل",
     "studio_cta_title_ar": "استوديو",
     "studio_cta_title": "استوديو <span class=\"gold\">تحويل التصاميم</span>",
     "studio_cta_subtitle": "أداة احترافية لتحويل ورندر تصاميم Antigravity — ارفع ملف ZIP وحوّله إلى صيغة Export Pro بنقرة واحدة",
     "studio_btn_small": "أداة جديدة",
-    "studio_btn_main": "افتح استوديو التصاميم"
+    "studio_btn_main": "افتح استوديو التحويل"
 },
     en: {
     "description": "قاموس النصوص المرئية المستخرجة من ملفات HTML للترجمة. تُستخدم المفاتيح بصيغة snake_case إنجليزي.",
