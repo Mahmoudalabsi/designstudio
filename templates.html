@@ -119,10 +119,18 @@
       const catParam = urlParams.get('cat');
       if (catParam) currentCategory = catParam;
 
-      // Load categories for filter
+      // Load categories for filter - عرض كل التصنيفات (182 تصنيف)
       const categories = await AndalusiAPI.getCategories();
-      const mainCats = categories.filter(c => c.icon && c.colors && c.colors[0] !== '#000000').slice(0, 20);
+      // فلترة مرنة: نعرض أي تصنيف له اسم + (أيقونة أو ألوان)، بدون حد أقصى
+      const mainCats = categories.filter(c => {
+        if (!c || !c.name) return false;
+        // استبعاد التصنيفات بألوان سوداء فقط (لون افتراضي غير مُعيَّن)
+        if (c.colors && c.colors[0] === '#000000' && c.colors[1] === '#000000') return false;
+        // نقبل التصنيفات التي لها أيقونة OR لها ألوان OR ليس لها أي منهما (طالما لها اسم)
+        return true;
+      });
 
+      // زر "الكل" موجود مسبقاً في HTML
       mainCats.forEach(cat => {
         const btn = document.createElement('button');
         btn.className = 'filter-btn';
@@ -131,6 +139,12 @@
         if (String(cat.id) === catParam) btn.classList.add('active');
         filterBar.appendChild(btn);
       });
+
+      // إضافة عدّاد التصنيفات
+      const counter = document.createElement('div');
+      counter.className = 'filter-counter';
+      counter.textContent = `${mainCats.length} تصنيف`;
+      filterBar.parentElement.insertBefore(counter, filterBar.nextSibling);
 
       // Load templates
       async function loadTemplates(page = 1, append = false) {

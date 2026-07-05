@@ -1089,7 +1089,39 @@ footer {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  max-height: 280px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.5rem;
+  background: linear-gradient(135deg, rgba(201, 168, 76, 0.04), rgba(168, 124, 32, 0.02));
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  border-radius: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 168, 76, 0.4) transparent;
+}
+.filter-bar::-webkit-scrollbar {
+  width: 8px;
+}
+.filter-bar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.filter-bar::-webkit-scrollbar-thumb {
+  background: rgba(201, 168, 76, 0.4);
+  border-radius: 4px;
+}
+.filter-bar::-webkit-scrollbar-thumb:hover {
+  background: rgba(201, 168, 76, 0.6);
+}
+.filter-counter {
+  font-size: 0.85rem;
+  color: #7a6a40;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  background: rgba(201, 168, 76, 0.1);
+  border-radius: 999px;
+  display: inline-block;
 }
 .filter-btn {
   font-family: 'Cairo', sans-serif;
@@ -1102,6 +1134,7 @@ footer {
   color: #7a6a40;
   cursor: pointer;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 .filter-btn:hover, .filter-btn.active {
   background: linear-gradient(135deg, #c9a84c, #a87c20);
