@@ -34,3 +34,17 @@
     Access-Control-Allow-Origin = "*"
     Access-Control-Allow-Methods = "GET, POST, OPTIONS"
     Access-Control-Allow-Headers = "Authorization, Content-Type"
+
+# ─── Design Studio Reverse Proxy ───
+# توجيه /studio/* إلى تطبيق Render
+[[redirects]]
+  from = "/studio"
+  to = "https://design-converter-app.onrender.com/"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/studio/*"
+  to = "https://design-converter-app.onrender.com/:splat"
+  status = 200
+  force = true
