@@ -58,7 +58,7 @@ window.AUTH_CONFIG = (function () {
     // الصفحات العامة (لا تحتاج مصادقة)
     publicPages: ['login.html'],
 
-    // مفتاح تخزين الجلسة في localStorage
+    // مفتاح تخزين الجلسة في sessionStorage (يُمحى عند إغلاق المتصفح)
     storageKey: 'musammer_auth_session'
   };
 })();
