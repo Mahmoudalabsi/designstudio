@@ -1,9 +1,9 @@
 name: "🟢 تشغيل الموقع"
 
-# زر مستقل في تبويب Actions → اضغط "Run workflow" فيظهر الموقع على كل المنصات الثلاث:
-#   - Netlify: الموقع الكامل + Functions
-#   - Cloudflare Pages: الموقع الكامل
-#   - Render: استئناف خدمة الاستوديو
+# زر مستقل: يُشغّل الموقع على المنصات بالأولوية التالية:
+#   1) Cloudflare Pages (الأساسي) → الموقع الكامل
+#   2) Render → استئناف خدمة الاستوديو
+#   3) Netlify (اختياري) → الموقع الكامل + Functions — إن فشل (نفاد الرصيد) لا يفشل الزر
 on:
   workflow_dispatch:
 
@@ -19,18 +19,7 @@ jobs:
         with:
           node-version: "22"
 
-      - name: "✅ Netlify → الموقع الكامل + Functions"
-        run: |
-          npx -y netlify-cli@latest deploy \
-            --auth "$NETLIFY_AUTH_TOKEN" \
-            --site "$NETLIFY_SITE_ID" \
-            --dir . \
-            --functions functions \
-            --prod
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-
+      # ── 1) Cloudflare: الأساسي ──
       - name: "✅ Cloudflare → الموقع الكامل"
         run: |
           # بناء مجلد dist نظيف (استبعاد .git/node_modules/netlify/functions)
@@ -55,6 +44,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
+      # ── 2) Render: استئناف الاستوديو ──
       - name: "✅ Render → استئناف خدمة الاستوديو"
         run: |
           code=$(curl -sS -o /tmp/resume.json -w "%{http_code}" \
@@ -69,5 +59,21 @@ jobs:
         env:
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
 
+      # ── 3) Netlify: اختياري (قد يفشل بسبب نفاد رصيد الحساب المجاني) ──
+      - name: "✅ Netlify → الموقع الكامل + Functions (اختياري)"
+        continue-on-error: true
+        run: |
+          npx -y netlify-cli@latest deploy \
+            --auth "$NETLIFY_AUTH_TOKEN" \
+            --site "$NETLIFY_SITE_ID" \
+            --dir . \
+            --functions functions \
+            --prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
       - name: "📢 النتيجة"
-        run: echo "✅ الموقع يعمل بالكامل الآن على جميع المنصات الثلاث"
+        run: |
+          echo "✅ تم تشغيل الموقع: Cloudflare كامل + Render يعمل"
+          echo "ℹ️ Netlify اختياري — إن فشل بسبب رصيد الحساب فالأمر مقبول (النطاق الأساسي pages.dev)"

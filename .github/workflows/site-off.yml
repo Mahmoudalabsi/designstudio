@@ -1,9 +1,9 @@
 name: "🔴 إطفاء الموقع"
 
-# زر مستقل في تبويب Actions → اضغط "Run workflow" فيُخفى الموقع على كل المنصات الثلاث:
-#   - Netlify: صفحة صيانة
-#   - Cloudflare Pages: صفحة صيانة
-#   - Render: إيقاف خدمة الاستوديو مؤقتاً
+# زر مستقل: يخفي الموقع على المنصات بالأولوية التالية:
+#   1) Cloudflare Pages (الأساسي) → صفحة صيانة
+#   2) Render → إيقاف خدمة الاستوديو
+#   3) Netlify (اختياري) → صفحة صيانة — إن فشل (نفاد رصيد الحساب) لا يفشل الزر
 on:
   workflow_dispatch:
 
@@ -19,17 +19,7 @@ jobs:
         with:
           node-version: "22"
 
-      - name: "🚫 Netlify → صفحة الصيانة"
-        run: |
-          npx -y netlify-cli@latest deploy \
-            --auth "$NETLIFY_AUTH_TOKEN" \
-            --site "$NETLIFY_SITE_ID" \
-            --dir maintenance \
-            --prod
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-
+      # ── 1) Cloudflare: الأساسي ──
       - name: "🚫 Cloudflare → صفحة الصيانة"
         run: |
           npx -y wrangler@latest pages deploy maintenance \
@@ -40,6 +30,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
+      # ── 2) Render: إيقاف الاستوديو ──
       - name: "🚫 Render → إيقاف خدمة الاستوديو"
         run: |
           code=$(curl -sS -o /tmp/suspend.json -w "%{http_code}" \
@@ -54,6 +45,21 @@ jobs:
         env:
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
 
+      # ── 3) Netlify: اختياري (قد يفشل بسبب نفاد رصيد الحساب المجاني) ──
+      - name: "🚫 Netlify → صفحة الصيانة (اختياري)"
+        continue-on-error: true
+        run: |
+          npx -y netlify-cli@latest deploy \
+            --auth "$NETLIFY_AUTH_TOKEN" \
+            --site "$NETLIFY_SITE_ID" \
+            --dir maintenance \
+            --prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
       - name: "📢 النتيجة"
         run: |
-          echo "🚫 تم إطفاء الموقع بالكامل. لإعادة التشغيل: استخدم ورکفلو «🟢 تشغيل الموقع»"
+          echo "🚫 تم إطفاء الموقع: Cloudflare صفحة صيانة + Render موقوف"
+          echo "ℹ️ Netlify اختياري — إن فشل بسبب رصيد الحساب فالأمر مقبول (النطاق الأساسي pages.dev)"
+          echo "لإعادة التشغيل: استخدم ورکفلو «🟢 تشغيل الموقع»"
