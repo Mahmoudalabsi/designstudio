@@ -54,6 +54,20 @@ function sign(payload, secret) {
  * معالج طلب تسجيل الدخول
  */
 exports.handler = async (event, context) => {
+  // ⚠️ معالجة CORS preflight أولاً — يجب أن تكون قبل فحص POST
+  // (المتصفح يرسل OPTIONS قبل POST العابر للنطاقات ويتطلب استجابة 2xx)
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 204,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      },
+      body: ''
+    };
+  }
+
   // السماح فقط بطلبات POST
   if (event.httpMethod !== 'POST') {
     return {
@@ -65,19 +79,6 @@ exports.handler = async (event, context) => {
         'Access-Control-Allow-Headers': 'Content-Type'
       },
       body: JSON.stringify({ success: false, error: 'الطريقة غير مدعومة. استخدم POST.' })
-    };
-  }
-
-  // معالجة طلبات CORS (preflight)
-  if (event.httpMethod === 'OPTIONS') {
-    return {
-      statusCode: 204,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type'
-      },
-      body: ''
     };
   }
 

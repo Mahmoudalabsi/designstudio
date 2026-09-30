@@ -3,9 +3,9 @@
 الموقع الإلكتروني لاستوديو التصاميم — منصة عربية فاخرة للتصميم الاحترافي.
 
 ## الروابط
-- Cloudflare: https://designstudio-7hh.pages.dev
+- Cloudflare: https://designstudio-app.pages.dev
 - Netlify: https://designstudio-app.netlify.app
-- استوديو التحويل: https://designstudio-7hh.pages.dev/studio/
+- استوديو التحويل: https://designstudio-app.pages.dev/studio/
 
 ## التقنيات
 - HTML/CSS/JavaScript
