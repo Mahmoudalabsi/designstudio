@@ -1,0 +1,58 @@
+name: "🔴 إطفاء الموقع"
+
+# زر مستقل في تبويب Actions → اضغط "Run workflow" فيُخفى الموقع على كل المنصات الثلاث:
+#   - Netlify: صفحة صيانة
+#   - Cloudflare Pages: صفحة صيانة
+#   - Render: إيقاف خدمة الاستوديو مؤقتاً
+on:
+  workflow_dispatch:
+
+jobs:
+  hide:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "📥 تحميل المستودع"
+        uses: actions/checkout@v4
+
+      - name: "⚙️ إعداد Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: "🚫 Netlify → صفحة الصيانة"
+        run: |
+          npx -y netlify-cli@latest deploy \
+            --auth "$NETLIFY_AUTH_TOKEN" \
+            --site "$NETLIFY_SITE_ID" \
+            --dir maintenance \
+            --prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: "🚫 Cloudflare → صفحة الصيانة"
+        run: |
+          npx -y wrangler@latest pages deploy maintenance \
+            --project-name=designstudio-app \
+            --branch=main \
+            --commit-dirty=true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: "🚫 Render → إيقاف خدمة الاستوديو"
+        run: |
+          code=$(curl -sS -o /tmp/suspend.json -w "%{http_code}" \
+            -X POST \
+            -H "Authorization: Bearer $RENDER_API_KEY" \
+            -H "Content-Type: application/json" \
+            "https://api.render.com/v1/services/srv-d95dekdckfvc73b89ib0/suspend")
+          echo "HTTP: $code"
+          cat /tmp/suspend.json || true
+          # 202 = بدء الإيقاف، 400 = الخدمة موقوفة أصلاً (مقبول)
+          test "$code" = "202" || test "$code" = "400"
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+
+      - name: "📢 النتيجة"
+        run: echo "🚫 تم إطفاء الموقع بالكامل. لإعادة التشغيل: استخدم ورکفلو «🟢 تشغيل الموقع»"
