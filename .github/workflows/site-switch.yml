@@ -88,7 +88,21 @@ jobs:
       - name: "✅ إظهار: Cloudflare → الموقع الكامل"
         if: ${{ github.event.inputs.action == 'show' }}
         run: |
-          npx -y wrangler@latest pages deploy . \
+          # بناء مجلد dist نظيف (استبعاد .git/node_modules/netlify/functions)
+          rm -rf cf-dist && mkdir -p cf-dist
+          tar cf - \
+            --exclude='./.git' \
+            --exclude='./node_modules' \
+            --exclude='./netlify' \
+            --exclude='./functions' \
+            --exclude='./update_password.py' \
+            --exclude='./.netlify' \
+            --exclude='./cf-dist' \
+            --exclude='./__pycache__' \
+            --exclude='./maintenance' \
+            . | tar xf - -C cf-dist
+          echo "files in cf-dist: $(find cf-dist -type f | wc -l)"
+          npx -y wrangler@latest pages deploy cf-dist \
             --project-name=designstudio-app \
             --branch=main \
             --commit-dirty=true
