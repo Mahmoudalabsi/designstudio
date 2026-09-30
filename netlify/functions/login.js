@@ -26,12 +26,12 @@ const SESSION_DURATION = 24 * 60 * 60 * 1000;
  * القيم الافتراضية (تُستخدم فقط إذا لم تكن متغيرات البيئة مُعرفة).
  * لتغيير كلمة المرور، شغّل سكربت update_password.py محلياً وحدّث هذه القيم.
  *
- * كلمة المرور الافتراضية الحالية: 123456
+ * كلمة المرور تُدار عبر متغيرات البيئة (لا تكتبها هنا أبداً)
  * ⚠️ يجب تغييرها فوراً عبر تعيين متغيرات البيئة على Netlify.
  */
-const DEFAULT_PASSWORD_HASH = '6f71e09a0c08575787e73b55bb9ffb73ce83d0e0cd935eb103c9fc6ec703a484';
-const DEFAULT_PASSWORD_SALT = '65d7e14540c9a83ab6a72cbfd6d105b4';
-const DEFAULT_AUTH_SECRET = 'aXEnXBlo6hdvj238SexZggJOq6qY9KLzCRp4abkMXtq61C_a';
+const DEFAULT_PASSWORD_HASH = '3890cdf56d85972241bfbf75ac2da0a37bc1e59b6ac556ae8eaaaf0c15b90743';
+const DEFAULT_PASSWORD_SALT = 'ac824eb15b4f85e76314402be1d46eb8';
+const DEFAULT_AUTH_SECRET = '3u6HvX3JTm0O_Czu0CfoDw_y-csmidgwipvcP6l2Kfc';
 
 /**
  * تجزئة SHA-256 لنص

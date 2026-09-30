@@ -15,7 +15,7 @@
 const crypto = require('crypto');
 
 // نفس القيمة الافتراضية في login.js (يجب أن تتطابق)
-const DEFAULT_AUTH_SECRET = 'aXEnXBlo6hdvj238SexZggJOq6qY9KLzCRp4abkMXtq61C_a';
+const DEFAULT_AUTH_SECRET = '3u6HvX3JTm0O_Czu0CfoDw_y-csmidgwipvcP6l2Kfc';
 
 /**
  * التحقق من توقيع JWT

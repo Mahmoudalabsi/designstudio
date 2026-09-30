@@ -18,7 +18,7 @@
  *    3. Netlify Dashboard → Site settings → Environment variables
  *    4. أعد نشر الموقع
  *
- *  كلمة المرور الحالية الافتراضية: 123456
+ *  كلمة المرور: تُدار عبر متغيرات البيئة على Netlify (PASSWORD_HASH, PASSWORD_SALT, AUTH_SECRET)
  *  ⚠️ يجب تغييرها فوراً للإنتاج.
  *
  *  للتعطيل المؤقت: غيّر `enabled` إلى `false` وأعد النشر.

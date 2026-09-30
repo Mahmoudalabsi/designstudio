@@ -1,0 +1,119 @@
+name: "🎛️ مفتاح الموقع: إظهار / إخفاء"
+
+# زر يدوي في تبويب Actions:
+#   show = تشغيل الموقع بالكامل (الوضع الطبيعي)
+#   hide = إخفاء الموقع بالكامل (صفحة صيانة + إيقاف الاستوديو)
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "اختر: show لإظهار الموقع / hide لإخفائه"
+        required: true
+        default: "show"
+        type: choice
+        options:
+          - show
+          - hide
+
+jobs:
+  switch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "📥 تحميل المستودع"
+        uses: actions/checkout@v4
+
+      - name: "⚙️ إعداد Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # ─────────────────────────────────────────────
+      #  إخفاء: صفحة صيانة على Netlify + Cloudflare
+      #          وإيقاف خدمة Render (الاستوديو)
+      # ─────────────────────────────────────────────
+      - name: "🚫 إخفاء: Netlify → صفحة الصيانة"
+        if: ${{ github.event.inputs.action == 'hide' }}
+        run: |
+          npx -y netlify-cli@latest deploy \
+            --auth "$NETLIFY_AUTH_TOKEN" \
+            --site "$NETLIFY_SITE_ID" \
+            --dir maintenance \
+            --prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: "🚫 إخفاء: Cloudflare → صفحة الصيانة"
+        if: ${{ github.event.inputs.action == 'hide' }}
+        run: |
+          npx -y wrangler@latest pages deploy maintenance \
+            --project-name=designstudio-app \
+            --branch=main \
+            --commit-dirty=true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: "🚫 إخفاء: إيقاف خدمة Render (الاستوديو)"
+        if: ${{ github.event.inputs.action == 'hide' }}
+        run: |
+          code=$(curl -sS -o /tmp/suspend.json -w "%{http_code}" \
+            -X POST \
+            -H "Authorization: Bearer $RENDER_API_KEY" \
+            -H "Content-Type: application/json" \
+            "https://api.render.com/v1/services/srv-d95dekdckfvc73b89ib0/suspend")
+          echo "HTTP: $code"
+          cat /tmp/suspend.json || true
+          test "$code" = "202"
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+
+      # ─────────────────────────────────────────────
+      #  إظهار: الموقع الكامل على Netlify + Cloudflare
+      #          وتشغيل خدمة Render
+      # ─────────────────────────────────────────────
+      - name: "✅ إظهار: Netlify → الموقع الكامل"
+        if: ${{ github.event.inputs.action == 'show' }}
+        run: |
+          npx -y netlify-cli@latest deploy \
+            --auth "$NETLIFY_AUTH_TOKEN" \
+            --site "$NETLIFY_SITE_ID" \
+            --dir . \
+            --functions functions \
+            --prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: "✅ إظهار: Cloudflare → الموقع الكامل"
+        if: ${{ github.event.inputs.action == 'show' }}
+        run: |
+          npx -y wrangler@latest pages deploy . \
+            --project-name=designstudio-app \
+            --branch=main \
+            --commit-dirty=true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: "✅ إظهار: تشغيل خدمة Render"
+        if: ${{ github.event.inputs.action == 'show' }}
+        run: |
+          code=$(curl -sS -o /tmp/resume.json -w "%{http_code}" \
+            -X POST \
+            -H "Authorization: Bearer $RENDER_API_KEY" \
+            -H "Content-Type: application/json" \
+            "https://api.render.com/v1/services/srv-d95dekdckfvc73b89ib0/resume")
+          echo "HTTP: $code"
+          cat /tmp/resume.json || true
+          test "$code" = "202"
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+
+      - name: "📢 النتيجة"
+        run: |
+          if [ "${{ github.event.inputs.action }}" = "hide" ]; then
+            echo "🚫 تم إخفاء الموقع بالكامل. لإرجاعه: شغّل هذا الـ workflow مرة أخرى واختر show"
+          else
+            echo "✅ الموقع يعمل بالكامل الآن"
+          fi
