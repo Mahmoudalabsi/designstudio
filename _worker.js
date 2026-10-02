@@ -30,9 +30,17 @@ export default {
     const upstreamUrl = new URL(upstreamPath + url.search, UPSTREAM);
 
     // Build the upstream request — forward method, headers, body
+    // NOTE: Strip conditional request headers (If-None-Match / If-Modified-Since)
+    // so Render ALWAYS returns a full 200 body. If we forwarded them, a browser
+    // holding a stale cached copy would get 304 Not Modified and keep using its
+    // old (broken) version forever — that's exactly the stale-cache 404 bug.
+    const upstreamHeaders = new Headers(request.headers);
+    upstreamHeaders.delete('if-none-match');
+    upstreamHeaders.delete('if-modified-since');
+
     const upstreamReq = new Request(upstreamUrl, {
       method: request.method,
-      headers: request.headers,
+      headers: upstreamHeaders,
       body: ['GET', 'HEAD'].includes(request.method) ? undefined : request.body,
       redirect: 'manual',
     });
@@ -69,12 +77,16 @@ export default {
       const html = await upstreamRes.text();
       const rewritten = rewriteHtmlPaths(html);
       resHeaders.set('content-type', 'text/html; charset=utf-8');
-      // Prevent browser disk cache from serving stale studio.html (which
-      // contains the old /studio/api/ paths that 404 on Render).
-      // no-cache = always revalidate, no-store = never keep on disk.
+      // Force browsers to never trust their cached copy of studio HTML:
+      // 1) no-cache/no-store makes them re-fetch next time,
+      // 2) removing etag/last-modified makes revalidation impossible (full 200 always),
+      // 3) upstream conditionals were stripped, so even a stale-cache revalidation
+      //    gets a full fresh 200 → browser self-heals on the very next visit.
       resHeaders.set('cache-control', 'no-cache, no-store, must-revalidate');
       resHeaders.set('pragma', 'no-cache');
       resHeaders.set('expires', '0');
+      resHeaders.delete('etag');
+      resHeaders.delete('last-modified');
       return new Response(rewritten, {
         status: upstreamRes.status,
         statusText: upstreamRes.statusText,
