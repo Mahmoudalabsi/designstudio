@@ -97,34 +97,36 @@ export default {
 
 /**
  * Rewrite absolute paths in HTML to be prefixed with /studio.
- * Handles: href="/...", src="/...", action="/...", fetch('/api/...') in inline scripts.
+ *
+ * IMPORTANT: We do NOT rewrite /api/ paths here. The studio's index.html
+ * has its own resolveApiBase() logic that switches to RENDER_ORIGIN (absolute
+ * Render URL) when running on a proxy host. If we rewrote /api/ -> /studio/api/,
+ * the final request would become RENDER_ORIGIN + /studio/api/convert which
+ * returns 404 on Render (it doesn't know /studio prefix).
  */
 function rewriteHtmlPaths(html) {
-  // Inject a <base> tag to make relative paths resolve correctly
-  // Actually, better to rewrite specific patterns:
+  // Only rewrite absolute asset URLs in HTML attributes (href, src, action).
+  // Leave inline JS fetch('/api/...') alone — the app's resolveApiBase()
+  // already handles proxy routing via RENDER_ORIGIN.
+  let out = html.replace(/(href|src|action)=["']\/(?!\/)/g, '$1="/studio/');
 
-  // 1. Rewrite /api/... in inline JS fetch calls
-  let out = html.replace(/(['"`])(\/api\/)/g, '$1/studio$2');
-
-  // 2. Rewrite absolute asset URLs in HTML attributes (href, src, action)
-  out = out.replace(/(href|src|action)=["']\/(?!\/)/g, '$1="/studio/');
-
-  // 3. Don't break data: URLs or http(s):// URLs (the negative lookahead handles that)
+  // Don't break data: URLs or http(s):// URLs (the negative lookahead handles that)
 
   return out;
 }
 
 /**
  * Rewrite absolute paths in JS/CSS files.
- * For JS: replace '/api/' with '/studio/api/'
- * For CSS: replace url('/...') with url('/studio/...')
+ *
+ * IMPORTANT: Same as rewriteHtmlPaths — do NOT rewrite /api/ in JS.
+ * The app's resolveApiBase() handles proxy routing via RENDER_ORIGIN.
+ * Rewriting /api/ -> /studio/api/ would break fetch calls.
+ *
+ * Only CSS url('/...') is rewritten to url('/studio/...') for static assets.
  */
 function rewriteAssetPaths(text, prefix) {
-  // JS fetch calls: '/api/...' -> '/studio/api/...'
-  let out = text.replace(/(['"`])(\/api\/)/g, '$1' + prefix + '$2');
-
   // CSS url('/...') -> url('/studio/...')
-  out = out.replace(/url\((['"]?)\/(?!\/)/g, 'url($1' + prefix + '/');
+  let out = text.replace(/url\((['"]?)\/(?!\/)/g, 'url($1' + prefix + '/');
 
   return out;
 }
