@@ -69,6 +69,12 @@ export default {
       const html = await upstreamRes.text();
       const rewritten = rewriteHtmlPaths(html);
       resHeaders.set('content-type', 'text/html; charset=utf-8');
+      // Prevent browser disk cache from serving stale studio.html (which
+      // contains the old /studio/api/ paths that 404 on Render).
+      // no-cache = always revalidate, no-store = never keep on disk.
+      resHeaders.set('cache-control', 'no-cache, no-store, must-revalidate');
+      resHeaders.set('pragma', 'no-cache');
+      resHeaders.set('expires', '0');
       return new Response(rewritten, {
         status: upstreamRes.status,
         statusText: upstreamRes.statusText,
